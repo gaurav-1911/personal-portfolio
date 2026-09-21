@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: personal-portfolio-backend
+    env: node
+    rootDir: Backend
+    buildCommand: npm install
+    startCommand: npm run start
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: TRUST_PROXY
+        value: 1
+      - key: CLIENT_URL
+        value: https://gauravchavdavhits.github.io
+      - key: MONGODB_URI
+        sync: false
+      - key: ADMIN_API_KEY
+        generateValue: true
+      - key: ADMIN_EMAIL
+        value: admin@gaurav.dev
+      - key: ADMIN_PASSWORD
+        generateValue: true
+      - key: JWT_SECRET
+        generateValue: true
+      - key: SMTP_HOST
+        value: smtp.gmail.com
+      - key: SMTP_PORT
+        value: 465
+      - key: SMTP_SECURE
+        value: true
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+      - key: CONTACT_RECEIVER_EMAIL
+        sync: false

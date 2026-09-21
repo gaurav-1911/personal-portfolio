@@ -37,12 +37,22 @@ export const securityHeaders = helmet({
 /** CORS: only the frontend origin (and localhost in dev) may call the API. */
 export const corsOptions = {
   origin(origin, callback) {
-    const allowed = [config.clientUrl];
-    if (!config.isProd) {
-      allowed.push('http://localhost:5173', 'http://127.0.0.1:5173');
+    const configuredOrigins = (config.clientUrl || '')
+      .split(',')
+      .map(o => o.trim().replace(/\/+$/, ''))
+      .filter(Boolean);
+
+    const defaultAllowed = [
+      'https://gauravchavdavhits.github.io',
+      'http://localhost:5173',
+      'http://127.0.0.1:5173',
+      ...configuredOrigins
+    ];
+
+    // Allow same-origin/no-origin (server-to-server, health checks, cron) and allowed origins
+    if (!origin || defaultAllowed.includes(origin) || defaultAllowed.includes(origin.replace(/\/+$/, ''))) {
+      return callback(null, true);
     }
-    // Allow same-origin/no-origin (server-to-server, health checks) and whitelisted origins
-    if (!origin || allowed.includes(origin)) return callback(null, true);
     return callback(ApiError.forbidden(`Origin '${origin}' not allowed by CORS policy`));
   },
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
