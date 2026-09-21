@@ -107,8 +107,8 @@ const Home = () => {
   return (
     <div className="home-page">
       <SEOHead
-        title="Gaurav Chavda | MERN Stack Developer & Software Engineer"
-        description="Gaurav Chavda is a MERN Stack Developer specializing in React, Node.js, Express, MongoDB, secure REST APIs, and scalable web applications."
+        title="Gaurav Chavda | MERN Stack Developer"
+        description="Gaurav Chavda is a MERN Stack Developer specializing in React.js, Node.js, Express.js, MongoDB, REST APIs, and modern web applications."
         canonicalPath="/"
         schema={buildHomeSchema()}
       />

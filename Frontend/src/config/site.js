@@ -8,7 +8,7 @@
  */
 export const SITE_URL =
   (import.meta.env.VITE_SITE_URL || '').replace(/\/+$/, '') ||
-  (typeof window !== 'undefined' ? window.location.origin : '');
+  'https://gauravchavdavhits.github.io/personal-portfolio-';
 
 /** Normalize a path against the site origin (no trailing slash duplicates). */
 export const absoluteUrl = (path = '/') => {
