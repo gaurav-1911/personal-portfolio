@@ -1,0 +1,23 @@
+/* PublicLayout Component Styles */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+}
+
+.main-content {
+  flex: 1 0 auto;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: calc(var(--header-height) + 8px) 24px 24px;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: calc(var(--header-height) + 6px) 16px 20px;
+  }
+}

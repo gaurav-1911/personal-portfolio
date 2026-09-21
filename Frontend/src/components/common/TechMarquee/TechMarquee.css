@@ -1,0 +1,277 @@
+/* ==========================================================================
+   Tech Marquee Component Styles - Modern, Ultra-Smooth & Premium Hover Effect
+   ========================================================================== */
+
+.tech-marquee-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Dedicated Glassmorphic Container Box */
+.tech-marquee-box {
+  width: 100%;
+  background: var(--bg-glass-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-glass);
+  border-radius: 22px;
+  padding: 32px 36px 36px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tech-marquee-box:hover {
+  border-color: rgba(56, 189, 248, 0.25);
+  box-shadow: var(--shadow-md), 0 0 35px rgba(56, 189, 248, 0.06);
+}
+
+/* Header styled cleanly matching reference */
+.tech-marquee-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 6px;
+  width: 100%;
+  position: relative;
+  z-index: 6;
+}
+
+.tech-marquee-title {
+  font-size: clamp(1.65rem, 2.6vw, 2.2rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.025em;
+  margin: 0;
+  line-height: 1.18;
+}
+
+.tech-marquee-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+  max-width: 720px;
+  line-height: 1.55;
+  margin: 0;
+  padding: 0;
+}
+
+/* Accent gradient line directly under subtitle */
+.tech-marquee-accent-bar {
+  width: 44px;
+  height: 3.5px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #38bdf8 0%, #818cf8 100%);
+  margin-top: 4px;
+}
+
+/* Outer Container - Constrained within the box */
+.marquee-outer-container {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  padding: 6px 0;
+  display: flex;
+  z-index: 2;
+  mask-image: linear-gradient(to right, transparent, black 32px, black calc(100% - 32px), transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 32px, black calc(100% - 32px), transparent);
+}
+
+/* Infinite Scrolling Track - Calm, Steady & Seamless Loop */
+.marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: max-content;
+  animation: marquee-scroll 60s linear infinite;
+  will-change: transform;
+}
+
+/* Pause smoothly when hovering over the marquee track */
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-25%);
+  }
+}
+
+/* ==========================================================================
+   Individual Tech Item Card - Modern Glassmorphism & Unique Hover Effect
+   ========================================================================== */
+.marquee-item-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 18px;
+  background: var(--bg-glass-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  text-decoration: none;
+  color: var(--text-primary);
+  white-space: nowrap;
+  flex-shrink: 0;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Specular Sheen Gradient Overlay */
+.marquee-item-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 0%,
+    rgba(255, 255, 255, 0.12) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+/* Dynamic Bottom Neon Indicator */
+.marquee-item-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2.5px;
+  background: var(--brand-color, var(--accent-primary));
+  border-radius: 3px 3px 0 0;
+  box-shadow: 0 0 10px var(--brand-color, var(--accent-primary));
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hover States: Elevation, Glow, & Dynamic Accent */
+.marquee-item-card:hover {
+  transform: translateY(-5px) scale(1.03);
+  background: var(--bg-elevated);
+  border-color: var(--brand-color, var(--accent-border));
+  box-shadow: 0 14px 28px -6px rgba(0, 0, 0, 0.45),
+              0 0 20px -2px var(--brand-glow, var(--accent-glow));
+}
+
+.marquee-item-card:hover::before {
+  opacity: 1;
+}
+
+.marquee-item-card:hover::after {
+  width: 80%;
+}
+
+.marquee-icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.marquee-tech-icon-img {
+  object-fit: contain;
+  display: block;
+}
+
+.marquee-tech-icon-img.rounded {
+  border-radius: 4px;
+}
+
+.marquee-tech-svg-icon {
+  display: block;
+}
+
+.marquee-item-card:hover .marquee-icon-box {
+  transform: scale(1.15) rotate(3deg);
+}
+
+.marquee-tech-name {
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  transition: color 0.25s ease;
+}
+
+.marquee-item-card:hover .marquee-tech-name {
+  color: var(--brand-color, var(--accent-primary));
+}
+
+/* Brand Color Mapping (Zero Inline CSS) */
+.marquee-item-card[data-tech="React.js"] { --brand-color: #61dafb; --brand-glow: rgba(97, 218, 251, 0.25); }
+.marquee-item-card[data-tech="Node.js"] { --brand-color: #68a063; --brand-glow: rgba(104, 160, 99, 0.25); }
+.marquee-item-card[data-tech="Express.js"] { --brand-color: #cbd5e1; --brand-glow: rgba(203, 213, 225, 0.25); }
+.marquee-item-card[data-tech="MongoDB"] { --brand-color: #47a248; --brand-glow: rgba(71, 162, 72, 0.25); }
+.marquee-item-card[data-tech="MySQL"] { --brand-color: #00618a; --brand-glow: rgba(0, 97, 138, 0.25); }
+.marquee-item-card[data-tech="Git"] { --brand-color: #f05032; --brand-glow: rgba(240, 80, 50, 0.25); }
+.marquee-item-card[data-tech="REST API"] { --brand-color: #06b6d4; --brand-glow: rgba(6, 182, 212, 0.25); }
+.marquee-item-card[data-tech="JWT Auth"] { --brand-color: #fb015b; --brand-glow: rgba(251, 1, 91, 0.25); }
+.marquee-item-card[data-tech="MVC Architecture"] { --brand-color: #8b5cf6; --brand-glow: rgba(139, 92, 246, 0.25); }
+.marquee-item-card[data-tech="Joi Validation"] { --brand-color: #f59e0b; --brand-glow: rgba(245, 158, 11, 0.25); }
+.marquee-item-card[data-tech="Multer"] { --brand-color: #e11d48; --brand-glow: rgba(225, 29, 72, 0.25); }
+.marquee-item-card[data-tech="Redux Toolkit"] { --brand-color: #764abc; --brand-glow: rgba(118, 74, 188, 0.25); }
+.marquee-item-card[data-tech="HTML5"] { --brand-color: #e34f26; --brand-glow: rgba(227, 79, 38, 0.25); }
+.marquee-item-card[data-tech="CSS3"] { --brand-color: #1572b6; --brand-glow: rgba(21, 114, 182, 0.25); }
+.marquee-item-card[data-tech="MUI"] { --brand-color: #007fff; --brand-glow: rgba(0, 127, 255, 0.25); }
+.marquee-item-card[data-tech="TypeScript"] { --brand-color: #3178c6; --brand-glow: rgba(49, 120, 198, 0.25); }
+.marquee-item-card[data-tech="JavaScript"] { --brand-color: #f7df1e; --brand-glow: rgba(247, 223, 30, 0.25); }
+.marquee-item-card[data-tech="Bootstrap"] { --brand-color: #7952b3; --brand-glow: rgba(121, 82, 179, 0.25); }
+
+/* Light mode: darken brand colors that are unreadable on white backgrounds
+   (used for hover text color, border & neon underline) */
+[data-theme='light'] .marquee-item-card[data-tech="Express.js"] { --brand-color: #64748b; --brand-glow: rgba(100, 116, 139, 0.25); }
+[data-theme='light'] .marquee-item-card[data-tech="JavaScript"] { --brand-color: #a16207; --brand-glow: rgba(161, 98, 7, 0.25); }
+
+@media (max-width: 768px) {
+  .tech-marquee-wrapper {
+    padding: 0 12px;
+  }
+
+  .tech-marquee-box {
+    padding: 24px 20px 28px;
+    border-radius: 18px;
+    gap: 16px;
+  }
+
+  .tech-marquee-title {
+    font-size: 1.55rem;
+  }
+
+  .tech-marquee-subtitle {
+    font-size: 0.88rem;
+  }
+
+  .marquee-item-card {
+    padding: 9px 18px;
+    gap: 10px;
+  }
+
+  .marquee-tech-name {
+    font-size: 0.86rem;
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "portfolio-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "server.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "dev": "node --watch server.js",
+    "start": "node server.js",
+    "prod": "cross-env NODE_ENV=production node server.js",
+    "test:load": "node scripts/load-test.js",
+    "test:backup": "node scripts/test-db-backup-restore.js"
+  },
+  "dependencies": {
+    "compression": "^1.8.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "ejs": "^6.0.1",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.2.1",
+    "helmet": "^8.1.0",
+    "joi": "^18.0.1",
+    "mongoose": "^9.10.1",
+    "morgan": "^1.10.0",
+    "nodemailer": "^10.0.10"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  }
+}

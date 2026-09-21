@@ -1,0 +1,6 @@
+/* SocialIcons Component Styles */
+.social-svg-icon {
+  display: inline-block;
+  vertical-align: middle;
+  transition: transform 0.25s ease, stroke 0.25s ease;
+}

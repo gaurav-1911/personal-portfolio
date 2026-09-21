@@ -1,0 +1,332 @@
+/* ==========================================================================
+   Contact Page & Exact Modern Card Box Styles (Zero Inline CSS)
+   ========================================================================== */
+
+.contact-page {
+  width: 100%;
+  padding-bottom: 24px;
+}
+
+/* Container holding both Left & Right cards */
+.connect-container {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 28px;
+  width: 100%;
+  max-width: 1140px;
+  margin: 32px auto 0;
+  align-items: stretch;
+}
+
+@media (max-width: 960px) {
+  .connect-container {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+/* Base Card Box Shape */
+.connect-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Left Card: Let's Connect & Details
+   ========================================================================== */
+.connect-left-card {
+  padding: 36px 32px;
+}
+
+.connect-heading {
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  margin-bottom: 14px;
+  letter-spacing: -0.02em;
+}
+
+.connect-subtext {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.connect-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.connect-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.connect-icon-box {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-primary);
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.connect-info-item:hover .connect-icon-box {
+  background: var(--accent-subtle);
+  border-color: var(--accent-border);
+  transform: translateY(-2px);
+}
+
+.connect-info-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.connect-info-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.connect-info-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: none;
+  line-height: 1.45;
+}
+
+.connect-info-value.cyan-link {
+  color: var(--accent-primary);
+  transition: color 0.2s ease;
+}
+
+.connect-info-value.cyan-link:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
+.connect-info-value.location-value {
+  color: var(--text-secondary);
+}
+
+.connect-social-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 30px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-color);
+}
+
+.connect-social-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.connect-social-btn:hover {
+  color: var(--accent-primary);
+  border-color: var(--accent-border);
+  background: var(--accent-subtle);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   Right Card: The Form Box (Matching User's Red Box Reference)
+   ========================================================================== */
+.connect-right-card {
+  padding: 36px;
+  background: var(--bg-elevated);
+  display: flex;
+  flex-direction: column;
+}
+
+.connect-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.form-grid-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 640px) {
+  .form-grid-row {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+
+.form-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+
+.form-field-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+}
+
+.form-field-label .required-star {
+  color: #ef4444;
+  margin-left: 3px;
+  font-size: 0.85rem;
+}
+
+.form-field-input,
+.form-field-textarea {
+  width: 100%;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 13px 16px;
+  font-size: 0.92rem;
+  color: var(--text-primary);
+  font-family: inherit;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.form-field-input::placeholder,
+.form-field-textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.form-field-input:focus,
+.form-field-textarea:focus {
+  border-color: var(--accent-primary);
+  background: var(--bg-secondary);
+  box-shadow: 0 0 0 3px var(--accent-subtle);
+}
+
+/* Error state */
+.form-field-input.has-error,
+.form-field-textarea.has-error {
+  border-color: #ef4444 !important;
+  background: rgba(239, 68, 68, 0.03);
+}
+
+.form-field-input.has-error:focus,
+.form-field-textarea.has-error:focus {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+}
+
+.form-field-error-text {
+  color: #ef4444;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-top: 4px;
+  animation: fadeInError 0.15s ease-out;
+}
+
+@keyframes fadeInError {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-field-textarea {
+  resize: vertical;
+  min-height: 140px;
+  line-height: 1.5;
+}
+
+/* Send Message Button */
+.connect-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #090d16;
+  background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+  box-shadow: 0 4px 18px rgba(6, 182, 212, 0.35);
+  border: none;
+  cursor: pointer;
+  width: fit-content;
+  transition: all 0.2s ease;
+  margin-top: 6px;
+}
+
+.connect-submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(6, 182, 212, 0.5);
+  filter: brightness(1.05);
+}
+
+.connect-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Alert notifications */
+.form-status-alert {
+  padding: 14px 18px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.92rem;
+}
+
+.form-status-alert.success {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid #10b981;
+  color: #10b981;
+}
+
+.form-status-alert.error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid #ef4444;
+  color: #ef4444;
+}

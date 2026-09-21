@@ -1,0 +1,29 @@
+/* ==========================================================================
+   Footer Component Styles - Centered Minimalist Bar
+   ========================================================================== */
+
+.site-footer {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  padding: 20px 0;
+  position: relative;
+  z-index: 10;
+  margin-top: 20px;
+}
+
+.footer-container {
+  max-width: 1280px;
+  width: 92%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.footer-copy {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  letter-spacing: 0.01em;
+  margin: 0;
+}
