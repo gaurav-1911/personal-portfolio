@@ -37,6 +37,17 @@ app.use(bodyParser.urlencoded(express));
 app.use(sanitizeBody());
 app.use(requestLogger);
 
+// --- Root status / health ping endpoint ---
+app.get('/', (_req, res) => {
+  res.status(200).json({
+    status: 'online',
+    service: 'Gaurav Chavda Portfolio API',
+    version: '1.0.0',
+    documentation: '/api/v1/health',
+    timestamp: new Date().toISOString(),
+  });
+});
+
 // --- Rate limit & noCache on all API endpoints (single mount point) ---
 app.use(API_PREFIX, noCache, apiLimiter);
 
