@@ -1,15 +1,16 @@
 /**
  * Core technologies & their official documentation links.
- * Kept in a dedicated file so the Fast Refresh plugin only sees components
- * in TechMarquee.jsx ("only-export-components" lint rule).
+ * Uses BASE_URL so assets load correctly on subpaths (e.g. GitHub Pages).
  */
+const base = import.meta.env.BASE_URL.replace(/\/+$/, '') + '/';
+
 export const TECH_ITEMS = [
   {
     name: 'React.js',
     docUrl: 'https://react.dev/',
     icon: (
       <img
-        src="/react.svg"
+        src={`${base}react.svg`}
         alt="React.js"
         width="22"
         height="22"
@@ -22,7 +23,7 @@ export const TECH_ITEMS = [
     docUrl: 'https://nodejs.org/docs/latest/api/',
     icon: (
       <img
-        src="/nodejs.svg"
+        src={`${base}nodejs.svg`}
         alt="Node.js"
         width="22"
         height="22"
@@ -35,7 +36,7 @@ export const TECH_ITEMS = [
     docUrl: 'https://expressjs.com/',
     icon: (
       <img
-        src="/expressjs-logo.png"
+        src={`${base}expressjs-logo.png`}
         alt="Express.js"
         width="22"
         height="22"
@@ -48,7 +49,7 @@ export const TECH_ITEMS = [
     docUrl: 'https://www.mongodb.com/docs/',
     icon: (
       <img
-        src="/mongodb.svg"
+        src={`${base}mongodb.svg`}
         alt="MongoDB"
         width="22"
         height="22"
@@ -61,7 +62,7 @@ export const TECH_ITEMS = [
     docUrl: 'https://dev.mysql.com/doc/',
     icon: (
       <img
-        src="/mysql.svg"
+        src={`${base}mysql.svg`}
         alt="MySQL"
         width="22"
         height="22"
@@ -74,7 +75,7 @@ export const TECH_ITEMS = [
     docUrl: 'https://git-scm.com/doc',
     icon: (
       <img
-        src="/git.svg"
+        src={`${base}git.svg`}
         alt="Git"
         width="22"
         height="22"
@@ -87,7 +88,7 @@ export const TECH_ITEMS = [
     docUrl: 'https://restfulapi.net/',
     icon: (
       <img
-        src="/rest_api.svg"
+        src={`${base}rest_api.svg`}
         alt="REST API"
         width="22"
         height="22"
@@ -100,7 +101,7 @@ export const TECH_ITEMS = [
     docUrl: 'https://jwt.io/introduction',
     icon: (
       <img
-        src="/jwt_si.svg"
+        src={`${base}jwt_si.svg`}
         alt="JWT Auth"
         width="22"
         height="22"
@@ -122,7 +123,7 @@ export const TECH_ITEMS = [
     docUrl: 'https://joi.dev/api/',
     icon: (
       <img
-        src="/joi.png"
+        src={`${base}joi.png`}
         alt="Joi Validation"
         width="22"
         height="22"
@@ -146,7 +147,7 @@ export const TECH_ITEMS = [
     docUrl: 'https://redux-toolkit.js.org/',
     icon: (
       <img
-        src="/redux.svg"
+        src={`${base}redux.svg`}
         alt="Redux Toolkit"
         width="22"
         height="22"
@@ -159,7 +160,7 @@ export const TECH_ITEMS = [
     docUrl: 'https://developer.mozilla.org/en-US/docs/Web/HTML',
     icon: (
       <img
-        src="/html5.svg"
+        src={`${base}html5.svg`}
         alt="HTML5"
         width="22"
         height="22"
@@ -172,7 +173,7 @@ export const TECH_ITEMS = [
     docUrl: 'https://developer.mozilla.org/en-US/docs/Web/CSS',
     icon: (
       <img
-        src="/css3.svg"
+        src={`${base}css3.svg`}
         alt="CSS3"
         width="22"
         height="22"
@@ -185,7 +186,7 @@ export const TECH_ITEMS = [
     docUrl: 'https://mui.com/material-ui/getting-started/',
     icon: (
       <img
-        src="/materialui.svg"
+        src={`${base}materialui.svg`}
         alt="MUI"
         width="22"
         height="22"
@@ -198,7 +199,7 @@ export const TECH_ITEMS = [
     docUrl: 'https://www.typescriptlang.org/docs/',
     icon: (
       <img
-        src="/typescript.svg"
+        src={`${base}typescript.svg`}
         alt="TypeScript"
         width="22"
         height="22"
@@ -211,7 +212,7 @@ export const TECH_ITEMS = [
     docUrl: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript',
     icon: (
       <img
-        src="/javascript.svg"
+        src={`${base}javascript.svg`}
         alt="JavaScript"
         width="22"
         height="22"
@@ -224,7 +225,7 @@ export const TECH_ITEMS = [
     docUrl: 'https://getbootstrap.com/docs/',
     icon: (
       <img
-        src="/bootstrap.svg"
+        src={`${base}bootstrap.svg`}
         alt="Bootstrap"
         width="22"
         height="22"

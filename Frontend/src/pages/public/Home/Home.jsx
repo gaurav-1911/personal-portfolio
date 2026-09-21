@@ -196,14 +196,14 @@ const Home = () => {
           <div className="hero-image-wrapper">
             <div className="hero-image-container">
               <img
-                src="/developer_portrait.jpg"
+                src={`${import.meta.env.BASE_URL.replace(/\/+$/, '')}/developer_portrait.jpg`}
                 alt="Gaurav Chavda - MERN Stack Developer"
                 className="hero-portrait-img"
                 width="420"
                 height="420"
                 fetchPriority="high"
                 decoding="async"
-                onError={(e) => { e.currentTarget.src = '/Gaurav.png'; }}
+                onError={(e) => { e.currentTarget.src = `${import.meta.env.BASE_URL.replace(/\/+$/, '')}/Gaurav.png`; }}
               />
             </div>
           </div>
