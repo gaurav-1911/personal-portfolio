@@ -6,18 +6,15 @@ import { defineConfig, loadEnv } from 'vite'
 
 /**
  * Canonical site URL used for robots.txt + sitemap.xml generation.
- * Falls back to the local dev origin so local builds/preview stay consistent;
- * production deployments MUST set VITE_SITE_URL (a build warning is emitted).
+ * Points to the official production GitHub Pages deployment.
  */
-const SITE_URL_FALLBACK = 'http://localhost:5173'
+const SITE_URL_FALLBACK = 'https://gauravchavdavhits.github.io/personal-portfolio-'
 
 /**
- * Generates robots.txt and sitemap.xml from the configured site URL at build
- * time (no hard-coded localhost in production artifacts). Also serves them in
- * development via middleware so `npm run preview` / crawl tests work locally.
+ * Generates robots.txt and sitemap.xml from the configured site URL at build time.
  */
 function seoFilesPlugin(siteUrl) {
-  const SITE_URL = siteUrl || SITE_URL_FALLBACK
+  const SITE_URL = (siteUrl || SITE_URL_FALLBACK).replace(/\/+$/, '')
   const SITE_PATHS = [
     { path: '/', changefreq: 'monthly', priority: '1.0' },
     { path: '/about', changefreq: 'monthly', priority: '0.8' },
@@ -26,7 +23,6 @@ function seoFilesPlugin(siteUrl) {
     { path: '/projects', changefreq: 'weekly', priority: '0.9' },
     { path: '/projects/solar-management-system', changefreq: 'monthly', priority: '0.85' },
     { path: '/projects/bidirectional-chat-platform', changefreq: 'monthly', priority: '0.85' },
-    { path: '/projects/product-management-system', changefreq: 'monthly', priority: '0.80' },
     { path: '/resume', changefreq: 'monthly', priority: '0.9' },
     { path: '/contact', changefreq: 'monthly', priority: '0.7' },
   ]
@@ -34,9 +30,6 @@ function seoFilesPlugin(siteUrl) {
   const robots = `# robots.txt for Gaurav Chavda Portfolio
 User-agent: *
 Allow: /
-Disallow: /api/
-Disallow: /admin
-Disallow: /admin/
 
 Sitemap: ${SITE_URL}/sitemap.xml
 `
@@ -57,7 +50,7 @@ ${SITE_PATHS.map(
     name: 'portfolio-seo-files',
     configResolved(config) {
       if (!siteUrl && config.command === 'build' && config.mode === 'production') {
-        console.warn('\n⚠️  VITE_SITE_URL is not set. robots.txt/sitemap.xml will use the localhost fallback.\n   Set VITE_SITE_URL (e.g. https://your-domain.com) when building for production.\n')
+        console.log(`\n[SEO Plugin] Using production site URL for robots.txt & sitemap.xml: ${SITE_URL}\n`)
       }
     },
     configureServer(server) {

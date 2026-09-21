@@ -128,16 +128,16 @@ const Home = () => {
 
             <div className="hero-bio-group">
               <p className="hero-bio-text">
-                I build modern, responsive web applications and robust backend systems using <strong>React.js, Node.js, Express.js, and MongoDB</strong>. My focus is on developing scalable REST APIs, secure authentication, well-structured databases, and intuitive user interfaces that deliver reliable digital experiences.
+                Gaurav Chavda is a dedicated <strong>MERN Stack Developer</strong> focused on building modern, responsive, and scalable web applications using <strong>React.js, Node.js, Express.js, MongoDB, and TypeScript</strong>. Specializing in secure REST APIs, authentication pipelines, and structured database engineering.
               </p>
               <p className="hero-bio-text">
-                I believe in writing <strong>clean, maintainable, and efficient code</strong>, while following a structured approach to building applications that are scalable, secure, and easy to maintain.
+                Committed to writing <strong>clean, maintainable, and efficient code</strong> with robust MVC architecture and intuitive user experiences.
               </p>
             </div>
 
             {/* Action Buttons Matching Reference */}
             <div className="hero-actions-row">
-              <NavLink to="/contact" className="btn-get-in-touch">
+              <NavLink to="/contact" className="btn-get-in-touch" aria-label="Contact Gaurav Chavda">
                 <span>Get In Touch</span>
               </NavLink>
               <a
@@ -145,6 +145,7 @@ const Home = () => {
                 download="Gaurav_Chavda_Mern_Stack_Resume.pdf"
                 className="btn-view-resume"
                 id="hero-view-resume"
+                aria-label="Download Gaurav Chavda Resume PDF"
               >
                 <Download size={16} />
                 <span>Resume (PDF)</span>
@@ -158,7 +159,7 @@ const Home = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-icon-btn"
-                aria-label="GitHub Profile"
+                aria-label="Gaurav Chavda GitHub Profile"
                 title="GitHub: https://github.com/gauravchavdavhits"
               >
                 <GithubIcon size={18} />
@@ -168,7 +169,7 @@ const Home = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-icon-btn"
-                aria-label="LinkedIn Profile"
+                aria-label="Gaurav Chavda LinkedIn Profile"
                 title="LinkedIn: linkedin.com/in/chavda-gaurav"
               >
                 <LinkedinIcon size={18} />
@@ -176,7 +177,7 @@ const Home = () => {
               <a
                 href="mailto:gauravbhai1911@gmail.com"
                 className="social-icon-btn"
-                aria-label="Email Gaurav"
+                aria-label="Email Gaurav Chavda"
                 title="Email: gauravbhai1911@gmail.com"
               >
                 <Mail size={18} />
@@ -184,7 +185,7 @@ const Home = () => {
               <a
                 href="tel:+917575858502"
                 className="social-icon-btn"
-                aria-label="Call Gaurav"
+                aria-label="Call Gaurav Chavda"
                 title="Phone: +91 75758 58502"
               >
                 <Phone size={18} />
@@ -197,7 +198,7 @@ const Home = () => {
             <div className="hero-image-container">
               <img
                 src={`${import.meta.env.BASE_URL.replace(/\/+$/, '')}/developer_portrait.jpg`}
-                alt="Gaurav Chavda - MERN Stack Developer"
+                alt="Professional portrait of Gaurav Chavda, MERN Stack Developer"
                 className="hero-portrait-img"
                 width="420"
                 height="420"
