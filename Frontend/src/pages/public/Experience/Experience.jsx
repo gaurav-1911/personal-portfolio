@@ -42,8 +42,8 @@ const JOURNEY_STAGES = [
     title: 'Real-World MERN Development',
     icon: <Layers size={18} className="timeline-stage-icon" />,
     description:
-      'Applied full-stack skills to production-level MERN applications including a Solar Panel Management System with 7-role RBAC and automated quotation workflows, a Bidirectional Real-Time Chat & Video Calling Platform using WebRTC and Socket.IO, and a Product Management System with inventory CRUD and image uploads.',
-    tags: ['Solar ERP', 'Bidirectional Chat', 'WebRTC', 'Socket.IO', 'Product Management'],
+      'Applied full-stack skills to production-level MERN applications including a Solar Panel Management System with 7-role RBAC and automated quotation workflows, and a Bidirectional Real-Time Chat & Video Calling Platform using WebRTC and Socket.IO.',
+    tags: ['Solar ERP', 'Bidirectional Chat', 'WebRTC', 'Socket.IO'],
   },
   {
     number: '06',

@@ -262,9 +262,13 @@
 }
 
 .about-box:hover {
-  transform: translateY(-4px);
   border-color: var(--accent-border);
   box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+/* Only lift card on hover after reveal animation completes */
+.about-box.about-reveal-visible:hover {
+  transform: translateY(-4px);
 }
 
 .focus-box {

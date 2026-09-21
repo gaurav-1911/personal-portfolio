@@ -353,7 +353,7 @@ const Home = () => {
 
         <div className="services-grid">
           {WHAT_I_BUILD.map((item, idx) => (
-            <div key={idx} className="service-card">
+            <div key={item.title} className="service-card">
               <div className="service-icon-box">{item.icon}</div>
               <h3 className="service-title">{item.title}</h3>
               <p className="service-desc">{item.desc}</p>
@@ -384,7 +384,7 @@ const Home = () => {
 
               <div className="project-teaser-highlights">
                 {project.highlights.map((h, i) => (
-                  <div key={i} className="highlight-item">
+                  <div key={h} className="highlight-item">
                     <CheckCircle2 size={15} className="highlight-icon" />
                     <span>{h}</span>
                   </div>
