@@ -81,26 +81,29 @@ export const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Dropdown Menu Card */}
       <div
         className={`mobile-backdrop ${mobileMenuOpen ? 'open' : ''}`}
         onClick={() => setMobileMenuOpen(false)}
         aria-hidden="true"
       />
 
-      <div className={`mobile-nav-drawer ${mobileMenuOpen ? 'open' : ''}`} aria-label="Mobile Navigation">
-        <div className="mobile-drawer-header">
-          <span className="mobile-brand-title">
-            Gaurav <span className="logo-surname">Chavda</span>
-          </span>
-          <button type="button" className="mobile-close-btn" onClick={() => setMobileMenuOpen(false)} aria-label="Close menu">
+      <div className={`mobile-nav-dropdown ${mobileMenuOpen ? 'open' : ''}`} aria-label="Mobile Navigation">
+        <div className="mobile-dropdown-header">
+          <ThemeToggle />
+          <button
+            type="button"
+            className="mobile-close-btn"
+            onClick={() => setMobileMenuOpen(false)}
+            aria-label="Close menu"
+          >
             <X size={20} />
           </button>
         </div>
 
         <nav className="mobile-nav-content">
           <ul className="mobile-nav-list">
-            {NAV_ITEMS.map((item, i) => (
+            {NAV_ITEMS.map((item) => (
               <li key={item.path} className="mobile-nav-item">
                 <NavLink
                   to={item.path}
@@ -109,9 +112,8 @@ export const Navbar = () => {
                   onClick={() => setMobileMenuOpen(false)}
                   id={`mobile-nav-${item.name.toLowerCase().replace(/\s+/g, '-')}`}
                 >
-                  <span className="mobile-nav-index">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="mobile-nav-indicator" />
                   <span className="mobile-nav-name">{item.name}</span>
-                  <ArrowUpRight size={16} className="mobile-nav-arrow" />
                 </NavLink>
               </li>
             ))}
