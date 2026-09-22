@@ -1,6 +1,5 @@
 /**
  * Server entrypoint: boots the Express app and handles graceful shutdown.
- * Hardened & audit-verified production-ready server (v2).
  */
 import app from './src/app.js';
 import { config } from './src/config/env.js';
@@ -11,43 +10,78 @@ import { connectDB, closeDB } from './src/config/db.js';
 const PORT = Number(process.env.PORT) || config.port || 5000;
 const HOST = '0.0.0.0';
 
-const server = app.listen(PORT, HOST, async () => {
-  console.log(`🚀 ${APP_NAME} running at http://${HOST}:${PORT} (${config.nodeEnv})`);
-  await connectDB();
-  await MailService.verifyConnection();
-});
+const startServer = async () => {
+  try {
+    // Start HTTP server
+    const server = app.listen(PORT, HOST, async () => {
+      console.log(
+        `🚀 ${APP_NAME} running at http://${HOST}:${PORT} (${config.nodeEnv})`
+      );
+    });
 
-// --- Server Request & Socket Timeouts (Mitigates Slowloris & Hung Sockets) ---
-server.timeout = 15000;          // 15s request socket timeout
-server.keepAliveTimeout = 65000; // 65s keep-alive timeout (aligns with cloud load balancers)
-server.headersTimeout = 66000;   // Must exceed keepAliveTimeout
+    // --- Server Request & Socket Timeouts ---
+    server.timeout = 15000;
+    server.keepAliveTimeout = 65000;
+    server.headersTimeout = 66000;
 
-// --- Graceful shutdown (SIGTERM/SIGINT) with Force-Kill Safety Net ---
-const shutdown = async (signal) => {
-  console.log(`\n${signal} received. Initiating graceful shutdown...`);
+    // --- Database connection ---
+    try {
+      await connectDB();
+      console.log('✅ MongoDB connection initialized.');
+    } catch (error) {
+      console.error('⚠️ MongoDB connection failed:', error);
+    }
 
-  // Forcefully exit if connections do not close within 10 seconds
-  const forceKillTimer = setTimeout(() => {
-    console.error('⚠️ Forcefully terminating process after 10s timeout.');
+    // --- SMTP connection ---
+    try {
+      await MailService.verifyConnection();
+      console.log('✅ SMTP connection verified.');
+    } catch (error) {
+      console.error('⚠️ SMTP connection verification failed:', error);
+    }
+
+    // --- Graceful shutdown ---
+    const shutdown = async (signal) => {
+      console.log(`\n${signal} received. Initiating graceful shutdown...`);
+
+      const forceKillTimer = setTimeout(() => {
+        console.error('⚠️ Forcefully terminating process after 10s timeout.');
+        process.exit(1);
+      }, 10000);
+
+      forceKillTimer.unref();
+
+      server.close(async () => {
+        console.log('HTTP server closed cleanly.');
+
+        try {
+          await closeDB();
+          console.log('MongoDB connection closed.');
+        } catch (error) {
+          console.error('Error closing MongoDB:', error);
+        }
+
+        clearTimeout(forceKillTimer);
+        process.exit(0);
+      });
+    };
+
+    process.on('SIGTERM', () => shutdown('SIGTERM'));
+    process.on('SIGINT', () => shutdown('SIGINT'));
+
+    // --- Unhandled failure safety nets ---
+    process.on('unhandledRejection', (reason) => {
+      console.error('Unhandled Rejection:', reason);
+    });
+
+    process.on('uncaughtException', (error) => {
+      console.error('Uncaught Exception:', error);
+      shutdown('uncaughtException');
+    });
+  } catch (error) {
+    console.error('❌ Failed to start server:', error);
     process.exit(1);
-  }, 10000);
-  forceKillTimer.unref();
-
-  server.close(async () => {
-    console.log('HTTP server closed cleanly.');
-    await closeDB();
-    process.exit(0);
-  });
+  }
 };
 
-process.on('SIGTERM', () => shutdown('SIGTERM'));
-process.on('SIGINT', () => shutdown('SIGINT'));
-
-// --- Unhandled failure safety nets ---
-process.on('unhandledRejection', (reason) => {
-  console.error('Unhandled Rejection:', reason);
-});
-process.on('uncaughtException', (err) => {
-  console.error('Uncaught Exception:', err);
-  shutdown('uncaughtException');
-});
+startServer();
