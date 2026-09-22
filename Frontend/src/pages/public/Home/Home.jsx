@@ -23,31 +23,65 @@ import { SEOHead } from '../../../components/common/SEOHead/SEOHead';
 import { SITE_URL } from '../../../config/site';
 import './Home.css';
 
-const buildHomeSchema = () => [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: 'Gaurav Chavda',
-    url: `${SITE_URL}/`,
-    jobTitle: 'MERN Stack Developer & Software Engineer',
-    sameAs: [
-      'https://github.com/gauravchavdavhits',
-      'https://www.linkedin.com/in/chavda-gaurav',
-    ],
-    knowsAbout: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'REST APIs', 'Authentication', 'Full-Stack Development'],
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: 'Gaurav Chavda Portfolio',
-    url: `${SITE_URL}/`,
-    description: 'Portfolio of Gaurav Chavda - MERN Stack Developer building modern, performant, and secure web applications.',
-    author: {
+const buildHomeSchema = () => ({
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
       '@type': 'Person',
+      '@id': `${SITE_URL}/#person`,
       name: 'Gaurav Chavda',
+      givenName: 'Gaurav',
+      familyName: 'Chavda',
+      url: `${SITE_URL}/`,
+      image: `${SITE_URL}/Gaurav.png`,
+      jobTitle: 'MERN Stack Developer',
+      description: 'Gaurav Chavda is a MERN Stack Developer specializing in React.js, Node.js, Express.js, MongoDB, REST APIs, TypeScript, and modern web application development.',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Ahmedabad',
+        addressRegion: 'Gujarat',
+        postalCode: '380054',
+        addressCountry: 'IN',
+      },
+      sameAs: [
+        'https://github.com/gauravchavdavhits',
+        'https://www.linkedin.com/in/chavda-gaurav',
+      ],
+      knowsAbout: [
+        'MERN Stack',
+        'React.js',
+        'Node.js',
+        'Express.js',
+        'MongoDB',
+        'JavaScript',
+        'TypeScript',
+        'REST APIs',
+        'Full Stack Web Development',
+        'WebRTC',
+        'Socket.IO',
+      ],
     },
-  },
-];
+    {
+      '@type': 'ProfilePage',
+      '@id': `${SITE_URL}/#profilepage`,
+      url: `${SITE_URL}/`,
+      name: 'Gaurav Chavda | MERN Stack Developer',
+      mainEntity: {
+        '@id': `${SITE_URL}/#person`,
+      },
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}/#website`,
+      url: `${SITE_URL}/`,
+      name: 'Gaurav Chavda',
+      description: 'Official portfolio website of Gaurav Chavda - MERN Stack Developer & Software Engineer.',
+      publisher: {
+        '@id': `${SITE_URL}/#person`,
+      },
+    },
+  ],
+});
 
 const WHAT_I_BUILD = [
   {
