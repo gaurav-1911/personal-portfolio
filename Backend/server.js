@@ -8,8 +8,11 @@ import { APP_NAME } from './src/config/constants.js';
 import MailService from './src/services/mail.service.js';
 import { connectDB, closeDB } from './src/config/db.js';
 
-const server = app.listen(config.port, async () => {
-  console.log(`🚀 ${APP_NAME} running at http://localhost:${config.port} (${config.nodeEnv})`);
+const PORT = Number(process.env.PORT) || config.port || 5000;
+const HOST = '0.0.0.0';
+
+const server = app.listen(PORT, HOST, async () => {
+  console.log(`🚀 ${APP_NAME} running at http://${HOST}:${PORT} (${config.nodeEnv})`);
   await connectDB();
   await MailService.verifyConnection();
 });
