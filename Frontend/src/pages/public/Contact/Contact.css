@@ -22,10 +22,28 @@
   .connect-container {
     grid-template-columns: 1fr;
     gap: 24px;
+    margin-top: 16px;
   }
 }
 
-/* Base Card Box Shape */
+@media (max-width: 640px) {
+  .connect-left-card {
+    padding: 24px 20px;
+  }
+
+  .connect-right-card {
+    padding: 24px 20px;
+  }
+
+  .connect-heading {
+    font-size: 1.5rem;
+  }
+
+  .connect-submit-btn {
+    width: 100%;
+  }
+}
+
 .connect-card {
   background: var(--bg-elevated);
   border: 1px solid var(--border-color);
@@ -37,9 +55,6 @@
   overflow: hidden;
 }
 
-/* ==========================================================================
-   Left Card: Let's Connect & Details
-   ========================================================================== */
 .connect-left-card {
   padding: 36px 32px;
 }

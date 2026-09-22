@@ -9,7 +9,7 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 10000,
+  timeout: 35000,
 });
 
 // Request interceptor to attach admin/auth token if present
@@ -30,11 +30,11 @@ api.interceptors.response.use(
     let message = error.response?.data?.message;
     if (!message) {
       if (error.code === 'ECONNABORTED') {
-        message = 'Request timed out. Please try again.';
+        message = 'Server response took longer than expected (backend may be spinning up from sleep). Please wait a moment or reach out directly at gauravbhai1911@gmail.com.';
       } else if (error.response?.status === 404) {
         message = 'Backend API service is currently offline. Please reach out directly via email at gauravbhai1911@gmail.com.';
       } else if (!error.response) {
-        message = 'Unable to connect to the backend server. Please contact directly via email or LinkedIn.';
+        message = 'Unable to reach backend server. Please reach out directly via email at gauravbhai1911@gmail.com or LinkedIn.';
       } else {
         message = error.message || 'An unexpected error occurred';
       }
