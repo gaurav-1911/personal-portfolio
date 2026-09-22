@@ -90,7 +90,6 @@ export const Navbar = () => {
 
       <div className={`mobile-nav-dropdown ${mobileMenuOpen ? 'open' : ''}`} aria-label="Mobile Navigation">
         <div className="mobile-dropdown-header">
-          <ThemeToggle />
           <button
             type="button"
             className="mobile-close-btn"
