@@ -74,8 +74,8 @@ const buildHomeSchema = () => ({
       '@type': 'WebSite',
       '@id': `${SITE_URL}/#website`,
       url: `${SITE_URL}/`,
-      name: 'Gaurav Chavda',
-      description: 'Official portfolio website of Gaurav Chavda - MERN Stack Developer & Software Engineer.',
+      name: 'Gaurav Chavda | MERN Stack Developer',
+      description: 'Official portfolio website of Gaurav Chavda - MERN Stack Developer specializing in React.js, Node.js, Express.js, MongoDB, JavaScript and TypeScript.',
       publisher: {
         '@id': `${SITE_URL}/#person`,
       },
