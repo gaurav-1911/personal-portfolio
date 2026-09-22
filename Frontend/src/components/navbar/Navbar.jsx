@@ -116,27 +116,7 @@ export const Navbar = () => {
               </li>
             ))}
           </ul>
-
-          <div className="mobile-resume-wrapper">
-            <a
-              href={`${import.meta.env.BASE_URL.replace(/\/+$/, '')}/Gaurav_Chavda_Mern_Stack_Resume.pdf`}
-              download="Gaurav_Chavda_Mern_Stack_Resume.pdf"
-              className="mobile-resume-download-btn"
-              onClick={() => setMobileMenuOpen(false)}
-              id="mobile-nav-resume-download"
-            >
-              <FileDown size={16} />
-              <span>Download Resume (PDF)</span>
-            </a>
-          </div>
         </nav>
-
-        <div className="mobile-drawer-footer">
-          <div className="mobile-theme-row">
-            <span className="mobile-theme-label">Appearance</span>
-            <ThemeToggle />
-          </div>
-        </div>
       </div>
     </header>
   );
