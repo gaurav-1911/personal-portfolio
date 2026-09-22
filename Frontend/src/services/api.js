@@ -24,15 +24,21 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor for normalized error payloads
 api.interceptors.response.use(
   (response) => response.data,
   (error) => {
-    const message =
-      error.response?.data?.message ||
-      (error.code === 'ECONNABORTED'
-        ? 'Request timed out. Please try again.'
-        : error.message || 'An unexpected error occurred');
+    let message = error.response?.data?.message;
+    if (!message) {
+      if (error.code === 'ECONNABORTED') {
+        message = 'Request timed out. Please try again.';
+      } else if (error.response?.status === 404) {
+        message = 'Backend API service is currently offline. Please reach out directly via email at gauravbhai1911@gmail.com.';
+      } else if (!error.response) {
+        message = 'Unable to connect to the backend server. Please contact directly via email or LinkedIn.';
+      } else {
+        message = error.message || 'An unexpected error occurred';
+      }
+    }
     const customError = new Error(message);
     customError.status = error.response?.status ?? 0;
     customError.errors = error.response?.data?.errors || [];

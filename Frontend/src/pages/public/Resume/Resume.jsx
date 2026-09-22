@@ -259,7 +259,7 @@ export const Resume = () => {
 
         <div className="resume-actions-row">
           <a
-            href="/Gaurav_Chavda_Mern_Stack_Resume.pdf"
+            href={`${import.meta.env.BASE_URL.replace(/\/+$/, '')}/Gaurav_Chavda_Mern_Stack_Resume.pdf`}
             download="Gaurav_Chavda_Mern_Stack_Resume.pdf"
             className="btn-resume-download anim-fade-in-up anim-delay-3"
             id="resume-page-download-btn"
@@ -268,7 +268,7 @@ export const Resume = () => {
             <span>Download (PDF)</span>
           </a>
           <a
-            href="/Gaurav_Chavda_Mern_Stack_Resume.pdf"
+            href={`${import.meta.env.BASE_URL.replace(/\/+$/, '')}/Gaurav_Chavda_Mern_Stack_Resume.pdf`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-resume-view anim-fade-in-up anim-delay-4"

@@ -80,7 +80,7 @@ export default defineConfig(({ mode }) => {
   const siteUrl = (env.VITE_SITE_URL || '').replace(/\/+$/, '')
 
   return {
-    base: process.env.GITHUB_PAGES === 'true' ? '/personal-portfolio-/' : './',
+    base: '/personal-portfolio-/',
     plugins: [
       react(),
       babel({ presets: [reactCompilerPreset()] }),

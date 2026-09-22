@@ -119,7 +119,7 @@ export const Navbar = () => {
 
           <div className="mobile-resume-wrapper">
             <a
-              href="/Gaurav_Chavda_Mern_Stack_Resume.pdf"
+              href={`${import.meta.env.BASE_URL.replace(/\/+$/, '')}/Gaurav_Chavda_Mern_Stack_Resume.pdf`}
               download="Gaurav_Chavda_Mern_Stack_Resume.pdf"
               className="mobile-resume-download-btn"
               onClick={() => setMobileMenuOpen(false)}

@@ -106,7 +106,7 @@ const About = () => {
                 <span>Get In Touch</span>
               </NavLink>
               <a
-                href="/Gaurav_Chavda_Mern_Stack_Resume.pdf"
+                href={`${import.meta.env.BASE_URL.replace(/\/+$/, '')}/Gaurav_Chavda_Mern_Stack_Resume.pdf`}
                 download="Gaurav_Chavda_Mern_Stack_Resume.pdf"
                 className="btn-view-resume"
                 id="about-download-resume"
