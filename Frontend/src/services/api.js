@@ -29,14 +29,17 @@ api.interceptors.response.use(
   (error) => {
     let message = error.response?.data?.message;
     if (!message) {
-      if (error.code === 'ECONNABORTED') {
-        message = 'Server response took longer than expected (backend may be spinning up from sleep). Please wait a moment or reach out directly at gauravbhai1911@gmail.com.';
-      } else if (error.response?.status === 404) {
+      const status = error.response?.status;
+      if (status === 502 || status === 503 || status === 504) {
+        message = 'Server is currently waking up from standby (free-tier spin up). Please try again in 15-30 seconds or email directly at gauravbhai1911@gmail.com.';
+      } else if (error.code === 'ECONNABORTED') {
+        message = 'Server response took longer than expected (backend is waking up). Please try again in a few moments or email directly at gauravbhai1911@gmail.com.';
+      } else if (status === 404) {
         message = 'Backend API service is currently offline. Please reach out directly via email at gauravbhai1911@gmail.com.';
       } else if (!error.response) {
         message = 'Unable to reach backend server. Please reach out directly via email at gauravbhai1911@gmail.com or LinkedIn.';
       } else {
-        message = error.message || 'An unexpected error occurred';
+        message = error.message || 'An unexpected error occurred. Please try again.';
       }
     }
     const customError = new Error(message);
