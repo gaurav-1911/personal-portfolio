@@ -464,7 +464,7 @@
 @media (max-width: 960px) {
   .hero-grid {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 28px;
     text-align: center;
   }
 
@@ -479,16 +479,63 @@
 
   .about-contact-strip {
     justify-content: center;
+    gap: 12px;
+  }
+
+  .hero-image-wrapper {
+    order: 2;
+    margin-top: 8px;
   }
 
   .hero-image-container {
-    max-width: 320px;
+    max-width: min(240px, 68vw);
+    border-radius: 22px;
   }
 }
 
 @media (max-width: 640px) {
   .about-me-grid {
     grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .about-box {
+    padding: 22px 18px;
+    border-radius: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-page {
+    padding: 4px 0 20px;
+  }
+
+  .about-hero-section {
+    margin-bottom: 24px;
+  }
+
+  .about-contact-strip {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.86rem;
+  }
+
+  .hero-actions-row {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .btn-get-in-touch,
+  .btn-view-resume {
+    width: 100%;
+    padding: 12px 20px;
+  }
+
+  .hero-image-container {
+    max-width: 200px;
+    border-radius: 20px;
   }
 }
 

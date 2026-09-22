@@ -283,11 +283,16 @@
 
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
+  .experience-page {
+    padding: clamp(16px, 3vh, 32px) 0 24px;
+  }
+
   .exp-context-bar {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
-    padding: 18px 20px;
+    padding: 16px 18px;
+    margin-top: 20px;
   }
 
   .exp-context-divider {
@@ -296,20 +301,23 @@
 
   .exp-context-role {
     padding: 0;
+    min-width: unset;
+    width: 100%;
   }
 
   .timeline-container {
-    padding-left: 32px;
+    padding-left: 28px;
+    margin-top: 28px;
   }
 
   .timeline-line {
-    left: 9px;
+    left: 8px;
   }
 
   .timeline-node {
-    left: -32px;
-    width: 20px;
-    height: 20px;
+    left: -28px;
+    width: 18px;
+    height: 18px;
   }
 
   .timeline-node-dot {
@@ -318,11 +326,11 @@
   }
 
   .timeline-card {
-    padding: 18px 20px;
+    padding: 16px 18px;
   }
 
   .timeline-card-title {
-    font-size: 1rem;
+    font-size: 1.05rem;
   }
 
   .timeline-card-desc {
@@ -332,30 +340,39 @@
 
 @media (max-width: 480px) {
   .experience-page {
-    padding: 28px 0 32px;
+    padding: 12px 0 24px;
   }
 
   .timeline-container {
-    padding-left: 28px;
-    margin-top: 32px;
+    padding-left: 24px;
+    margin-top: 24px;
   }
 
   .timeline-line {
-    left: 7px;
+    left: 6px;
   }
 
   .timeline-node {
-    left: -28px;
+    left: -24px;
   }
 
   .timeline-card {
-    padding: 16px;
+    padding: 14px 14px;
     border-radius: 14px;
   }
 
   .timeline-card-header {
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
+  }
+
+  .timeline-card-title {
+    font-size: 0.98rem;
+  }
+
+  .timeline-card-desc {
+    font-size: 0.86rem;
+    line-height: 1.55;
   }
 }
 

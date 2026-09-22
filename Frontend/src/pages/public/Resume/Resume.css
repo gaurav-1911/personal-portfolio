@@ -931,10 +931,16 @@
 }
 
 @media (max-width: 768px) {
+  .resume-page {
+    padding: clamp(12px, 2.5vh, 24px) 0 28px;
+  }
+
   .resume-hero-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
   }
 
   .resume-actions-row {
@@ -945,6 +951,29 @@
   .btn-resume-view {
     flex: 1;
     justify-content: center;
+    padding: 12px 18px;
+    font-size: 0.92rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .resume-actions-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-resume-download,
+  .btn-resume-view {
+    width: 100%;
+  }
+
+  .experience-main-card {
+    padding: 18px 14px;
+    border-radius: 16px;
+  }
+
+  .nested-project-card {
+    padding: 16px 14px;
   }
 }
 
