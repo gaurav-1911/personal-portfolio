@@ -33,10 +33,12 @@
     opacity: 0.55;
     transform: translateX(-50%) translateY(0) scale(1);
   }
+
   50% {
     opacity: 0.85;
     transform: translateX(-48%) translateY(14px) scale(1.02);
   }
+
   100% {
     opacity: 0.6;
     transform: translateX(-52%) translateY(-8px) scale(0.98);
@@ -113,8 +115,8 @@
   background: linear-gradient(135deg, #22d3ee 0%, #60a5fa 100%);
   box-shadow: 0 4px 18px rgba(34, 211, 238, 0.4);
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.25s ease;
+    box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.25s ease;
   text-decoration: none;
 }
 
@@ -146,9 +148,9 @@
   border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              background 0.25s ease,
-              border-color 0.25s ease,
-              box-shadow 0.25s ease;
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
   text-decoration: none;
 }
 
@@ -187,6 +189,7 @@
     opacity: 0;
     transform: translateY(14px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -199,10 +202,21 @@
   will-change: transform, opacity;
 }
 
-.anim-delay-1 { animation-delay: 0.06s; }
-.anim-delay-2 { animation-delay: 0.14s; }
-.anim-delay-3 { animation-delay: 0.24s; }
-.anim-delay-4 { animation-delay: 0.34s; }
+.anim-delay-1 {
+  animation-delay: 0.06s;
+}
+
+.anim-delay-2 {
+  animation-delay: 0.14s;
+}
+
+.anim-delay-3 {
+  animation-delay: 0.24s;
+}
+
+.anim-delay-4 {
+  animation-delay: 0.34s;
+}
 
 /* ==========================================================================
    Scroll-Based Reveal System (Lightweight, GPU-Accelerated)
@@ -211,7 +225,7 @@
   opacity: 0;
   transform: translateY(18px);
   transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
@@ -242,8 +256,8 @@
   padding: 26px 24px;
   box-shadow: var(--shadow-sm);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.35s ease,
-              box-shadow 0.35s ease;
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
   will-change: transform, box-shadow;
 }
 
@@ -333,10 +347,10 @@
   border: 1px solid rgba(255, 255, 255, 0.07);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
-              background 0.2s ease,
-              border-color 0.2s ease,
-              color 0.2s ease,
-              box-shadow 0.2s ease;
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
   cursor: default;
   will-change: transform, border-color;
 }
@@ -361,6 +375,7 @@
     opacity: 0;
     transform: translateY(6px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -372,17 +387,49 @@
   animation: skill-badge-reveal 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.skills-card .skill-tag-pill:nth-child(1) { animation-delay: 0.22s; }
-.skills-card .skill-tag-pill:nth-child(2) { animation-delay: 0.25s; }
-.skills-card .skill-tag-pill:nth-child(3) { animation-delay: 0.28s; }
-.skills-card .skill-tag-pill:nth-child(4) { animation-delay: 0.31s; }
-.skills-card .skill-tag-pill:nth-child(5) { animation-delay: 0.34s; }
-.skills-card .skill-tag-pill:nth-child(6) { animation-delay: 0.37s; }
-.skills-card .skill-tag-pill:nth-child(7) { animation-delay: 0.40s; }
-.skills-card .skill-tag-pill:nth-child(8) { animation-delay: 0.43s; }
-.skills-card .skill-tag-pill:nth-child(9) { animation-delay: 0.46s; }
-.skills-card .skill-tag-pill:nth-child(10) { animation-delay: 0.49s; }
-.skills-card .skill-tag-pill:nth-child(n+11) { animation-delay: 0.52s; }
+.skills-card .skill-tag-pill:nth-child(1) {
+  animation-delay: 0.22s;
+}
+
+.skills-card .skill-tag-pill:nth-child(2) {
+  animation-delay: 0.25s;
+}
+
+.skills-card .skill-tag-pill:nth-child(3) {
+  animation-delay: 0.28s;
+}
+
+.skills-card .skill-tag-pill:nth-child(4) {
+  animation-delay: 0.31s;
+}
+
+.skills-card .skill-tag-pill:nth-child(5) {
+  animation-delay: 0.34s;
+}
+
+.skills-card .skill-tag-pill:nth-child(6) {
+  animation-delay: 0.37s;
+}
+
+.skills-card .skill-tag-pill:nth-child(7) {
+  animation-delay: 0.40s;
+}
+
+.skills-card .skill-tag-pill:nth-child(8) {
+  animation-delay: 0.43s;
+}
+
+.skills-card .skill-tag-pill:nth-child(9) {
+  animation-delay: 0.46s;
+}
+
+.skills-card .skill-tag-pill:nth-child(10) {
+  animation-delay: 0.49s;
+}
+
+.skills-card .skill-tag-pill:nth-child(n+11) {
+  animation-delay: 0.52s;
+}
 
 /* ==========================================================================
    4. Left Column: Education Portion Card
@@ -569,7 +616,7 @@
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
@@ -591,8 +638,8 @@
   border: 3px solid var(--bg-primary);
   transform: scale(0);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.35s ease,
-              background-color 0.35s ease;
+    box-shadow 0.35s ease,
+    background-color 0.35s ease;
   will-change: transform, box-shadow;
 }
 
@@ -616,9 +663,11 @@
   0% {
     box-shadow: 0 0 14px #38bdf8, 0 0 4px #38bdf8;
   }
+
   50% {
     box-shadow: 0 0 24px #38bdf8, 0 0 8px #38bdf8, 0 0 35px rgba(56, 189, 248, 0.4);
   }
+
   100% {
     box-shadow: 0 0 14px #38bdf8, 0 0 4px #38bdf8;
   }
@@ -747,16 +796,45 @@
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
 }
 
-.job-responsibilities-subblock.is-revealed .job-bullet-item:nth-child(1) { transition-delay: 0.05s; opacity: 1; transform: translateY(0); }
-.job-responsibilities-subblock.is-revealed .job-bullet-item:nth-child(2) { transition-delay: 0.10s; opacity: 1; transform: translateY(0); }
-.job-responsibilities-subblock.is-revealed .job-bullet-item:nth-child(3) { transition-delay: 0.15s; opacity: 1; transform: translateY(0); }
-.job-responsibilities-subblock.is-revealed .job-bullet-item:nth-child(4) { transition-delay: 0.20s; opacity: 1; transform: translateY(0); }
-.job-responsibilities-subblock.is-revealed .job-bullet-item:nth-child(5) { transition-delay: 0.25s; opacity: 1; transform: translateY(0); }
-.job-responsibilities-subblock.is-revealed .job-bullet-item:nth-child(6) { transition-delay: 0.30s; opacity: 1; transform: translateY(0); }
+.job-responsibilities-subblock.is-revealed .job-bullet-item:nth-child(1) {
+  transition-delay: 0.05s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.job-responsibilities-subblock.is-revealed .job-bullet-item:nth-child(2) {
+  transition-delay: 0.10s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.job-responsibilities-subblock.is-revealed .job-bullet-item:nth-child(3) {
+  transition-delay: 0.15s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.job-responsibilities-subblock.is-revealed .job-bullet-item:nth-child(4) {
+  transition-delay: 0.20s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.job-responsibilities-subblock.is-revealed .job-bullet-item:nth-child(5) {
+  transition-delay: 0.25s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.job-responsibilities-subblock.is-revealed .job-bullet-item:nth-child(6) {
+  transition-delay: 0.30s;
+  opacity: 1;
+  transform: translateY(0);
+}
 
 .bullet-chevron {
   color: #38bdf8;
@@ -920,27 +998,23 @@
   }
 
   .resume-section-card:hover {
-    transform: none; /* Keep stable on touch devices */
+    transform: none;
+    /* Keep stable on touch devices */
   }
 
   .resume-ambient-glow {
     height: 380px;
-    animation: none; /* Conserve mobile battery & GPU */
+    animation: none;
+    /* Conserve mobile battery & GPU */
     opacity: 0.5;
   }
 }
 
 @media (max-width: 768px) {
-  .resume-page {
-    padding: clamp(12px, 2.5vh, 24px) 0 28px;
-  }
-
   .resume-hero-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
-    margin-bottom: 20px;
-    padding-bottom: 16px;
   }
 
   .resume-actions-row {
@@ -951,29 +1025,6 @@
   .btn-resume-view {
     flex: 1;
     justify-content: center;
-    padding: 12px 18px;
-    font-size: 0.92rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .resume-actions-row {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .btn-resume-download,
-  .btn-resume-view {
-    width: 100%;
-  }
-
-  .experience-main-card {
-    padding: 18px 14px;
-    border-radius: 16px;
-  }
-
-  .nested-project-card {
-    padding: 16px 14px;
   }
 }
 
@@ -981,6 +1032,7 @@
    9. Accessibility: Reduced Motion
    ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
+
   .anim-fade-in-up,
   .skills-card .skill-tag-pill,
   .resume-ambient-glow {

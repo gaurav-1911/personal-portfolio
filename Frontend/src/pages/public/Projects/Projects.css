@@ -5,14 +5,14 @@
 .projects-page {
   max-width: 1200px;
   margin: 0 auto;
-  padding: clamp(16px, 3vh, 36px) 0 28px;
+  padding: 40px 0 32px;
 }
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
-  gap: clamp(18px, 3vw, 28px);
-  margin-top: clamp(20px, 3vw, 36px);
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 28px;
+  margin-top: 36px;
 }
 
 .project-card {
@@ -20,7 +20,7 @@
   display: flex;
   flex-direction: column;
   border-radius: 20px;
-  padding: clamp(20px, 3vw, 32px);
+  padding: 32px;
   position: relative;
   background: var(--bg-glass-card);
   backdrop-filter: blur(16px);
@@ -47,27 +47,26 @@
 }
 
 .project-title {
-  font-size: clamp(1.2rem, 2.5vw, 1.45rem);
+  font-size: 1.45rem;
   font-weight: 800;
   color: var(--text-primary);
   margin-bottom: 10px;
   letter-spacing: -0.015em;
-  line-height: 1.25;
 }
 
 .project-desc {
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   color: var(--text-secondary);
   line-height: 1.6;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
 .project-features-block {
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
 .project-features-heading {
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 700;
   color: var(--text-muted);
   text-transform: uppercase;
@@ -83,24 +82,22 @@
 
 .project-feature-item {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 8px;
   font-size: 0.86rem;
   color: var(--text-secondary);
-  line-height: 1.45;
 }
 
 .project-check-icon {
   flex-shrink: 0;
   color: #10b981;
-  margin-top: 2px;
 }
 
 .project-tech-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .project-tech-tag {
@@ -116,13 +113,11 @@
 
 .project-card-footer {
   margin-top: auto;
-  padding-top: 16px;
+  padding-top: 18px;
   border-top: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
 }
 
 .project-deep-dive-link {
@@ -160,13 +155,21 @@
 }
 
 @media (max-width: 640px) {
+  .projects-page {
+    padding: 24px 0 28px;
+  }
+
   .projects-grid {
     grid-template-columns: 1fr;
-    gap: 18px;
+    gap: 20px;
+    margin-top: 24px;
   }
 
   .project-card {
-    padding: 20px 16px;
-    border-radius: 16px;
+    padding: 24px 20px;
+  }
+
+  .project-title {
+    font-size: 1.25rem;
   }
 }
