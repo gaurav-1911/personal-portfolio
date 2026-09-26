@@ -365,6 +365,7 @@ body.nav-menu-open {
 .mobile-dropdown-link {
   display: flex;
   align-items: center;
+  gap: 12px;
   padding: 13px 18px;
   border-radius: 12px;
   font-size: 1.02rem;
@@ -379,14 +380,35 @@ body.nav-menu-open {
   color: #4b5563;
 }
 
+.mobile-nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  flex-shrink: 0;
+  transition: color 0.2s ease;
+}
+
+[data-theme="light"] .mobile-nav-icon {
+  color: #4b5563;
+}
+
 .mobile-dropdown-link:hover {
   color: #ffffff;
   background: rgba(255, 255, 255, 0.05);
 }
 
+.mobile-dropdown-link:hover .mobile-nav-icon {
+  color: #ffffff;
+}
+
 [data-theme="light"] .mobile-dropdown-link:hover {
   color: #111827;
   background: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .mobile-dropdown-link:hover .mobile-nav-icon {
+  color: #111827;
 }
 
 /* Active State matching screenshot (cyan text & cyan left border capsule highlight) */
@@ -397,89 +419,21 @@ body.nav-menu-open {
   font-weight: 700;
 }
 
+.mobile-dropdown-link.active .mobile-nav-icon {
+  color: #00e5ff;
+}
+
 [data-theme="light"] .mobile-dropdown-link.active {
   background: rgba(6, 182, 212, 0.08);
   color: #0891b2;
   border-left: 3.5px solid #0891b2;
 }
 
-.mobile-dropdown-name {
-  font-size: 1.02rem;
-  letter-spacing: -0.01em;
-}
-
-/* Dropdown Footer: Download Resume & Appearance */
-.mobile-dropdown-footer {
-  margin-top: 8px;
-  padding-top: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-[data-theme="light"] .mobile-dropdown-footer {
-  border-top-color: rgba(0, 0, 0, 0.08);
-}
-
-.mobile-dropdown-resume-wrap {
-  width: 100%;
-}
-
-.mobile-dropdown-resume-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  padding: 11px 16px;
-  border-radius: 12px;
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: #07090e;
-  background: linear-gradient(135deg, #22d3ee 0%, #60a5fa 100%);
-  box-shadow: 0 4px 18px rgba(34, 211, 238, 0.35);
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.mobile-dropdown-resume-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 22px rgba(34, 211, 238, 0.5);
-}
-
-.mobile-resume-icon {
-  flex-shrink: 0;
-}
-
-.mobile-dropdown-theme-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 6px 14px 2px;
-}
-
-.mobile-theme-label-wrap {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #94a3b8;
-  font-size: 0.94rem;
-  font-weight: 600;
-}
-
-[data-theme="light"] .mobile-theme-label-wrap {
-  color: #4b5563;
-}
-
-.mobile-theme-icon {
-  color: #38bdf8;
-}
-
-[data-theme="light"] .mobile-theme-icon {
+[data-theme="light"] .mobile-dropdown-link.active .mobile-nav-icon {
   color: #0891b2;
 }
 
-.mobile-theme-label {
+.mobile-dropdown-name {
+  font-size: 1.02rem;
   letter-spacing: -0.01em;
 }

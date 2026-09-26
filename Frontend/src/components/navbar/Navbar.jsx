@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { ThemeToggle } from './ThemeToggle/ThemeToggle';
-import { Menu, X, FileDown, SunMoon } from 'lucide-react';
+import { Menu, X, User, FileText, Cpu, Briefcase, Layers, Mail } from 'lucide-react';
 import './Navbar.css';
 import './NavbarResponsive.css';
 
 const NAV_ITEMS = [
-  { name: 'About Me', path: '/' },
-  { name: 'Resume', path: '/resume' },
-  { name: 'Skills', path: '/skills' },
-  { name: 'Experience', path: '/experience' },
-  { name: 'Projects', path: '/projects' },
-  { name: 'Contact Me', path: '/contact' },
+  { name: 'About Me', path: '/', icon: <User size={18} /> },
+  { name: 'Resume', path: '/resume', icon: <FileText size={18} /> },
+  { name: 'Skills', path: '/skills', icon: <Cpu size={18} /> },
+  { name: 'Experience', path: '/experience', icon: <Briefcase size={18} /> },
+  { name: 'Projects', path: '/projects', icon: <Layers size={18} /> },
+  { name: 'Contact Me', path: '/contact', icon: <Mail size={18} /> },
 ];
 
 export const Navbar = () => {
@@ -102,35 +102,12 @@ export const Navbar = () => {
                   onClick={() => setMobileMenuOpen(false)}
                   id={`mobile-nav-${item.name.toLowerCase().replace(/\s+/g, '-')}`}
                 >
+                  <span className="mobile-nav-icon">{item.icon}</span>
                   <span className="mobile-dropdown-name">{item.name}</span>
                 </NavLink>
               </li>
             ))}
           </ul>
-
-          {/* Mobile Actions: Download Resume & Appearance */}
-          <div className="mobile-dropdown-footer">
-            <div className="mobile-dropdown-resume-wrap">
-              <a
-                href={`${import.meta.env.BASE_URL.replace(/\/+$/, '')}/Gaurav_Chavda_Mern_Stack_Resume.pdf`}
-                download="Gaurav_Chavda_Mern_Stack_Resume.pdf"
-                className="mobile-dropdown-resume-btn"
-                onClick={() => setMobileMenuOpen(false)}
-                id="mobile-nav-resume-download"
-              >
-                <FileDown size={18} className="mobile-resume-icon" />
-                <span>Download Resume (PDF)</span>
-              </a>
-            </div>
-
-            <div className="mobile-dropdown-theme-row">
-              <div className="mobile-theme-label-wrap">
-                <SunMoon size={18} className="mobile-theme-icon" />
-                <span className="mobile-theme-label">Appearance</span>
-              </div>
-              <ThemeToggle />
-            </div>
-          </div>
         </nav>
       </div>
     </header>
