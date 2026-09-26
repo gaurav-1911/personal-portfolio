@@ -25,7 +25,7 @@ export const securityHeaders = helmet({
       styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
       fontSrc: ["'self'", 'https://fonts.gstatic.com', 'data:'],
       imgSrc: ["'self'", 'data:', 'https:'],
-      connectSrc: ["'self'", config.clientUrl],
+      connectSrc: ["'self'", 'https://gaurav-1911.github.io', config.clientUrl],
     },
   },
   frameguard: { action: 'deny' },
@@ -46,6 +46,8 @@ export const corsOptions = {
       'https://gaurav-1911.github.io',
       'http://localhost:5173',
       'http://127.0.0.1:5173',
+      'http://localhost:3000',
+      'http://127.0.0.1:3000',
       ...configuredOrigins
     ];
 
@@ -56,6 +58,7 @@ export const corsOptions = {
     return callback(ApiError.forbidden(`Origin '${origin}' not allowed by CORS policy`));
   },
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
   credentials: true,
   maxAge: 86400,
 };
