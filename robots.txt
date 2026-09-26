@@ -1,0 +1,5 @@
+# robots.txt for Gaurav Chavda Portfolio
+User-agent: *
+Allow: /
+
+Sitemap: https://gauravchavdavhits.github.io/personal-portfolio-/sitemap.xml
