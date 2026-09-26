@@ -3,6 +3,7 @@ import { Briefcase, Code2, Server, ShieldCheck, Layers, TrendingUp, MonitorSmart
 import { SEOHead } from '../../../components/common/SEOHead/SEOHead';
 import { useScrollTimeline } from '../../../hooks/useScrollTimeline';
 import './Experience.css';
+import './ExperienceResponsive.css';
 
 const JOURNEY_STAGES = [
   {

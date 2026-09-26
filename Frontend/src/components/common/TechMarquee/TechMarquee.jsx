@@ -1,6 +1,7 @@
 import React from 'react';
 import { TECH_ITEMS } from './TechItems';
 import './TechMarquee.css';
+import './TechMarqueeResponsive.css';
 
 export const TechMarquee = () => {
   // Quadruple items to guarantee an uninterrupted, never-ending infinite marquee on all screen sizes

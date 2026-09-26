@@ -1,0 +1,138 @@
+/* ==========================================================================
+   Project Details Page - Responsive Stylesheet
+   Mobile-first media query hierarchy
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Small Mobile (< 480px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+  .project-details-page {
+    padding: 12px 0 20px;
+  }
+
+  .breadcrumb-nav {
+    font-size: 0.8rem;
+    margin-bottom: 16px;
+    gap: 6px;
+  }
+
+  .breadcrumb-current {
+    max-width: 140px;
+  }
+
+  .project-details-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .project-details-card {
+    padding: 16px 14px;
+    border-radius: 14px;
+  }
+
+  .project-details-card h2 {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+  }
+
+  .project-details-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .project-details-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 10px 16px;
+    font-size: 0.88rem;
+  }
+
+  .project-details-desc {
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+
+  .feature-list-item {
+    font-size: 0.84rem;
+    gap: 8px;
+  }
+
+  .tech-badge-container {
+    gap: 6px;
+  }
+
+  .tech-badge {
+    font-size: 0.76rem;
+    padding: 3px 8px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile (481px - 640px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 481px) and (max-width: 640px) {
+  .project-details-page {
+    padding: 16px 0 24px;
+  }
+
+  .project-details-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .project-details-card {
+    padding: 20px 16px;
+  }
+
+  .project-details-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .project-details-btn {
+    width: 100%;
+  }
+
+  .breadcrumb-current {
+    max-width: 180px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Tablet (641px - 960px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 641px) and (max-width: 960px) {
+  .project-details-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+
+  .project-details-card-wide {
+    grid-column: 1 / -1;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Laptop & Desktop (961px - 1440px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 961px) and (max-width: 1440px) {
+  .project-details-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .project-details-card-wide {
+    grid-column: 1 / -1;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Large Desktop (> 1440px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 1441px) {
+  .project-details-page {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+}

@@ -246,32 +246,3 @@
    (used for hover text color, border & neon underline) */
 [data-theme='light'] .marquee-item-card[data-tech="Express.js"] { --brand-color: #64748b; --brand-glow: rgba(100, 116, 139, 0.25); }
 [data-theme='light'] .marquee-item-card[data-tech="JavaScript"] { --brand-color: #a16207; --brand-glow: rgba(161, 98, 7, 0.25); }
-
-@media (max-width: 768px) {
-  .tech-marquee-wrapper {
-    padding: 0 12px;
-  }
-
-  .tech-marquee-box {
-    padding: 24px 20px 28px;
-    border-radius: 18px;
-    gap: 16px;
-  }
-
-  .tech-marquee-title {
-    font-size: 1.55rem;
-  }
-
-  .tech-marquee-subtitle {
-    font-size: 0.88rem;
-  }
-
-  .marquee-item-card {
-    padding: 9px 18px;
-    gap: 10px;
-  }
-
-  .marquee-tech-name {
-    font-size: 0.86rem;
-  }
-}

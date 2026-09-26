@@ -1,0 +1,105 @@
+/* ==========================================================================
+   TechMarquee Responsive Styles
+   Mobile-first: Small Mobile → Mobile → Tablet → Laptop → Desktop → Large Desktop
+   ========================================================================== */
+
+/* Small Mobile (< 480px) */
+@media (max-width: 480px) {
+  .tech-marquee-wrapper {
+    padding: 0 8px;
+  }
+
+  .tech-marquee-box {
+    padding: 20px 14px 22px;
+    border-radius: 16px;
+    gap: 14px;
+  }
+
+  .tech-marquee-title {
+    font-size: 1.35rem;
+  }
+
+  .tech-marquee-subtitle {
+    font-size: 0.84rem;
+    line-height: 1.48;
+  }
+
+  .tech-marquee-accent-bar {
+    width: 32px;
+    height: 3px;
+  }
+
+  .marquee-item-card {
+    padding: 7px 14px;
+    gap: 8px;
+    border-radius: 10px;
+  }
+
+  .marquee-icon-box {
+    width: 22px;
+    height: 22px;
+  }
+
+  .marquee-tech-name {
+    font-size: 0.82rem;
+  }
+}
+
+/* Mobile (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .tech-marquee-wrapper {
+    padding: 0 12px;
+  }
+
+  .tech-marquee-box {
+    padding: 24px 18px 26px;
+    border-radius: 18px;
+    gap: 16px;
+  }
+
+  .tech-marquee-title {
+    font-size: 1.55rem;
+  }
+
+  .tech-marquee-subtitle {
+    font-size: 0.88rem;
+  }
+
+  .marquee-item-card {
+    padding: 8px 16px;
+    gap: 9px;
+  }
+
+  .marquee-tech-name {
+    font-size: 0.86rem;
+  }
+}
+
+/* Tablet (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .tech-marquee-box {
+    padding: 28px 24px 30px;
+  }
+
+  .tech-marquee-title {
+    font-size: 1.8rem;
+  }
+}
+
+/* Laptop & Desktop (1025px - 1440px) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .tech-marquee-box {
+    padding: 32px 36px 36px;
+  }
+}
+
+/* Large Desktop (> 1440px) */
+@media (min-width: 1441px) {
+  .tech-marquee-wrapper {
+    max-width: 1240px;
+  }
+
+  .tech-marquee-box {
+    padding: 36px 42px 40px;
+  }
+}

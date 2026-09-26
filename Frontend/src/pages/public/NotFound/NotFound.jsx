@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { Home, Compass, AlertTriangle } from 'lucide-react';
 import { SEOHead } from '../../../components/common/SEOHead/SEOHead';
 import './NotFound.css';
+import './NotFoundResponsive.css';
 
 export const NotFound = ({ isProject = false }) => {
   return (

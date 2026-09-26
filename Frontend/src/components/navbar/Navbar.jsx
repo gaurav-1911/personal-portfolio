@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { ThemeToggle } from './ThemeToggle/ThemeToggle';
-import { Menu, X, ArrowUpRight, FileDown } from 'lucide-react';
+import { Menu, X, FileDown, SunMoon } from 'lucide-react';
 import './Navbar.css';
+import './NavbarResponsive.css';
 
 const NAV_ITEMS = [
   { name: 'About Me', path: '/' },
+  { name: 'Resume', path: '/resume' },
   { name: 'Skills', path: '/skills' },
   { name: 'Experience', path: '/experience' },
   { name: 'Projects', path: '/projects' },
-  { name: 'Resume', path: '/resume' },
-  { name: 'Contact', path: '/contact' },
+  { name: 'Contact Me', path: '/contact' },
 ];
 
 export const Navbar = () => {
@@ -46,7 +47,7 @@ export const Navbar = () => {
           </span>
         </NavLink>
 
-        {/* Center: Navigation Links */}
+        {/* Center: Desktop Navigation Links */}
         <nav className="header-center" aria-label="Primary Navigation">
           <ul className="nav-list">
             {NAV_ITEMS.map((item) => (
@@ -70,53 +71,66 @@ export const Navbar = () => {
 
           <button
             type="button"
-            className="mobile-menu-toggle"
+            className={`mobile-menu-toggle ${mobileMenuOpen ? 'is-active' : ''}`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileMenuOpen}
             id="mobile-menu-button"
           >
-            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Dropdown Menu Card */}
+      {/* Mobile Backdrop */}
       <div
         className={`mobile-backdrop ${mobileMenuOpen ? 'open' : ''}`}
         onClick={() => setMobileMenuOpen(false)}
         aria-hidden="true"
       />
 
-      <div className={`mobile-nav-dropdown ${mobileMenuOpen ? 'open' : ''}`} aria-label="Mobile Navigation">
-        <div className="mobile-dropdown-header">
-          <button
-            type="button"
-            className="mobile-close-btn"
-            onClick={() => setMobileMenuOpen(false)}
-            aria-label="Close menu"
-          >
-            <X size={20} />
-          </button>
-        </div>
-
-        <nav className="mobile-nav-content">
-          <ul className="mobile-nav-list">
+      {/* Mobile Dropdown Card */}
+      <div className={`mobile-nav-dropdown-card ${mobileMenuOpen ? 'open' : ''}`} aria-label="Mobile Navigation">
+        <nav className="mobile-dropdown-nav">
+          <ul className="mobile-dropdown-list">
             {NAV_ITEMS.map((item) => (
-              <li key={item.path} className="mobile-nav-item">
+              <li key={item.path} className="mobile-dropdown-item">
                 <NavLink
                   to={item.path}
                   end={item.path === '/'}
-                  className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`}
+                  className={({ isActive }) => `mobile-dropdown-link ${isActive ? 'active' : ''}`}
                   onClick={() => setMobileMenuOpen(false)}
                   id={`mobile-nav-${item.name.toLowerCase().replace(/\s+/g, '-')}`}
                 >
-                  <span className="mobile-nav-indicator" />
-                  <span className="mobile-nav-name">{item.name}</span>
+                  <span className="mobile-dropdown-name">{item.name}</span>
                 </NavLink>
               </li>
             ))}
           </ul>
+
+          {/* Mobile Actions: Download Resume & Appearance */}
+          <div className="mobile-dropdown-footer">
+            <div className="mobile-dropdown-resume-wrap">
+              <a
+                href={`${import.meta.env.BASE_URL.replace(/\/+$/, '')}/Gaurav_Chavda_Mern_Stack_Resume.pdf`}
+                download="Gaurav_Chavda_Mern_Stack_Resume.pdf"
+                className="mobile-dropdown-resume-btn"
+                onClick={() => setMobileMenuOpen(false)}
+                id="mobile-nav-resume-download"
+              >
+                <FileDown size={18} className="mobile-resume-icon" />
+                <span>Download Resume (PDF)</span>
+              </a>
+            </div>
+
+            <div className="mobile-dropdown-theme-row">
+              <div className="mobile-theme-label-wrap">
+                <SunMoon size={18} className="mobile-theme-icon" />
+                <span className="mobile-theme-label">Appearance</span>
+              </div>
+              <ThemeToggle />
+            </div>
+          </div>
         </nav>
       </div>
     </header>

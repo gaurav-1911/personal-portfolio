@@ -13,6 +13,7 @@ import {
 import { SEOHead } from '../../../components/common/SEOHead/SEOHead';
 import { useScrollTimeline } from '../../../hooks/useScrollTimeline';
 import './Resume.css';
+import './ResumeResponsive.css';
 
 const SKILL_GROUPS = [
   {

@@ -1,0 +1,99 @@
+/* ==========================================================================
+   Skills Page - Responsive Stylesheet
+   Mobile-first media query hierarchy
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Small Mobile (< 480px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+  .skills-page {
+    padding: 16px 0 24px;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 18px;
+  }
+
+  .skills-category-card {
+    padding: 16px 14px;
+    border-radius: 14px;
+  }
+
+  .skills-category-header {
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .skills-category-title {
+    font-size: 1rem;
+  }
+
+  .skills-chips-wrapper {
+    gap: 6px;
+  }
+
+  .skills-chip {
+    font-size: 0.78rem;
+    padding: 3px 8px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile (481px - 640px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 481px) and (max-width: 640px) {
+  .skills-page {
+    padding: 24px 0 28px;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .skills-category-card {
+    padding: 20px 16px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Tablet (641px - 960px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 641px) and (max-width: 960px) {
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+
+  .skills-category-card {
+    padding: 22px 18px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Laptop & Desktop (961px - 1440px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 961px) and (max-width: 1440px) {
+  .skills-grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Large Desktop (> 1440px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 1441px) {
+  .skills-page {
+    max-width: 1200px;
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}

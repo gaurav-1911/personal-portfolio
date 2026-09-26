@@ -1,0 +1,41 @@
+/* ==========================================================================
+   PublicLayout Responsive Styles
+   Mobile-first: Small Mobile → Mobile → Tablet → Laptop → Desktop → Large Desktop
+   ========================================================================== */
+
+/* Small Mobile (< 480px) */
+@media (max-width: 480px) {
+  .main-content {
+    padding: calc(var(--header-height) + 4px) 12px 18px;
+  }
+}
+
+/* Mobile (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .main-content {
+    padding: calc(var(--header-height) + 6px) 16px 20px;
+  }
+}
+
+/* Tablet (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .main-content {
+    padding: calc(var(--header-height) + 8px) 20px 24px;
+  }
+}
+
+/* Laptop & Desktop (1025px - 1440px) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .main-content {
+    padding: calc(var(--header-height) + 8px) 24px 28px;
+    max-width: 1200px;
+  }
+}
+
+/* Large Desktop (> 1440px) */
+@media (min-width: 1441px) {
+  .main-content {
+    max-width: 1280px;
+    padding: calc(var(--header-height) + 12px) 32px 36px;
+  }
+}

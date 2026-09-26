@@ -1,0 +1,161 @@
+/* ==========================================================================
+   Navbar Responsive Stylesheet
+   Mobile-first media query hierarchy
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Small Mobile (< 480px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+  .header-container {
+    padding: 0 14px;
+    gap: 8px;
+  }
+
+  .header-center {
+    display: none;
+  }
+
+  .mobile-menu-toggle {
+    display: flex;
+    width: 36px;
+    height: 36px;
+  }
+
+  .theme-toggle-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .logo-mark {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+  }
+
+  .logo-initials {
+    font-size: 0.82rem;
+  }
+
+  .logo-text {
+    font-size: 1.05rem;
+    gap: 4px;
+  }
+
+  .header-right {
+    gap: 6px;
+  }
+
+  .mobile-nav-dropdown-card {
+    top: calc(var(--header-height) + 8px);
+    left: 12px;
+    right: 12px;
+    max-width: calc(100vw - 24px);
+    border-radius: 18px;
+    padding: 8px;
+  }
+
+  .mobile-dropdown-link {
+    padding: 12px 16px;
+    font-size: 0.98rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile (481px - 768px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 481px) and (max-width: 768px) {
+  .header-container {
+    padding: 0 18px;
+  }
+
+  .header-center {
+    display: none;
+  }
+
+  .mobile-menu-toggle {
+    display: flex;
+  }
+
+  .mobile-nav-dropdown-card {
+    top: calc(var(--header-height) + 10px);
+    left: 18px;
+    right: 18px;
+    max-width: 400px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Tablet (769px - 980px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 769px) and (max-width: 980px) {
+  .header-container {
+    padding: 0 20px;
+  }
+
+  .header-center {
+    display: none;
+  }
+
+  .mobile-menu-toggle {
+    display: flex;
+  }
+
+  .mobile-nav-dropdown-card {
+    top: calc(var(--header-height) + 12px);
+    max-width: 380px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Laptop (981px - 1280px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 981px) and (max-width: 1280px) {
+  .header-container {
+    padding: 0 24px;
+  }
+
+  .header-center {
+    display: flex;
+  }
+
+  .mobile-menu-toggle {
+    display: none;
+  }
+
+  .mobile-nav-dropdown-card {
+    display: none;
+  }
+
+  .nav-link {
+    padding: 8px 14px;
+    font-size: 0.88rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Desktop & Large Desktop (> 1280px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 1281px) {
+  .header-container {
+    max-width: 1280px;
+    padding: 0 24px;
+  }
+
+  .header-center {
+    display: flex;
+  }
+
+  .mobile-menu-toggle {
+    display: none;
+  }
+
+  .mobile-nav-dropdown-card {
+    display: none;
+  }
+
+  .nav-link {
+    padding: 8px 18px;
+    font-size: 0.92rem;
+  }
+}

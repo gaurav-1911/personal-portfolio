@@ -4,6 +4,7 @@ import { User, Target, Cpu, TrendingUp, CheckCircle2, Mail, Phone, MapPin, FileD
 import { GithubIcon, LinkedinIcon } from '../../../components/common/SocialIcons/SocialIcons';
 import { SEOHead } from '../../../components/common/SEOHead/SEOHead';
 import './About.css';
+import './AboutResponsive.css';
 
 const About = () => {
   const gridRef = useRef(null);

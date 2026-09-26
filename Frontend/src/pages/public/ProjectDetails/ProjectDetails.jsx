@@ -6,6 +6,7 @@ import { SEOHead } from '../../../components/common/SEOHead/SEOHead';
 import { SITE_URL } from '../../../config/site';
 import { NotFound } from '../NotFound/NotFound';
 import './ProjectDetails.css';
+import './ProjectDetailsResponsive.css';
 
 const PROJECT_DETAILS = {
   'solar-management-system': {

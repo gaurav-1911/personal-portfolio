@@ -2,6 +2,7 @@ import React from 'react';
 import { Cpu, Layout, Server, Database, Shield, Wrench, GraduationCap } from 'lucide-react';
 import { SEOHead } from '../../../components/common/SEOHead/SEOHead';
 import './Skills.css';
+import './SkillsResponsive.css';
 
 const SKILL_CATEGORIES = [
   {

@@ -1,0 +1,154 @@
+/* ==========================================================================
+   Experience Page - Responsive Stylesheet
+   Mobile-first media query hierarchy
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Small Mobile (< 480px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+  .experience-page {
+    padding: 24px 0 28px;
+  }
+
+  .exp-context-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 16px;
+    border-radius: 14px;
+  }
+
+  .exp-context-divider {
+    display: none;
+  }
+
+  .exp-context-role {
+    padding: 0;
+    font-size: 0.88rem;
+  }
+
+  .timeline-container {
+    padding-left: 24px;
+    margin-top: 24px;
+  }
+
+  .timeline-line {
+    left: 6px;
+  }
+
+  .timeline-node {
+    left: -24px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .timeline-node-dot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .timeline-card {
+    padding: 14px 16px;
+    border-radius: 14px;
+  }
+
+  .timeline-card-header {
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .timeline-card-title {
+    font-size: 0.98rem;
+  }
+
+  .timeline-card-desc {
+    font-size: 0.86rem;
+    line-height: 1.55;
+    margin-bottom: 10px;
+  }
+
+  .timeline-tags {
+    gap: 4px;
+  }
+
+  .timeline-tag {
+    font-size: 0.68rem;
+    padding: 2px 8px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile (481px - 768px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 481px) and (max-width: 768px) {
+  .exp-context-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 18px 20px;
+  }
+
+  .exp-context-divider {
+    display: none;
+  }
+
+  .exp-context-role {
+    padding: 0;
+  }
+
+  .timeline-container {
+    padding-left: 32px;
+  }
+
+  .timeline-line {
+    left: 9px;
+  }
+
+  .timeline-node {
+    left: -32px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .timeline-node-dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .timeline-card {
+    padding: 18px 20px;
+  }
+
+  .timeline-card-title {
+    font-size: 1rem;
+  }
+
+  .timeline-card-desc {
+    font-size: 0.88rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Tablet & Laptop (769px - 1440px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 769px) and (max-width: 1440px) {
+  .timeline-container {
+    padding-left: 48px;
+  }
+
+  .timeline-card {
+    padding: 24px 28px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Large Desktop (> 1440px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 1441px) {
+  .experience-page {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+}

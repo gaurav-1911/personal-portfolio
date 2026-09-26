@@ -6,6 +6,7 @@ import { GithubIcon, LinkedinIcon } from '../../../components/common/SocialIcons
 import { SEOHead } from '../../../components/common/SEOHead/SEOHead';
 import api from '../../../services/api';
 import './Contact.css';
+import './ContactResponsive.css';
 
 /**
  * Yup validation schema matching user's exact requirements and backend Joi rules.

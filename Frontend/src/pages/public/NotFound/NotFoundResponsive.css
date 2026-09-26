@@ -1,0 +1,65 @@
+/* ==========================================================================
+   404 Not Found - Responsive Stylesheet
+   Mobile-first media query hierarchy
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Small Mobile (< 480px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+  .not-found-page {
+    padding: 32px 16px;
+  }
+
+  .not-found-container {
+    padding: 32px 18px;
+    border-radius: 16px;
+  }
+
+  .not-found-icon-wrap {
+    width: 60px;
+    height: 60px;
+  }
+
+  .not-found-code {
+    font-size: 2.6rem;
+  }
+
+  .not-found-title {
+    font-size: 1.25rem;
+  }
+
+  .not-found-description {
+    font-size: 0.88rem;
+    margin-bottom: 24px;
+  }
+
+  .not-found-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .not-found-btn {
+    width: 100%;
+    padding: 11px 18px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile & Tablet (481px - 960px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 481px) and (max-width: 960px) {
+  .not-found-container {
+    padding: 40px 28px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Desktop (> 961px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 961px) {
+  .not-found-page {
+    padding: 60px 24px;
+  }
+}

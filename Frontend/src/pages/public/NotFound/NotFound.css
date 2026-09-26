@@ -107,25 +107,4 @@
   transition: var(--transition-smooth);
 }
 
-@media (max-width: 480px) {
-  .not-found-container {
-    padding: 36px 20px;
-  }
 
-  .not-found-code {
-    font-size: 2.8rem;
-  }
-
-  .not-found-title {
-    font-size: 1.35rem;
-  }
-
-  .not-found-actions {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .not-found-btn {
-    width: 100%;
-  }
-}

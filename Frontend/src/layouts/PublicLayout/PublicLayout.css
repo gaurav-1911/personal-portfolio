@@ -1,9 +1,10 @@
-/* PublicLayout Component Styles */
+/* PublicLayout Component Base Styles */
 .app-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   position: relative;
+  overflow-x: hidden;
 }
 
 .main-content {
@@ -14,10 +15,5 @@
   padding: calc(var(--header-height) + 8px) 24px 24px;
   position: relative;
   z-index: 1;
-}
-
-@media (max-width: 768px) {
-  .main-content {
-    padding: calc(var(--header-height) + 6px) 16px 20px;
-  }
+  box-sizing: border-box;
 }

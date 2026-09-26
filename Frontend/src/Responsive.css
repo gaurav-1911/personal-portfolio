@@ -1,0 +1,102 @@
+/* ==========================================================================
+   Global Responsive Stylesheet
+   Mobile-first media query hierarchy for global layouts & shared primitives
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Small Mobile (< 480px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+  :root {
+    --header-height: 64px;
+  }
+
+  .main-content {
+    padding-top: calc(var(--header-height) + 6px);
+    padding-bottom: 20px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .page-hero {
+    padding: 24px 16px;
+    border-radius: 16px;
+    margin-top: 12px;
+  }
+
+  .badge-tag {
+    font-size: 0.78rem;
+    padding: 4px 10px;
+    margin-bottom: 12px;
+  }
+
+  .page-title {
+    font-size: 1.75rem;
+    margin-bottom: 10px;
+  }
+
+  .page-description {
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  /* Prevent any unwanted horizontal overflow */
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile (481px - 768px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 481px) and (max-width: 768px) {
+  :root {
+    --header-height: 70px;
+  }
+
+  .main-content {
+    padding-top: calc(var(--header-height) + 8px);
+    padding-bottom: 24px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .page-hero {
+    padding: 32px 24px;
+    border-radius: 18px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Tablet (769px - 1024px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .main-content {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .page-hero {
+    padding: 40px 32px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Laptop & Desktop (1025px - 1440px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .main-content {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Large Desktop (> 1440px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 1441px) {
+  .main-content {
+    max-width: 1360px;
+  }
+}

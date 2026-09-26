@@ -18,31 +18,7 @@
   align-items: stretch;
 }
 
-@media (max-width: 960px) {
-  .connect-container {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    margin-top: 16px;
-  }
-}
 
-@media (max-width: 640px) {
-  .connect-left-card {
-    padding: 24px 20px;
-  }
-
-  .connect-right-card {
-    padding: 24px 20px;
-  }
-
-  .connect-heading {
-    font-size: 1.5rem;
-  }
-
-  .connect-submit-btn {
-    width: 100%;
-  }
-}
 
 .connect-card {
   background: var(--bg-elevated);
@@ -196,12 +172,7 @@
   gap: 20px;
 }
 
-@media (max-width: 640px) {
-  .form-grid-row {
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
-}
+
 
 .form-field-group {
   display: flex;

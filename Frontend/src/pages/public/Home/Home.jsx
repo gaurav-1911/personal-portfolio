@@ -22,6 +22,7 @@ import { TechMarquee } from '../../../components/common/TechMarquee/TechMarquee'
 import { SEOHead } from '../../../components/common/SEOHead/SEOHead';
 import { SITE_URL } from '../../../config/site';
 import './Home.css';
+import './HomeResponsive.css';
 
 const buildHomeSchema = () => ({
   '@context': 'https://schema.org',

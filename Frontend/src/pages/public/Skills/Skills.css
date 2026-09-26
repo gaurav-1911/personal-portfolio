@@ -74,19 +74,3 @@
   color: var(--accent-primary);
   transform: translateY(-1px);
 }
-
-@media (max-width: 640px) {
-  .skills-page {
-    padding: 24px 0 28px;
-  }
-
-  .skills-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-    margin-top: 24px;
-  }
-
-  .skills-category-card {
-    padding: 20px 16px;
-  }
-}

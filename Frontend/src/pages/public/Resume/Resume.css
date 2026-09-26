@@ -964,69 +964,7 @@
   flex-shrink: 0;
 }
 
-/* ==========================================================================
-   8. Responsive Media Queries
-   ========================================================================== */
-@media (max-width: 1024px) {
-  .resume-grid-layout {
-    grid-template-columns: 300px 1fr;
-    gap: 20px;
-  }
-}
 
-@media (max-width: 860px) {
-  .resume-grid-layout {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-
-  .experience-main-card {
-    padding: 24px 18px;
-  }
-
-  .experience-timeline-container {
-    padding-left: 20px;
-  }
-
-  .timeline-node-marker {
-    left: -20px;
-  }
-
-  .job-headline-row {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .resume-section-card:hover {
-    transform: none;
-    /* Keep stable on touch devices */
-  }
-
-  .resume-ambient-glow {
-    height: 380px;
-    animation: none;
-    /* Conserve mobile battery & GPU */
-    opacity: 0.5;
-  }
-}
-
-@media (max-width: 768px) {
-  .resume-hero-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-
-  .resume-actions-row {
-    width: 100%;
-  }
-
-  .btn-resume-download,
-  .btn-resume-view {
-    flex: 1;
-    justify-content: center;
-  }
-}
 
 /* ==========================================================================
    9. Accessibility: Reduced Motion

@@ -4,6 +4,7 @@ import { Layers, ExternalLink, ArrowRight, CheckCircle2, Star } from 'lucide-rea
 import { GithubIcon } from '../../../components/common/SocialIcons/SocialIcons';
 import { SEOHead } from '../../../components/common/SEOHead/SEOHead';
 import './Projects.css';
+import './ProjectsResponsive.css';
 
 const PROJECTS_DATA = [
   {

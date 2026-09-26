@@ -1,0 +1,218 @@
+/* ==========================================================================
+   About Page - Responsive Stylesheet
+   Mobile-first media query hierarchy
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Small Mobile (< 480px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+  .about-page {
+    padding: 4px 0 20px;
+  }
+
+  .about-hero-section {
+    margin-bottom: 24px;
+  }
+
+  .hero-image-wrapper {
+    margin-bottom: 2px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero-image-container {
+    max-width: 175px;
+    border-radius: 18px;
+  }
+
+  .about-hero-name {
+    font-size: 1.85rem;
+    line-height: 1.2;
+  }
+
+  .about-hero-role {
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+
+  .about-hero-bio {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .about-contact-strip {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.86rem;
+  }
+
+  .hero-actions-row {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .btn-get-in-touch,
+  .btn-view-resume {
+    width: 100%;
+    padding: 12px 20px;
+    justify-content: center;
+  }
+
+  .about-me-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .about-box {
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
+
+  .about-box-title {
+    font-size: 1.15rem;
+  }
+
+  .philosophy-quote {
+    font-size: 0.88rem;
+    padding: 12px 14px;
+  }
+
+  .workflow-step {
+    padding: 10px 12px;
+  }
+
+  .growing-chips-container {
+    gap: 8px;
+  }
+
+  .growing-chip {
+    padding: 6px 12px;
+    font-size: 0.82rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile (481px - 640px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 481px) and (max-width: 640px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .hero-image-wrapper {
+    order: -1;
+    margin-bottom: 4px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero-image-container {
+    max-width: 200px;
+    border-radius: 20px;
+  }
+
+  .hero-content {
+    align-items: center;
+    text-align: center;
+    order: 1;
+  }
+
+  .hero-actions-row {
+    justify-content: center;
+  }
+
+  .about-contact-strip {
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .about-me-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .about-box {
+    padding: 22px 18px;
+    border-radius: 18px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Tablet (641px - 960px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 641px) and (max-width: 960px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    text-align: center;
+  }
+
+  .hero-image-wrapper {
+    order: -1;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero-image-container {
+    max-width: 220px;
+    border-radius: 20px;
+  }
+
+  .hero-content {
+    align-items: center;
+    text-align: center;
+    order: 1;
+  }
+
+  .hero-actions-row {
+    justify-content: center;
+  }
+
+  .about-contact-strip {
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .about-me-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .about-box {
+    padding: 24px 20px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Laptop & Desktop (961px - 1440px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 961px) and (max-width: 1440px) {
+  .hero-grid {
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+  }
+
+  .about-me-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Large Desktop (> 1440px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 1441px) {
+  .about-page {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+}
