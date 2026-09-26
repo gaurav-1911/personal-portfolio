@@ -34,10 +34,12 @@ const startServer = async () => {
 
     // --- SMTP connection ---
     try {
-      await MailService.verifyConnection();
-      console.log('✅ SMTP connection verified.');
+      const isVerified = await MailService.verifyConnection();
+      if (isVerified) {
+        console.log('✅ SMTP connection verified.');
+      }
     } catch (error) {
-      console.error('⚠️ SMTP connection verification failed:', error);
+      console.error('⚠️ SMTP connection verification error:', error);
     }
 
     // --- Graceful shutdown ---

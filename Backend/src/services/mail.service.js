@@ -11,12 +11,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const TEMPLATES_DIR = path.resolve(__dirname, '../templates/emails');
 
-//
-// Mail is considered "configured" only when both user & app-password are set.
-// Without EMAIL_PASS we skip SMTP entirely and surface ONE clear, actionable
-// notice instead of repeated scary 535 BadCredentials auth errors.
-//
-const isMailConfigured = () => Boolean(config.mail.user && config.mail.pass);
+// Helper to sanitize the password (strip spaces if user copied Google App Password with spaces)
+const getCleanPass = () => (config.mail.pass ? String(config.mail.pass).trim().replace(/\s+/g, '') : '');
+const isMailConfigured = () => Boolean(config.mail.user && getCleanPass());
 
 let mailNoticeShown = false;
 const warnMailNotConfigured = () => {
@@ -48,21 +45,43 @@ const warnMailBadCredentials = (raw) => {
   }
 };
 
-// Create Nodemailer Transporter with hard connection/socket timeouts so a
-// slow or unreachable SMTP server fails fast instead of blocking the request
-// for the full 15s server timeout (or hanging the contact submission flow).
-const transporter = nodemailer.createTransport({
-  host: config.mail.host,
-  port: config.mail.port,
-  secure: config.mail.secure,
-  connectionTimeout: 5000, // give up connecting after 5s
-  greetingTimeout: 5000,   // give up if SMTP greeting is late
-  socketTimeout: 8000,     // give up on idle sockets after 8s
-  auth: {
-    user: config.mail.user,
-    pass: config.mail.pass,
-  },
-});
+/**
+ * Creates Nodemailer Transporter dynamically with resilient timeouts and
+ * native Gmail service optimization.
+ */
+const getTransporter = () => {
+  const cleanPass = getCleanPass();
+  const isGmail = config.mail.host === 'smtp.gmail.com' || (config.mail.user && config.mail.user.endsWith('@gmail.com'));
+
+  if (isGmail) {
+    return nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: config.mail.user,
+        pass: cleanPass,
+      },
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 15000,
+    });
+  }
+
+  return nodemailer.createTransport({
+    host: config.mail.host,
+    port: config.mail.port,
+    secure: config.mail.secure,
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 15000,
+    auth: {
+      user: config.mail.user,
+      pass: cleanPass,
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
+  });
+};
 
 export const MailService = {
   /**
@@ -74,8 +93,9 @@ export const MailService = {
       return false;
     }
     try {
+      const transporter = getTransporter();
       await transporter.verify();
-      console.log('✅ Nodemailer SMTP connection verified successfully (Gmail).');
+      console.log('✅ Nodemailer SMTP connection verified successfully.');
       return true;
     } catch (err) {
       if (err && (err.code === 'EAUTH' || /535|BadCredentials|Username and Password not accepted/i.test(err.message || ''))) {
@@ -119,6 +139,7 @@ export const MailService = {
       html,
     };
 
+    const transporter = getTransporter();
     return transporter.sendMail(mailOptions);
   },
 
@@ -146,6 +167,7 @@ export const MailService = {
       html,
     };
 
+    const transporter = getTransporter();
     return transporter.sendMail(mailOptions);
   },
 
@@ -158,7 +180,7 @@ export const MailService = {
       throw new Error('SMTP not configured: set EMAIL_PASS in Backend/.env');
     }
     const templatePath = path.join(TEMPLATES_DIR, 'passwordReset.ejs');
-    const apiBase = config.clientUrl; // Used as display link base for the reset endpoint
+    const apiBase = config.clientUrl;
 
     const html = await ejs.renderFile(templatePath, {
       token,
@@ -172,6 +194,7 @@ export const MailService = {
       html,
     };
 
+    const transporter = getTransporter();
     return transporter.sendMail(mailOptions);
   },
 };
