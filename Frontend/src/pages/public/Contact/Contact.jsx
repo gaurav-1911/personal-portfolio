@@ -140,7 +140,7 @@ const Contact = () => {
           {/* Social Profiles */}
           <div className="connect-social-links">
             <a
-              href="https://github.com/gauravchavdavhits"
+              href="https://github.com/gaurav-1911"
               target="_blank"
               rel="noopener noreferrer"
               className="connect-social-btn"

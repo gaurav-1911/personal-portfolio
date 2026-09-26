@@ -82,13 +82,13 @@ const About = () => {
                 <span>Jay Ambe Nagar, Thaltej, Ahmedabad - 380054</span>
               </span>
               <a
-                href="https://github.com/gauravchavdavhits"
+                href="https://github.com/gaurav-1911"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="about-contact-item"
               >
                 <GithubIcon size={15} />
-                <span>gauravchavdavhits</span>
+                <span>gaurav-1911</span>
               </a>
               <a
                 href="https://www.linkedin.com/in/chavda-gaurav"

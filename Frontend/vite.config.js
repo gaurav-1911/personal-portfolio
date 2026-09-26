@@ -8,7 +8,7 @@ import { defineConfig, loadEnv } from 'vite'
  * Canonical site URL used for robots.txt + sitemap.xml generation.
  * Points to the official production GitHub Pages deployment.
  */
-const SITE_URL_FALLBACK = 'https://gauravchavdavhits.github.io/personal-portfolio-'
+const SITE_URL_FALLBACK = 'https://gaurav-1911.github.io/personal-portfolio'
 
 /**
  * Generates robots.txt and sitemap.xml from the configured site URL at build time.
@@ -80,7 +80,7 @@ export default defineConfig(({ mode }) => {
   const siteUrl = (env.VITE_SITE_URL || '').replace(/\/+$/, '')
 
   return {
-    base: '/personal-portfolio-/',
+    base: '/personal-portfolio/',
     plugins: [
       react(),
       babel({ presets: [reactCompilerPreset()] }),

@@ -44,7 +44,7 @@ const buildHomeSchema = () => ({
         addressCountry: 'IN',
       },
       sameAs: [
-        'https://github.com/gauravchavdavhits',
+        'https://github.com/gaurav-1911',
         'https://www.linkedin.com/in/chavda-gaurav',
       ],
       knowsAbout: [
@@ -189,12 +189,12 @@ const Home = () => {
             {/* Direct Social & Contact Channels */}
             <div className="hero-social-strip">
               <a
-                href="https://github.com/gauravchavdavhits"
+                href="https://github.com/gaurav-1911"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-icon-btn"
                 aria-label="Gaurav Chavda GitHub Profile"
-                title="GitHub: https://github.com/gauravchavdavhits"
+                title="GitHub: https://github.com/gaurav-1911"
               >
                 <GithubIcon size={18} />
               </a>

@@ -15,7 +15,7 @@ services:
       - key: TRUST_PROXY
         value: 1
       - key: CLIENT_URL
-        value: https://gauravchavdavhits.github.io
+        value: https://gaurav-1911.github.io
       - key: MONGODB_URI
         sync: false
       - key: ADMIN_API_KEY

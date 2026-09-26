@@ -17,7 +17,7 @@ const PROJECT_DETAILS = {
     architecture: 'Modular REST API architecture with role authorization middleware and isolated business logic services.',
     challenges: 'Coordinating state transitions across multiple administrative approval tiers and generating accurate dynamic quotations.',
     outcomes: 'Reduced manual administrative overhead by 70% with automated quotation emails and subsidy verification checklists.',
-    githubUrl: 'https://github.com/gauravchavdavhits',
+    githubUrl: 'https://github.com/gaurav-1911',
     liveUrl: '#',
   },
   'bidirectional-chat-platform': {
@@ -29,7 +29,7 @@ const PROJECT_DETAILS = {
     architecture: 'Event-driven WebSocket architecture layered over modular Express.js controllers, integrated with interactive React custom hooks and media stream state management.',
     challenges: 'Handling ICE candidate negotiation, NAT traversal through STUN servers, device permissions switching, and reconnecting interrupted socket states cleanly.',
     outcomes: 'Sub-50ms message delivery latency, crystal-clear peer-to-peer video streaming with zero server media bandwidth overhead, and resilient JWT authentication.',
-    githubUrl: 'https://github.com/gauravchavdavhits',
+    githubUrl: 'https://github.com/gaurav-1911',
     liveUrl: '#',
   },
 };

@@ -43,7 +43,7 @@ export const corsOptions = {
       .filter(Boolean);
 
     const defaultAllowed = [
-      'https://gauravchavdavhits.github.io',
+      'https://gaurav-1911.github.io',
       'http://localhost:5173',
       'http://127.0.0.1:5173',
       ...configuredOrigins
