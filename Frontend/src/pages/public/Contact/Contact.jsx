@@ -24,11 +24,11 @@ const contactValidationSchema = Yup.object({
     .required('Email is required'),
   phone: Yup.string()
     .trim()
-    .matches(/^[0-9+\s\-()]{7,25}$/, 'Please enter a valid phone number (7-25 digits, +, hyphens allowed)')
+    .matches(/^[0-9]{10}$/, 'Phone number must be exactly 10 digits')
     .required('Phone number is required'),
   address: Yup.string()
     .trim()
-    .max(250, 'Address cannot exceed 250 characters'),
+    .max(100, 'Address cannot exceed 100 characters'),
   message: Yup.string()
     .trim()
     .min(5, 'Message must be at least 5 characters')
@@ -236,12 +236,33 @@ const Contact = () => {
                   PHONE NUMBER <span className="required-star">*</span>
                 </label>
                 <input
-                  type="text"
+                  type="tel"
                   id="phone"
                   name="phone"
-                  placeholder="10-digit mobile number"
+                  inputMode="numeric"
+                  maxLength={10}
+                  pattern="[0-9]*"
+                  placeholder="10-digit mobile number (e.g. 9876543210)"
                   value={formik.values.phone}
-                  onChange={formik.handleChange}
+                  onChange={(e) => {
+                    // Strictly keep only digits and cap at 10 digits
+                    const digitsOnly = e.target.value.replace(/\D/g, '').slice(0, 10);
+                    formik.setFieldValue('phone', digitsOnly);
+                  }}
+                  onKeyDown={(e) => {
+                    // Allow navigation, edit keys, and shortcuts
+                    if (
+                      ['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(e.key) ||
+                      e.ctrlKey ||
+                      e.metaKey
+                    ) {
+                      return;
+                    }
+                    // Prevent any character that is not a digit 0-9
+                    if (!/^\d$/.test(e.key)) {
+                      e.preventDefault();
+                    }
+                  }}
                   onBlur={formik.handleBlur}
                   className={`form-field-input ${formik.touched.phone && formik.errors.phone ? 'has-error' : ''}`}
                 />
@@ -260,7 +281,8 @@ const Contact = () => {
                   type="text"
                   id="address"
                   name="address"
-                  placeholder="Your address (optional)"
+                  maxLength={100}
+                  placeholder="Your address (max 100 characters)"
                   value={formik.values.address}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}

@@ -35,23 +35,23 @@ const email = Joi.string()
 
 const phone = Joi.string()
   .trim()
-  .pattern(/^[0-9+\s\-()]{7,25}$/)
+  .pattern(/^[0-9]{10}$/)
   .required()
   .messages({
     'string.base': 'Phone number must be a valid text string',
     'string.empty': 'Phone number is required',
-    'string.pattern.base': 'Please enter a valid phone number (7-25 digits, +, hyphens allowed)',
+    'string.pattern.base': 'Phone number must be exactly 10 digits',
     'any.required': 'Phone number is required',
   });
 
 const address = Joi.string()
   .trim()
-  .max(250)
+  .max(100)
   .allow('', null)
   .optional()
   .messages({
     'string.base': 'Address must be a valid text string',
-    'string.max': 'Address cannot exceed 250 characters',
+    'string.max': 'Address cannot exceed 100 characters',
   });
 
 const subject = Joi.string()

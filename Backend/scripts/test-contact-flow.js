@@ -10,7 +10,7 @@ async function testContact() {
     const result = await ContactService.createMessage({
       name: 'Gaurav Live Test',
       email: 'gauravbhai1911@gmail.com',
-      phone: '+91 75758 58502',
+      phone: '7575858502',
       address: 'Ahmedabad, India',
       subject: 'Live Contact Form Test',
       message: 'Testing contact submission with awaited SMTP delivery to ensure zero dropped emails on cloud hosting.',
