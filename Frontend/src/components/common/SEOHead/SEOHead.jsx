@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import { SITE_URL } from '../../../config/site';
 
 export const SEOHead = ({
-  title = 'Gaurav Chavda | MERN Stack Developer & Software Engineer',
+  title = 'Gaurav Chavda | MERN Stack Developer',
   description = 'Portfolio of Gaurav Chavda — MERN Stack Developer specializing in React.js, Node.js, Express.js, MongoDB, scalable REST APIs, and modern web architectures.',
   canonicalPath = '/',
   ogImage = '/developer_portrait.jpg',
