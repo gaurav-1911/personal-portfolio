@@ -6,6 +6,7 @@ import ContactModel from '../models/contact.model.js';
 import MailService from './mail.service.js';
 import ApiError from '../common/ApiError.js';
 import { HTTP_STATUS } from '../config/constants.js';
+import { config } from '../config/env.js';
 
 export const ContactService = {
   async createMessage(payload) {
@@ -18,32 +19,39 @@ export const ContactService = {
 
     const doc = await ContactModel.create(payload);
 
-    // Send emails NON-blocking (fire-and-forget). Notification + auto-reply run
-    // in the background so the API responds instantly and a slow/offline SMTP
-    // server can never hold up the contact submission (previously ~5.5s).
-    Promise.allSettled([
-      MailService.sendContactNotification({
-        name: doc.name,
-        email: doc.email,
-        phone: doc.phone,
-        address: doc.address,
-        subject: doc.subject,
-        message: doc.message,
-      }),
-      MailService.sendAutoReply({
-        name: doc.name,
-        email: doc.email,
-        subject: doc.subject,
-        message: doc.message,
-      }),
-    ]).then((results) => {
-      results.forEach((result, i) => {
+    // Await email delivery so cloud platforms (Render/AWS) do not freeze the
+    // event loop before the SMTP handshake completes, while ensuring any email
+    // error does not fail the contact submission response.
+    try {
+      const emailResults = await Promise.allSettled([
+        MailService.sendContactNotification({
+          name: doc.name,
+          email: doc.email,
+          phone: doc.phone,
+          address: doc.address,
+          subject: doc.subject,
+          message: doc.message,
+        }),
+        MailService.sendAutoReply({
+          name: doc.name,
+          email: doc.email,
+          subject: doc.subject,
+          message: doc.message,
+        }),
+      ]);
+
+      emailResults.forEach((result, i) => {
         if (result.status === 'rejected') {
           const kind = i === 0 ? 'notification email' : 'auto-reply email';
           console.error(`❌ Failed to send ${kind}:`, result.reason?.message || result.reason);
+        } else {
+          const kind = i === 0 ? 'notification email' : 'auto-reply email';
+          console.log(`✅ ${kind} successfully sent to ${i === 0 ? config.mail.to : doc.email}.`);
         }
       });
-    });
+    } catch (mailErr) {
+      console.error('❌ Mail dispatch exception:', mailErr?.message || mailErr);
+    }
 
     return { id: doc.id, name: doc.name, email: doc.email, subject: doc.subject, createdAt: doc.createdAt };
   },
