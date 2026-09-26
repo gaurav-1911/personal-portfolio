@@ -42,12 +42,9 @@ jobs:
         working-directory: ./Frontend
         env:
           GITHUB_PAGES: 'true'
-          VITE_SITE_URL: https://gauravchavdavhits.github.io/personal-portfolio-
-          VITE_API_URL: https://personal-portfolio-backend.onrender.com/api/v1
-        run: |
-          npm run build
-          # Create 404.html to handle client-side routing on GitHub Pages
-          cp dist/index.html dist/404.html
+          VITE_SITE_URL: https://gaurav-1911.github.io/personal-portfolio
+          VITE_API_URL: https://personal-portfolio-backend-cyym.onrender.com/api/v1
+        run: npm run build
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
