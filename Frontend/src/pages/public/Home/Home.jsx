@@ -16,6 +16,8 @@ import {
   Cpu,
   TrendingUp,
   Phone,
+  Zap,
+  Workflow,
 } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../../../components/common/SocialIcons/SocialIcons';
 import { TechMarquee } from '../../../components/common/TechMarquee/TechMarquee';
@@ -104,6 +106,16 @@ const WHAT_I_BUILD = [
     icon: <Database className="service-icon" size={24} />,
     title: 'Database Architecture',
     desc: 'Scalable data models and query optimization using MongoDB with Mongoose and relational schema design with MySQL.',
+  },
+  {
+    icon: <Zap className="service-icon" size={24} />,
+    title: 'Real-Time Communication',
+    desc: 'Bidirectional event-driven architectures with Socket.IO and WebRTC for live messaging, notifications, and real-time state synchronization.',
+  },
+  {
+    icon: <Workflow className="service-icon" size={24} />,
+    title: 'Automated Pipelines & Tools',
+    desc: 'File uploads with Multer, automated transactional emails via Nodemailer, dynamic PDF quotation engines, and robust data validation.',
   },
 ];
 
