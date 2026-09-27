@@ -64,32 +64,20 @@ const getTransporter = () => {
   const cleanPass = getCleanPass();
   const mailUser = getMailUser();
   const mailHost = getMailHost();
-  const isGmail = mailHost === 'smtp.gmail.com' || (mailUser && mailUser.endsWith('@gmail.com'));
-
-  if (isGmail) {
-    return nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: mailUser,
-        pass: cleanPass,
-      },
-      connectionTimeout: 10000,
-      greetingTimeout: 10000,
-      socketTimeout: 15000,
-    });
-  }
+  const port = getMailPort();
+  const isSecure = getMailSecure();
 
   return nodemailer.createTransport({
     host: mailHost,
-    port: getMailPort(),
-    secure: getMailSecure(),
-    connectionTimeout: 10000,
-    greetingTimeout: 10000,
-    socketTimeout: 15000,
+    port: port,
+    secure: isSecure, // true for 465, false for 587
     auth: {
       user: mailUser,
       pass: cleanPass,
     },
+    connectionTimeout: 15000,
+    greetingTimeout: 15000,
+    socketTimeout: 20000,
     tls: {
       rejectUnauthorized: false,
     },
