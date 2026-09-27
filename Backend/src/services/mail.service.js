@@ -69,23 +69,33 @@ let lastSmtpStatus = {
 };
 
 /**
- * Custom DNS lookup callback that strictly forces IPv4 resolution (family: 4).
- * This eliminates the ENETUNREACH IPv6 socket error on Render and other cloud container platforms.
+ * Resolves a hostname directly to its IPv4 A record address.
+ * This completely prevents IPv6 (AAAA) resolution at socket creation time,
+ * resolving the 'connect ENETUNREACH' error on Render and other cloud container platforms.
  */
-const ipv4Lookup = (hostname, options, callback) => {
-  return dns.lookup(hostname, { family: 4, all: false }, callback);
+const resolveIpv4Host = async (host) => {
+  try {
+    const ips = await dns.promises.resolve4(host);
+    if (ips && ips.length > 0) {
+      return ips[0];
+    }
+  } catch (err) {
+    console.warn(`[MAIL] IPv4 resolution fallback for ${host}:`, err.message);
+  }
+  return host;
 };
 
 /**
- * Creates Nodemailer Transporter with explicit port, secure flag, and strict IPv4 lookup.
+ * Creates Nodemailer Transporter with resolved IPv4 IP, explicit port, and TLS servername.
  */
-const createTransporterInstance = (port, secure) => {
+const createTransporterInstance = async (port, secure) => {
   const cleanPass = getCleanPass();
   const mailUser = getMailUser();
   const mailHost = getMailHost();
+  const ipv4Host = await resolveIpv4Host(mailHost);
 
   return nodemailer.createTransport({
-    host: mailHost,
+    host: ipv4Host,
     port,
     secure, // false for 587 (STARTTLS), true for 465 (SSL)
     requireTLS: port === 587,
@@ -93,8 +103,6 @@ const createTransporterInstance = (port, secure) => {
       user: mailUser,
       pass: cleanPass,
     },
-    lookup: ipv4Lookup, // CRITICAL: forces socket level IPv4 DNS resolution
-    family: 4,
     connectionTimeout: 10000,
     greetingTimeout: 10000,
     socketTimeout: 15000,
@@ -105,11 +113,11 @@ const createTransporterInstance = (port, secure) => {
   });
 };
 
-const getTransporter = () => {
+const getTransporter = async () => {
   // Cloud containers (Render/AWS) allow port 587 STARTTLS; raw 465 is blocked by network egress firewalls.
   const port = process.env.NODE_ENV === 'production' ? 587 : getMailPort();
   const isSecure = port === 465;
-  return createTransporterInstance(port, isSecure);
+  return await createTransporterInstance(port, isSecure);
 };
 
 export const MailService = {
@@ -133,7 +141,7 @@ export const MailService = {
       return false;
     }
     try {
-      const transporter = getTransporter();
+      const transporter = await getTransporter();
       await transporter.verify();
       console.log('✅ Nodemailer SMTP connection verified successfully (IPv4 on port 587).');
       lastSmtpStatus = { verified: true, lastCheckedAt: new Date().toISOString(), error: null };
@@ -201,7 +209,7 @@ export const MailService = {
     console.log(`[MAIL] delivery started -> to=${receiver}, replyTo=${email}`);
 
     try {
-      const transporter = getTransporter();
+      const transporter = await getTransporter();
       const info = await transporter.sendMail(mailOptions);
       console.log(`[MAIL] delivery accepted -> messageId=${info.messageId}`);
       lastSmtpStatus = { verified: true, lastCheckedAt: new Date().toISOString(), error: null };
@@ -236,7 +244,7 @@ export const MailService = {
       html,
     };
 
-    const transporter = getTransporter();
+    const transporter = await getTransporter();
     return transporter.sendMail(mailOptions);
   },
 
