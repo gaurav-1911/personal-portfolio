@@ -69,7 +69,15 @@ let lastSmtpStatus = {
 };
 
 /**
- * Creates Nodemailer Transporter with explicit port, secure flag, and IPv4 enforcement.
+ * Custom DNS lookup callback that strictly forces IPv4 resolution (family: 4).
+ * This eliminates the ENETUNREACH IPv6 socket error on Render and other cloud container platforms.
+ */
+const ipv4Lookup = (hostname, options, callback) => {
+  return dns.lookup(hostname, { family: 4, all: false }, callback);
+};
+
+/**
+ * Creates Nodemailer Transporter with explicit port, secure flag, and strict IPv4 lookup.
  */
 const createTransporterInstance = (port, secure) => {
   const cleanPass = getCleanPass();
@@ -85,12 +93,14 @@ const createTransporterInstance = (port, secure) => {
       user: mailUser,
       pass: cleanPass,
     },
-    family: 4, // Forces IPv4 to eliminate IPv6 ENETUNREACH on Render
-    connectionTimeout: 8000,
-    greetingTimeout: 8000,
-    socketTimeout: 10000,
+    lookup: ipv4Lookup, // CRITICAL: forces socket level IPv4 DNS resolution
+    family: 4,
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 15000,
     tls: {
       rejectUnauthorized: false,
+      servername: mailHost,
     },
   });
 };
