@@ -60,8 +60,8 @@ export const config = {
   // Mail configuration (Nodemailer)
   mail: {
     host: env('SMTP_HOST', 'smtp.gmail.com'),
-    port: Number(env('SMTP_PORT', 465)),
-    secure: env('SMTP_SECURE', 'true') === 'true',
+    port: Number(env('SMTP_PORT', 587)),
+    secure: env('SMTP_SECURE', 'false') === 'true',
     user: env('EMAIL_USER', 'gauravbhai1911@gmail.com'),
     pass: mailPass,
     from: env('EMAIL_FROM', '"Gaurav Chavda Portfolio" <gauravbhai1911@gmail.com>'),

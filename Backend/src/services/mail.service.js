@@ -22,8 +22,11 @@ const getCleanPass = () => {
 
 const getMailUser = () => process.env.EMAIL_USER || config.mail.user || 'gauravbhai1911@gmail.com';
 const getMailHost = () => process.env.SMTP_HOST || config.mail.host || 'smtp.gmail.com';
-const getMailPort = () => Number(process.env.SMTP_PORT || config.mail.port || 465);
-const getMailSecure = () => (process.env.SMTP_SECURE ?? String(config.mail.secure)) === 'true';
+const getMailPort = () => Number(process.env.SMTP_PORT || config.mail.port || 587);
+const getMailSecure = () => {
+  if (process.env.SMTP_SECURE !== undefined) return process.env.SMTP_SECURE === 'true';
+  return getMailPort() === 465;
+};
 const getMailReceiver = () => process.env.CONTACT_RECEIVER_EMAIL || config.mail.to || 'gauravbhai1911@gmail.com';
 const getMailFrom = () => process.env.EMAIL_FROM || config.mail.from || `"Gaurav Chavda Portfolio" <${getMailUser()}>`;
 
@@ -76,7 +79,8 @@ const createTransporterInstance = (port, secure) => {
   return nodemailer.createTransport({
     host: mailHost,
     port,
-    secure,
+    secure, // false for 587 (STARTTLS), true for 465 (SSL)
+    requireTLS: port === 587,
     auth: {
       user: mailUser,
       pass: cleanPass,
