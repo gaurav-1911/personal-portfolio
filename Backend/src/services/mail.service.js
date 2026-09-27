@@ -1,5 +1,6 @@
 import dns from 'dns';
 import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 import ejs from 'ejs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -20,6 +21,9 @@ const getCleanPass = () => {
   return String(raw).trim().replace(/\s+/g, '');
 };
 
+const getResendKey = () => (process.env.RESEND_API_KEY || '').trim();
+const isResendConfigured = () => Boolean(getResendKey());
+
 const getMailUser = () => process.env.EMAIL_USER || config.mail.user || 'gauravbhai1911@gmail.com';
 const getMailHost = () => process.env.SMTP_HOST || config.mail.host || 'smtp.gmail.com';
 const getMailPort = () => Number(process.env.SMTP_PORT || config.mail.port || 587);
@@ -30,37 +34,7 @@ const getMailSecure = () => {
 const getMailReceiver = () => process.env.CONTACT_RECEIVER_EMAIL || config.mail.to || 'gauravbhai1911@gmail.com';
 const getMailFrom = () => process.env.EMAIL_FROM || config.mail.from || `"Gaurav Chavda Portfolio" <${getMailUser()}>`;
 
-const isMailConfigured = () => Boolean(getMailUser() && getCleanPass());
-
-let mailNoticeShown = false;
-const warnMailNotConfigured = () => {
-  if (mailNoticeShown) return;
-  mailNoticeShown = true;
-  console.warn(
-    'ℹ️  Email sending is DISABLED: EMAIL_PASS is not set in Backend/.env.\n' +
-    '    Contact messages are still saved to the database. To enable emails:\n' +
-    '    1) myaccount.google.com → Security → 2-Step Verification → App passwords\n' +
-    '    2) Create a 16-char app password and put it in EMAIL_PASS\n' +
-    '    3) Restart the backend.'
-  );
-};
-
-let authNoticeShown = false;
-const warnMailBadCredentials = (raw) => {
-  if (authNoticeShown) return;
-  authNoticeShown = true;
-  console.warn(
-    '⚠️  Gmail rejected the SMTP credentials (535 BadCredentials) — emails cannot send.\n' +
-    '    EMAIL_PASS is set but invalid/expired. To fix (2 minutes):\n' +
-    '    1) myaccount.google.com → Security → turn ON 2-Step Verification\n' +
-    '    2) Security → App passwords → create one for "Mail"\n' +
-    '    3) Paste the 16-char password into EMAIL_PASS in Backend/.env (no spaces)\n' +
-    '    4) Restart the backend. Contact messages are still saved to the database meanwhile.'
-  );
-  if (process.env.NODE_ENV !== 'production') {
-    console.warn(`    [detail] ${String(raw).split('\n')[0]}`);
-  }
-};
+const isMailConfigured = () => isResendConfigured() || Boolean(getMailUser() && getCleanPass());
 
 let lastSmtpStatus = {
   verified: false,
@@ -70,8 +44,6 @@ let lastSmtpStatus = {
 
 /**
  * Resolves a hostname directly to its IPv4 A record address.
- * This completely prevents IPv6 (AAAA) resolution at socket creation time,
- * resolving the 'connect ENETUNREACH' error on Render and other cloud container platforms.
  */
 const resolveIpv4Host = async (host) => {
   try {
@@ -97,15 +69,15 @@ const createTransporterInstance = async (port, secure) => {
   return nodemailer.createTransport({
     host: ipv4Host,
     port,
-    secure, // false for 587 (STARTTLS), true for 465 (SSL)
+    secure,
     requireTLS: port === 587,
     auth: {
       user: mailUser,
       pass: cleanPass,
     },
-    connectionTimeout: 10000,
-    greetingTimeout: 10000,
-    socketTimeout: 15000,
+    connectionTimeout: 8000,
+    greetingTimeout: 8000,
+    socketTimeout: 10000,
     tls: {
       rejectUnauthorized: false,
       servername: mailHost,
@@ -114,7 +86,6 @@ const createTransporterInstance = async (port, secure) => {
 };
 
 const getTransporter = async () => {
-  // Cloud containers (Render/AWS) allow port 587 STARTTLS; raw 465 is blocked by network egress firewalls.
   const port = process.env.NODE_ENV === 'production' ? 587 : getMailPort();
   const isSecure = port === 465;
   return await createTransporterInstance(port, isSecure);
@@ -124,6 +95,7 @@ export const MailService = {
   getLastStatus() {
     return {
       ...lastSmtpStatus,
+      engine: isResendConfigured() ? 'Resend (HTTPS REST API)' : 'Nodemailer (IPv4 SMTP)',
       isConfigured: isMailConfigured(),
       user: getMailUser(),
       host: getMailHost(),
@@ -132,14 +104,20 @@ export const MailService = {
   },
 
   /**
-   * Verify SMTP connection status.
+   * Verify mail provider connection status.
    */
   async verifyConnection() {
     if (!isMailConfigured()) {
-      warnMailNotConfigured();
-      lastSmtpStatus = { verified: false, lastCheckedAt: new Date().toISOString(), error: 'EMAIL_PASS_MISSING' };
+      lastSmtpStatus = { verified: false, lastCheckedAt: new Date().toISOString(), error: 'CREDENTIALS_MISSING' };
       return false;
     }
+
+    if (isResendConfigured()) {
+      console.log('✅ Mail Service active via Resend HTTPS REST API (Port 443).');
+      lastSmtpStatus = { verified: true, lastCheckedAt: new Date().toISOString(), error: null };
+      return true;
+    }
+
     try {
       const transporter = await getTransporter();
       await transporter.verify();
@@ -149,23 +127,17 @@ export const MailService = {
     } catch (err) {
       const rawError = err?.message || String(err);
       lastSmtpStatus = { verified: false, lastCheckedAt: new Date().toISOString(), error: rawError.split('\n')[0] };
-
-      if (err && (err.code === 'EAUTH' || /535|BadCredentials|Username and Password not accepted/i.test(rawError))) {
-        warnMailBadCredentials(rawError);
-      } else {
-        console.error('⚠️ Nodemailer SMTP verification failed:', rawError);
-      }
+      console.error('⚠️ Nodemailer SMTP verification failed:', rawError);
       return false;
     }
   },
 
   /**
-   * Send notification email to the portfolio owner with port 587 STARTTLS.
+   * Send notification email to the portfolio owner (Gaurav).
    */
   async sendContactNotification({ name, email, phone, address, subject, message }) {
     if (!isMailConfigured()) {
-      warnMailNotConfigured();
-      throw new Error('SMTP not configured: EMAIL_PASS is missing or empty');
+      throw new Error('Mail service not configured: set RESEND_API_KEY or EMAIL_PASS in environment');
     }
     const templatePath = path.join(TEMPLATES_DIR, 'contactNotification.ejs');
     const timestamp = new Date().toLocaleString('en-US', {
@@ -197,21 +169,48 @@ export const MailService = {
     ].filter(Boolean).join('\n');
 
     const receiver = getMailReceiver();
+    const mailSubject = `📬 Portfolio Message from ${name}${subject ? `: ${subject}` : ''}`;
+
+    // --- ENGINE 1: Resend HTTPS REST API (Bypasses all cloud SMTP port firewall blocks) ---
+    if (isResendConfigured()) {
+      console.log(`[MAIL:Resend] delivery started -> to=${receiver}, replyTo=${email}`);
+      const resend = new Resend(getResendKey());
+
+      const fromAddress = process.env.RESEND_FROM || 'Gaurav Portfolio <onboarding@resend.dev>';
+      const { data, error } = await resend.emails.send({
+        from: fromAddress,
+        to: [receiver],
+        reply_to: email,
+        subject: mailSubject,
+        html,
+        text: plainText,
+      });
+
+      if (error) {
+        lastSmtpStatus = { verified: false, lastCheckedAt: new Date().toISOString(), error: error.message };
+        throw new Error(`Resend API Error: ${error.message}`);
+      }
+
+      console.log(`[MAIL:Resend] delivery accepted -> messageId=${data.id}`);
+      lastSmtpStatus = { verified: true, lastCheckedAt: new Date().toISOString(), error: null };
+      return { messageId: data.id, response: '250 OK (Resend HTTPS API)' };
+    }
+
+    // --- ENGINE 2: Nodemailer IPv4 Direct SMTP ---
     const mailOptions = {
       from: getMailFrom(),
       to: receiver,
       replyTo: `${name} <${email}>`,
-      subject: `📬 Portfolio Message from ${name}${subject ? `: ${subject}` : ''}`,
+      subject: mailSubject,
       text: plainText,
       html,
     };
 
-    console.log(`[MAIL] delivery started -> to=${receiver}, replyTo=${email}`);
-
+    console.log(`[MAIL:SMTP] delivery started -> to=${receiver}, replyTo=${email}`);
     try {
       const transporter = await getTransporter();
       const info = await transporter.sendMail(mailOptions);
-      console.log(`[MAIL] delivery accepted -> messageId=${info.messageId}`);
+      console.log(`[MAIL:SMTP] delivery accepted -> messageId=${info.messageId}`);
       lastSmtpStatus = { verified: true, lastCheckedAt: new Date().toISOString(), error: null };
       return info;
     } catch (err) {
