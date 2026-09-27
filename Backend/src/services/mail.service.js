@@ -12,8 +12,19 @@ const __dirname = path.dirname(__filename);
 const TEMPLATES_DIR = path.resolve(__dirname, '../templates/emails');
 
 // Helper to sanitize the password (strip spaces if user copied Google App Password with spaces)
-const getCleanPass = () => (config.mail.pass ? String(config.mail.pass).trim().replace(/\s+/g, '') : '');
-const isMailConfigured = () => Boolean(config.mail.user && getCleanPass());
+const getCleanPass = () => {
+  const raw = process.env.EMAIL_PASS || config.mail.pass || '';
+  return String(raw).trim().replace(/\s+/g, '');
+};
+
+const getMailUser = () => process.env.EMAIL_USER || config.mail.user || 'gauravbhai1911@gmail.com';
+const getMailHost = () => process.env.SMTP_HOST || config.mail.host || 'smtp.gmail.com';
+const getMailPort = () => Number(process.env.SMTP_PORT || config.mail.port || 465);
+const getMailSecure = () => (process.env.SMTP_SECURE ?? String(config.mail.secure)) === 'true';
+const getMailReceiver = () => process.env.CONTACT_RECEIVER_EMAIL || config.mail.to || 'gauravbhai1911@gmail.com';
+const getMailFrom = () => process.env.EMAIL_FROM || config.mail.from || `"Gaurav Chavda Portfolio" <${getMailUser()}>`;
+
+const isMailConfigured = () => Boolean(getMailUser() && getCleanPass());
 
 let mailNoticeShown = false;
 const warnMailNotConfigured = () => {
@@ -51,13 +62,15 @@ const warnMailBadCredentials = (raw) => {
  */
 const getTransporter = () => {
   const cleanPass = getCleanPass();
-  const isGmail = config.mail.host === 'smtp.gmail.com' || (config.mail.user && config.mail.user.endsWith('@gmail.com'));
+  const mailUser = getMailUser();
+  const mailHost = getMailHost();
+  const isGmail = mailHost === 'smtp.gmail.com' || (mailUser && mailUser.endsWith('@gmail.com'));
 
   if (isGmail) {
     return nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: config.mail.user,
+        user: mailUser,
         pass: cleanPass,
       },
       connectionTimeout: 10000,
@@ -67,14 +80,14 @@ const getTransporter = () => {
   }
 
   return nodemailer.createTransport({
-    host: config.mail.host,
-    port: config.mail.port,
-    secure: config.mail.secure,
+    host: mailHost,
+    port: getMailPort(),
+    secure: getMailSecure(),
     connectionTimeout: 10000,
     greetingTimeout: 10000,
     socketTimeout: 15000,
     auth: {
-      user: config.mail.user,
+      user: mailUser,
       pass: cleanPass,
     },
     tls: {
@@ -144,16 +157,17 @@ export const MailService = {
       `-----------------------------------------`,
     ].filter(Boolean).join('\n');
 
+    const receiver = getMailReceiver();
     const mailOptions = {
-      from: config.mail.from,
-      to: config.mail.to,
+      from: getMailFrom(),
+      to: receiver,
       replyTo: `${name} <${email}>`,
       subject: `📬 Portfolio Message from ${name}${subject ? `: ${subject}` : ''}`,
       text: plainText,
       html,
     };
 
-    console.log(`[MAIL] delivery started -> to=${config.mail.to}, replyTo=${email}`);
+    console.log(`[MAIL] delivery started -> to=${receiver}, replyTo=${email}`);
     const transporter = getTransporter();
     const info = await transporter.sendMail(mailOptions);
     console.log(`[MAIL] delivery accepted -> messageId=${info.messageId}, response=${info.response}`);
@@ -166,7 +180,7 @@ export const MailService = {
   async sendAutoReply({ name, email, subject, message }) {
     if (!isMailConfigured()) {
       warnMailNotConfigured();
-      throw new Error('SMTP not configured: set EMAIL_PASS in Backend/.env');
+      throw new Error('SMTP not configured: EMAIL_PASS is missing or empty');
     }
     const templatePath = path.join(TEMPLATES_DIR, 'contactAutoReply.ejs');
 
@@ -178,7 +192,7 @@ export const MailService = {
     });
 
     const mailOptions = {
-      from: config.mail.from,
+      from: getMailFrom(),
       to: email,
       subject: `Thank you for contacting Gaurav Chavda - Message Received`,
       html,
