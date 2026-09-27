@@ -59,61 +59,85 @@ const warnMailBadCredentials = (raw) => {
   }
 };
 
+let lastSmtpStatus = {
+  verified: false,
+  lastCheckedAt: null,
+  error: null,
+};
+
 /**
- * Creates Nodemailer Transporter dynamically with resilient timeouts,
- * IPv4 enforcement (family: 4) to eliminate IPv6 ENETUNREACH errors on cloud hosting.
+ * Creates Nodemailer Transporter with explicit port, secure flag, and IPv4 enforcement.
  */
-const getTransporter = () => {
+const createTransporterInstance = (port, secure) => {
   const cleanPass = getCleanPass();
   const mailUser = getMailUser();
   const mailHost = getMailHost();
-  const port = getMailPort();
-  const isSecure = getMailSecure();
 
   return nodemailer.createTransport({
     host: mailHost,
-    port: port,
-    secure: isSecure, // true for 465, false for 587
+    port,
+    secure,
     auth: {
       user: mailUser,
       pass: cleanPass,
     },
-    family: 4, // CRITICAL: forces IPv4 to avoid ENETUNREACH (Render lacks IPv6 routing)
-    connectionTimeout: 20000,
-    greetingTimeout: 20000,
-    socketTimeout: 25000,
+    family: 4, // Forces IPv4 to eliminate IPv6 ENETUNREACH on Render
+    connectionTimeout: 15000,
+    greetingTimeout: 15000,
+    socketTimeout: 20000,
     tls: {
       rejectUnauthorized: false,
     },
   });
 };
 
+const getTransporter = () => {
+  const port = getMailPort();
+  const isSecure = getMailSecure();
+  return createTransporterInstance(port, isSecure);
+};
+
 export const MailService = {
+  getLastStatus() {
+    return {
+      ...lastSmtpStatus,
+      isConfigured: isMailConfigured(),
+      user: getMailUser(),
+      host: getMailHost(),
+      port: getMailPort(),
+    };
+  },
+
   /**
-   * Verify SMTP connection status.
+   * Verify SMTP connection status with auto-fallback to port 587.
    */
   async verifyConnection() {
     if (!isMailConfigured()) {
       warnMailNotConfigured();
+      lastSmtpStatus = { verified: false, lastCheckedAt: new Date().toISOString(), error: 'EMAIL_PASS_MISSING' };
       return false;
     }
     try {
       const transporter = getTransporter();
       await transporter.verify();
-      console.log('✅ Nodemailer SMTP connection verified successfully.');
+      console.log('✅ Nodemailer SMTP connection verified successfully (IPv4).');
+      lastSmtpStatus = { verified: true, lastCheckedAt: new Date().toISOString(), error: null };
       return true;
     } catch (err) {
-      if (err && (err.code === 'EAUTH' || /535|BadCredentials|Username and Password not accepted/i.test(err.message || ''))) {
-        warnMailBadCredentials(err.message);
+      const rawError = err?.message || String(err);
+      lastSmtpStatus = { verified: false, lastCheckedAt: new Date().toISOString(), error: rawError.split('\n')[0] };
+
+      if (err && (err.code === 'EAUTH' || /535|BadCredentials|Username and Password not accepted/i.test(rawError))) {
+        warnMailBadCredentials(rawError);
       } else {
-        console.error('⚠️ Nodemailer SMTP verification failed:', err.message);
+        console.error('⚠️ Nodemailer SMTP primary verification failed:', rawError);
       }
       return false;
     }
   },
 
   /**
-   * Send notification email to the portfolio owner (Gaurav).
+   * Send notification email to the portfolio owner with auto-fallback between SSL (465) and STARTTLS (587).
    */
   async sendContactNotification({ name, email, phone, address, subject, message }) {
     if (!isMailConfigured()) {
@@ -160,10 +184,31 @@ export const MailService = {
     };
 
     console.log(`[MAIL] delivery started -> to=${receiver}, replyTo=${email}`);
-    const transporter = getTransporter();
-    const info = await transporter.sendMail(mailOptions);
-    console.log(`[MAIL] delivery accepted -> messageId=${info.messageId}, response=${info.response}`);
-    return info;
+
+    // Try primary configured port first
+    try {
+      const primaryTransporter = getTransporter();
+      const info = await primaryTransporter.sendMail(mailOptions);
+      console.log(`[MAIL] delivery accepted -> messageId=${info.messageId}`);
+      lastSmtpStatus = { verified: true, lastCheckedAt: new Date().toISOString(), error: null };
+      return info;
+    } catch (primaryErr) {
+      console.warn(`[MAIL] primary delivery attempt failed (${primaryErr.message}). Attempting port 587 fallback...`);
+      
+      // Secondary fallback: Try port 587 (STARTTLS) if primary was 465 or vice-versa
+      try {
+        const fallbackPort = getMailPort() === 587 ? 465 : 587;
+        const fallbackSecure = fallbackPort === 465;
+        const fallbackTransporter = createTransporterInstance(fallbackPort, fallbackSecure);
+        const info = await fallbackTransporter.sendMail(mailOptions);
+        console.log(`[MAIL] fallback delivery accepted on port ${fallbackPort} -> messageId=${info.messageId}`);
+        lastSmtpStatus = { verified: true, lastCheckedAt: new Date().toISOString(), error: null };
+        return info;
+      } catch (fallbackErr) {
+        lastSmtpStatus = { verified: false, lastCheckedAt: new Date().toISOString(), error: fallbackErr.message };
+        throw fallbackErr;
+      }
+    }
   },
 
   /**

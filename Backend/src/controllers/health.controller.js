@@ -9,7 +9,7 @@ import MailService from '../services/mail.service.js';
 
 export const healthCheck = async (_req, res) => {
   const dbHealth = getDbHealth();
-  const mailConfigured = Boolean(process.env.EMAIL_PASS || config.mail.pass);
+  const mailStatus = MailService.getLastStatus();
 
   return ok(res, {
     message: `${APP_NAME} is healthy`,
@@ -19,12 +19,7 @@ export const healthCheck = async (_req, res) => {
       uptime: `${Math.floor(process.uptime())}s`,
       timestamp: new Date().toISOString(),
       database: dbHealth,
-      mail: {
-        isConfigured: mailConfigured,
-        user: config.mail.user,
-        host: config.mail.host,
-        port: config.mail.port,
-      },
+      mail: mailStatus,
       persistence: dbHealth.isConnected ? 'MongoDB (Mongoose)' : 'In-Memory Resilient Store',
       memory: {
         rssMb: Math.round((process.memoryUsage().rss / 1024 / 1024) * 100) / 100,
