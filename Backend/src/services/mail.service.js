@@ -67,17 +67,33 @@ const getTransporter = () => {
   const port = getMailPort();
   const isSecure = getMailSecure();
 
+  // Cloud platforms (Render/AWS/Heroku) frequently encounter direct TCP port blocks
+  // on raw ports 465/587. Using Nodemailer's built-in 'gmail' service definition
+  // resolves optimal Google SMTP endpoints and TLS options automatically.
+  if (mailHost === 'smtp.gmail.com' || (mailUser && mailUser.endsWith('@gmail.com'))) {
+    return nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: mailUser,
+        pass: cleanPass,
+      },
+      connectionTimeout: 20000,
+      greetingTimeout: 20000,
+      socketTimeout: 25000,
+    });
+  }
+
   return nodemailer.createTransport({
     host: mailHost,
     port: port,
-    secure: isSecure, // true for 465, false for 587
+    secure: isSecure,
     auth: {
       user: mailUser,
       pass: cleanPass,
     },
-    connectionTimeout: 15000,
-    greetingTimeout: 15000,
-    socketTimeout: 20000,
+    connectionTimeout: 20000,
+    greetingTimeout: 20000,
+    socketTimeout: 25000,
     tls: {
       rejectUnauthorized: false,
     },
