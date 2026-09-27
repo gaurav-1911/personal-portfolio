@@ -29,27 +29,19 @@
   }
 
   .timeline-container {
-    padding-left: 24px;
+    --timeline-gutter: 26px;
+    --timeline-node-size: 16px;
+    --timeline-card-pt: 16px;
     margin-top: 24px;
   }
 
-  .timeline-line {
-    left: 6px;
-  }
-
-  .timeline-node {
-    left: -24px;
-    width: 18px;
-    height: 18px;
-  }
-
   .timeline-node-dot {
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
   }
 
   .timeline-card {
-    padding: 14px 16px;
+    padding: 16px 16px;
     border-radius: 14px;
   }
 
@@ -99,26 +91,19 @@
   }
 
   .timeline-container {
-    padding-left: 32px;
-  }
-
-  .timeline-line {
-    left: 9px;
-  }
-
-  .timeline-node {
-    left: -32px;
-    width: 20px;
-    height: 20px;
+    --timeline-gutter: 36px;
+    --timeline-node-size: 20px;
+    --timeline-card-pt: 20px;
+    margin-top: 32px;
   }
 
   .timeline-node-dot {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
   }
 
   .timeline-card {
-    padding: 18px 20px;
+    padding: 20px 20px;
   }
 
   .timeline-card-title {
@@ -135,7 +120,9 @@
    -------------------------------------------------------------------------- */
 @media (min-width: 769px) and (max-width: 1440px) {
   .timeline-container {
-    padding-left: 48px;
+    --timeline-gutter: 48px;
+    --timeline-node-size: 24px;
+    --timeline-card-pt: 24px;
   }
 
   .timeline-card {
@@ -150,5 +137,15 @@
   .experience-page {
     max-width: 900px;
     margin: 0 auto;
+  }
+
+  .timeline-container {
+    --timeline-gutter: 48px;
+    --timeline-node-size: 24px;
+    --timeline-card-pt: 24px;
+  }
+
+  .timeline-card {
+    padding: 24px 28px;
   }
 }
