@@ -86,9 +86,9 @@ const createTransporterInstance = (port, secure) => {
       pass: cleanPass,
     },
     family: 4, // Forces IPv4 to eliminate IPv6 ENETUNREACH on Render
-    connectionTimeout: 15000,
-    greetingTimeout: 15000,
-    socketTimeout: 20000,
+    connectionTimeout: 8000,
+    greetingTimeout: 8000,
+    socketTimeout: 10000,
     tls: {
       rejectUnauthorized: false,
     },
@@ -96,8 +96,9 @@ const createTransporterInstance = (port, secure) => {
 };
 
 const getTransporter = () => {
-  const port = getMailPort();
-  const isSecure = getMailSecure();
+  // Cloud containers (Render/AWS) allow port 587 STARTTLS; raw 465 is blocked by network egress firewalls.
+  const port = process.env.NODE_ENV === 'production' ? 587 : getMailPort();
+  const isSecure = port === 465;
   return createTransporterInstance(port, isSecure);
 };
 
@@ -108,12 +109,12 @@ export const MailService = {
       isConfigured: isMailConfigured(),
       user: getMailUser(),
       host: getMailHost(),
-      port: getMailPort(),
+      port: process.env.NODE_ENV === 'production' ? 587 : getMailPort(),
     };
   },
 
   /**
-   * Verify SMTP connection status with auto-fallback to port 587.
+   * Verify SMTP connection status.
    */
   async verifyConnection() {
     if (!isMailConfigured()) {
@@ -124,7 +125,7 @@ export const MailService = {
     try {
       const transporter = getTransporter();
       await transporter.verify();
-      console.log('✅ Nodemailer SMTP connection verified successfully (IPv4).');
+      console.log('✅ Nodemailer SMTP connection verified successfully (IPv4 on port 587).');
       lastSmtpStatus = { verified: true, lastCheckedAt: new Date().toISOString(), error: null };
       return true;
     } catch (err) {
@@ -134,14 +135,14 @@ export const MailService = {
       if (err && (err.code === 'EAUTH' || /535|BadCredentials|Username and Password not accepted/i.test(rawError))) {
         warnMailBadCredentials(rawError);
       } else {
-        console.error('⚠️ Nodemailer SMTP primary verification failed:', rawError);
+        console.error('⚠️ Nodemailer SMTP verification failed:', rawError);
       }
       return false;
     }
   },
 
   /**
-   * Send notification email to the portfolio owner with auto-fallback between SSL (465) and STARTTLS (587).
+   * Send notification email to the portfolio owner with port 587 STARTTLS.
    */
   async sendContactNotification({ name, email, phone, address, subject, message }) {
     if (!isMailConfigured()) {
@@ -189,29 +190,15 @@ export const MailService = {
 
     console.log(`[MAIL] delivery started -> to=${receiver}, replyTo=${email}`);
 
-    // Try primary configured port first
     try {
-      const primaryTransporter = getTransporter();
-      const info = await primaryTransporter.sendMail(mailOptions);
+      const transporter = getTransporter();
+      const info = await transporter.sendMail(mailOptions);
       console.log(`[MAIL] delivery accepted -> messageId=${info.messageId}`);
       lastSmtpStatus = { verified: true, lastCheckedAt: new Date().toISOString(), error: null };
       return info;
-    } catch (primaryErr) {
-      console.warn(`[MAIL] primary delivery attempt failed (${primaryErr.message}). Attempting port 587 fallback...`);
-      
-      // Secondary fallback: Try port 587 (STARTTLS) if primary was 465 or vice-versa
-      try {
-        const fallbackPort = getMailPort() === 587 ? 465 : 587;
-        const fallbackSecure = fallbackPort === 465;
-        const fallbackTransporter = createTransporterInstance(fallbackPort, fallbackSecure);
-        const info = await fallbackTransporter.sendMail(mailOptions);
-        console.log(`[MAIL] fallback delivery accepted on port ${fallbackPort} -> messageId=${info.messageId}`);
-        lastSmtpStatus = { verified: true, lastCheckedAt: new Date().toISOString(), error: null };
-        return info;
-      } catch (fallbackErr) {
-        lastSmtpStatus = { verified: false, lastCheckedAt: new Date().toISOString(), error: fallbackErr.message };
-        throw fallbackErr;
-      }
+    } catch (err) {
+      lastSmtpStatus = { verified: false, lastCheckedAt: new Date().toISOString(), error: err.message };
+      throw err;
     }
   },
 
