@@ -37,7 +37,16 @@ app.use(bodyParser.urlencoded(express));
 app.use(sanitizeBody());
 app.use(requestLogger);
 
-// --- Root status / health ping endpoint ---
+// --- Root status / health ping endpoints ---
+app.get('/health', (_req, res) => {
+  res.status(200).json({
+    success: true,
+    status: 'healthy',
+    service: 'Gaurav Chavda Portfolio API',
+    timestamp: new Date().toISOString(),
+  });
+});
+
 app.get('/', (_req, res) => {
   res.status(200).json({
     status: 'online',
