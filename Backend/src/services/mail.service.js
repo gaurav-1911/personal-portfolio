@@ -1,11 +1,14 @@
-/**
- * Mail Service: handles email dispatch via Nodemailer and EJS templates.
- */
+import dns from 'dns';
 import nodemailer from 'nodemailer';
 import ejs from 'ejs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { config } from '../config/env.js';
+
+// Force IPv4 resolution to prevent ENETUNREACH on Render/Cloud hosts without IPv6 routing
+if (dns.setDefaultResultOrder) {
+  dns.setDefaultResultOrder('ipv4first');
+}
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -57,8 +60,8 @@ const warnMailBadCredentials = (raw) => {
 };
 
 /**
- * Creates Nodemailer Transporter dynamically with resilient timeouts and
- * native Gmail service optimization.
+ * Creates Nodemailer Transporter dynamically with resilient timeouts,
+ * IPv4 enforcement (family: 4) to eliminate IPv6 ENETUNREACH errors on cloud hosting.
  */
 const getTransporter = () => {
   const cleanPass = getCleanPass();
@@ -67,30 +70,15 @@ const getTransporter = () => {
   const port = getMailPort();
   const isSecure = getMailSecure();
 
-  // Cloud platforms (Render/AWS/Heroku) frequently encounter direct TCP port blocks
-  // on raw ports 465/587. Using Nodemailer's built-in 'gmail' service definition
-  // resolves optimal Google SMTP endpoints and TLS options automatically.
-  if (mailHost === 'smtp.gmail.com' || (mailUser && mailUser.endsWith('@gmail.com'))) {
-    return nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: mailUser,
-        pass: cleanPass,
-      },
-      connectionTimeout: 20000,
-      greetingTimeout: 20000,
-      socketTimeout: 25000,
-    });
-  }
-
   return nodemailer.createTransport({
     host: mailHost,
     port: port,
-    secure: isSecure,
+    secure: isSecure, // true for 465, false for 587
     auth: {
       user: mailUser,
       pass: cleanPass,
     },
+    family: 4, // CRITICAL: forces IPv4 to avoid ENETUNREACH (Render lacks IPv6 routing)
     connectionTimeout: 20000,
     greetingTimeout: 20000,
     socketTimeout: 25000,

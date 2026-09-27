@@ -1,6 +1,10 @@
-/**
- * Server entrypoint: boots the Express app and handles graceful shutdown.
- */
+import dns from 'dns';
+
+// Force IPv4 DNS resolution first (prevents IPv6 ENETUNREACH on cloud platforms like Render)
+if (dns.setDefaultResultOrder) {
+  dns.setDefaultResultOrder('ipv4first');
+}
+
 import app from './src/app.js';
 import { config } from './src/config/env.js';
 import { APP_NAME } from './src/config/constants.js';
