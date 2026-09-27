@@ -17,43 +17,62 @@ export const ContactService = {
       throw new ApiError(HTTP_STATUS.BAD_REQUEST, 'Please use a real email address', 'VALIDATION_ERROR');
     }
 
+    console.log(`[CONTACT] submission received -> name="${payload.name}", email="${payload.email}"`);
     const doc = await ContactModel.create(payload);
+    console.log(`[CONTACT] contact record created -> id=${doc.id}, emailStatus=pending`);
 
-    // Await email delivery so cloud platforms (Render/AWS) do not freeze the
-    // event loop before the SMTP handshake completes, while ensuring any email
-    // error does not fail the contact submission response.
+    // Await email delivery strictly so we never report false success if SMTP fails.
+    let emailInfo = null;
     try {
-      const emailResults = await Promise.allSettled([
-        MailService.sendContactNotification({
-          name: doc.name,
-          email: doc.email,
-          phone: doc.phone,
-          address: doc.address,
-          subject: doc.subject,
-          message: doc.message,
-        }),
-        MailService.sendAutoReply({
-          name: doc.name,
-          email: doc.email,
-          subject: doc.subject,
-          message: doc.message,
-        }),
-      ]);
-
-      emailResults.forEach((result, i) => {
-        if (result.status === 'rejected') {
-          const kind = i === 0 ? 'notification email' : 'auto-reply email';
-          console.error(`❌ Failed to send ${kind}:`, result.reason?.message || result.reason);
-        } else {
-          const kind = i === 0 ? 'notification email' : 'auto-reply email';
-          console.log(`✅ ${kind} successfully sent to ${i === 0 ? config.mail.to : doc.email}.`);
-        }
+      emailInfo = await MailService.sendContactNotification({
+        name: doc.name,
+        email: doc.email,
+        phone: doc.phone,
+        address: doc.address,
+        subject: doc.subject,
+        message: doc.message,
       });
+
+      await ContactModel.updateDeliveryStatus(doc.id, {
+        emailStatus: 'sent',
+        emailMessageId: emailInfo.messageId,
+      });
+      console.log(`[CONTACT] emailStatus=sent -> id=${doc.id}, messageId=${emailInfo.messageId}`);
     } catch (mailErr) {
-      console.error('❌ Mail dispatch exception:', mailErr?.message || mailErr);
+      const errMsg = mailErr?.message || String(mailErr);
+      console.error(`[MAIL] delivery failed -> id=${doc.id}, error=${errMsg}`);
+
+      await ContactModel.updateDeliveryStatus(doc.id, {
+        emailStatus: 'failed',
+        emailError: errMsg,
+      });
+
+      throw new ApiError(
+        HTTP_STATUS.INTERNAL_SERVER_ERROR,
+        'Your message was received and saved, but email notification delivery is temporarily unavailable. Please email directly at gauravbhai1911@gmail.com.',
+        'EMAIL_DELIVERY_FAILED'
+      );
     }
 
-    return { id: doc.id, name: doc.name, email: doc.email, subject: doc.subject, createdAt: doc.createdAt };
+    // Attempt auto-reply asynchronously (non-blocking for recipient success)
+    MailService.sendAutoReply({
+      name: doc.name,
+      email: doc.email,
+      subject: doc.subject,
+      message: doc.message,
+    }).catch((autoErr) => {
+      console.warn(`[MAIL] auto-reply failed (non-critical):`, autoErr?.message || autoErr);
+    });
+
+    return {
+      id: doc.id,
+      name: doc.name,
+      email: doc.email,
+      subject: doc.subject,
+      emailStatus: 'sent',
+      messageId: emailInfo?.messageId,
+      createdAt: doc.createdAt,
+    };
   },
 
   async listMessages({ page = 1, limit = 10 } = {}) {

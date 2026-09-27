@@ -52,6 +52,25 @@ const contactSchema = new mongoose.Schema(
       default: 'new',
       index: true,
     },
+    emailStatus: {
+      type: String,
+      enum: ['pending', 'sent', 'failed'],
+      default: 'pending',
+      index: true,
+    },
+    emailMessageId: {
+      type: String,
+      trim: true,
+      default: null,
+    },
+    emailSentAt: {
+      type: Date,
+      default: null,
+    },
+    emailError: {
+      type: String,
+      default: null,
+    },
   },
   {
     timestamps: true,

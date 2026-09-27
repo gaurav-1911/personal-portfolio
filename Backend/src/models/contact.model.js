@@ -64,6 +64,10 @@ const toPlainDoc = (doc) => ({
   subject: doc.subject || '',
   message: doc.message,
   status: doc.status,
+  emailStatus: doc.emailStatus || 'pending',
+  emailMessageId: doc.emailMessageId || null,
+  emailSentAt: doc.emailSentAt || null,
+  emailError: doc.emailError || null,
   createdAt: doc.createdAt,
   updatedAt: doc.updatedAt,
 });
@@ -72,7 +76,7 @@ loadFallbackStore();
 
 export const ContactModel = {
   /**
-   * Create a new contact document.
+   * Create a new contact document with pending email status.
    */
   async create({ name, email, phone, address, subject, message }) {
     if (isDbConnected()) {
@@ -85,6 +89,7 @@ export const ContactModel = {
           subject: subject || '',
           message,
           status: 'new',
+          emailStatus: 'pending',
         });
         return {
           id: created._id.toString(),
@@ -95,6 +100,10 @@ export const ContactModel = {
           subject: created.subject,
           message: created.message,
           status: created.status,
+          emailStatus: created.emailStatus,
+          emailMessageId: created.emailMessageId,
+          emailSentAt: created.emailSentAt,
+          emailError: created.emailError,
           createdAt: created.createdAt,
           updatedAt: created.updatedAt,
         };
@@ -114,12 +123,62 @@ export const ContactModel = {
       subject: subject || '',
       message,
       status: 'new',
+      emailStatus: 'pending',
+      emailMessageId: null,
+      emailSentAt: null,
+      emailError: null,
       createdAt: now,
       updatedAt: now,
     };
     memoryContacts.push(doc);
     persistFallbackStore();
     return toPlainDoc(doc);
+  },
+
+  /**
+   * Update email delivery status for a contact record.
+   */
+  async updateDeliveryStatus(id, { emailStatus, emailMessageId = null, emailError = null }) {
+    const emailSentAt = emailStatus === 'sent' ? new Date() : null;
+
+    if (isDbConnected()) {
+      try {
+        const updated = await MongooseContact.findByIdAndUpdate(
+          id,
+          {
+            $set: {
+              emailStatus,
+              emailMessageId,
+              emailSentAt,
+              emailError: emailError ? String(emailError).substring(0, 500) : null,
+            },
+          },
+          { new: true }
+        ).lean();
+
+        if (updated) {
+          return {
+            id: updated._id.toString(),
+            ...updated,
+          };
+        }
+      } catch (err) {
+        console.error('Mongoose updateDeliveryStatus error:', err.message);
+      }
+    }
+
+    // Update fallback memory store
+    const item = memoryContacts.find((c) => String(c.id) === String(id));
+    if (item) {
+      item.emailStatus = emailStatus;
+      item.emailMessageId = emailMessageId;
+      item.emailSentAt = emailSentAt;
+      item.emailError = emailError ? String(emailError).substring(0, 500) : null;
+      item.updatedAt = new Date();
+      persistFallbackStore();
+      return toPlainDoc(item);
+    }
+    return null;
   },
 
   /**

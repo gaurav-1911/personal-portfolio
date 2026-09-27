@@ -11,6 +11,7 @@
     "dev": "node --watch server.js",
     "start": "node server.js",
     "prod": "cross-env NODE_ENV=production node server.js",
+    "test:email": "node scripts/test-email.js",
     "test:load": "node scripts/load-test.js",
     "test:backup": "node scripts/test-db-backup-restore.js"
   },

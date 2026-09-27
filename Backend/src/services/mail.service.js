@@ -113,7 +113,7 @@ export const MailService = {
   async sendContactNotification({ name, email, phone, address, subject, message }) {
     if (!isMailConfigured()) {
       warnMailNotConfigured();
-      throw new Error('SMTP not configured: set EMAIL_PASS in Backend/.env');
+      throw new Error('SMTP not configured: EMAIL_PASS is missing or empty');
     }
     const templatePath = path.join(TEMPLATES_DIR, 'contactNotification.ejs');
     const timestamp = new Date().toLocaleString('en-US', {
@@ -131,16 +131,33 @@ export const MailService = {
       timestamp,
     });
 
+    const plainText = [
+      `New Contact Message from ${name}`,
+      `-----------------------------------------`,
+      `Name: ${name}`,
+      `Email: ${email}`,
+      phone ? `Phone: ${phone}` : null,
+      address ? `Address: ${address}` : null,
+      subject ? `Subject: ${subject}` : null,
+      `Date & Time: ${timestamp}`,
+      `\nMessage:\n${message}`,
+      `-----------------------------------------`,
+    ].filter(Boolean).join('\n');
+
     const mailOptions = {
       from: config.mail.from,
       to: config.mail.to,
       replyTo: `${name} <${email}>`,
       subject: `📬 Portfolio Message from ${name}${subject ? `: ${subject}` : ''}`,
+      text: plainText,
       html,
     };
 
+    console.log(`[MAIL] delivery started -> to=${config.mail.to}, replyTo=${email}`);
     const transporter = getTransporter();
-    return transporter.sendMail(mailOptions);
+    const info = await transporter.sendMail(mailOptions);
+    console.log(`[MAIL] delivery accepted -> messageId=${info.messageId}, response=${info.response}`);
+    return info;
   },
 
   /**
