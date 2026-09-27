@@ -20,7 +20,7 @@ const startServer = async () => {
     });
 
     // --- Server Request & Socket Timeouts ---
-    server.timeout = 15000;
+    server.timeout = 30000;
     server.keepAliveTimeout = 65000;
     server.headersTimeout = 66000;
 
