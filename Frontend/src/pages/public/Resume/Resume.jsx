@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import {
   FileDown,
   Eye,
@@ -518,85 +519,89 @@ export const Resume = () => {
         </main>
       </div>
 
-      {/* Interactive Certificate Lightbox Modal */}
-      {isCertModalOpen && (
-        <div
-          className="cert-modal-backdrop"
-          onClick={() => setIsCertModalOpen(false)}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="cert-modal-title"
-        >
+      {/* Interactive Certificate Lightbox Modal (Portal-rendered directly to body to prevent navbar clipping) */}
+      {isCertModalOpen &&
+        typeof document !== 'undefined' &&
+        createPortal(
           <div
-            className="cert-modal-card"
-            onClick={(e) => e.stopPropagation()}
+            className="cert-modal-backdrop"
+            onClick={() => setIsCertModalOpen(false)}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="cert-modal-title"
           >
-            <div className="cert-modal-header">
-              <div className="cert-modal-title-group">
-                <div className="cert-modal-icon-badge">
-                  <Award size={20} />
+            <div
+              className="cert-modal-card"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="cert-modal-header">
+                <div className="cert-modal-title-group">
+                  <div className="cert-modal-icon-badge">
+                    <Award size={20} />
+                  </div>
+                  <div>
+                    <h3 id="cert-modal-title" className="cert-modal-title">
+                      Certificate of Internship
+                    </h3>
+                    <p className="cert-modal-subtitle">
+                      Virtual Height IT Services Pvt. Ltd. • MERN Stack Intern
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 id="cert-modal-title" className="cert-modal-title">
-                    Certificate of Internship
-                  </h3>
-                  <p className="cert-modal-subtitle">
-                    Virtual Height IT Services Pvt. Ltd. • MERN Stack Intern
-                  </p>
+
+                <button
+                  type="button"
+                  className="cert-modal-close-btn"
+                  onClick={() => setIsCertModalOpen(false)}
+                  aria-label="Close certificate modal"
+                  title="Close (Esc)"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              <div className="cert-modal-body">
+                <div className="cert-image-frame">
+                  <img
+                    src={`${import.meta.env.BASE_URL.replace(/\/+$/, '')}/internship_certificate.jpg`}
+                    alt="Gaurav Chavda - Certificate of Internship - Virtual Height IT Services Pvt. Ltd."
+                    className="cert-modal-image"
+                  />
                 </div>
               </div>
 
-              <button
-                type="button"
-                className="cert-modal-close-btn"
-                onClick={() => setIsCertModalOpen(false)}
-                aria-label="Close certificate modal"
-              >
-                <X size={20} />
-              </button>
-            </div>
+              <div className="cert-modal-footer">
+                <div className="cert-modal-meta">
+                  <span className="cert-meta-tag">16 March 2026 – 30 September 2026</span>
+                  <span className="cert-meta-org">ISO 9001:2015 & CMMI - 3 Certified Organization</span>
+                </div>
 
-            <div className="cert-modal-body">
-              <div className="cert-image-frame">
-                <img
-                  src={`${import.meta.env.BASE_URL.replace(/\/+$/, '')}/internship_certificate.jpg`}
-                  alt="Gaurav Chavda - Certificate of Internship - Virtual Height IT Services Pvt. Ltd."
-                  className="cert-modal-image"
-                />
+                <div className="cert-modal-actions">
+                  <a
+                    href={`${import.meta.env.BASE_URL.replace(/\/+$/, '')}/Internship-certificate.pdf`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-cert-modal-primary"
+                    id="cert-modal-open-pdf"
+                  >
+                    <ExternalLink size={15} />
+                    <span>Open PDF (New Tab)</span>
+                  </a>
+                  <a
+                    href={`${import.meta.env.BASE_URL.replace(/\/+$/, '')}/Internship-certificate.pdf`}
+                    download="Gaurav_Chavda_Internship_Certificate.pdf"
+                    className="btn-cert-modal-secondary"
+                    id="cert-modal-download-pdf"
+                  >
+                    <FileDown size={15} />
+                    <span>Download</span>
+                  </a>
+                </div>
               </div>
             </div>
-
-            <div className="cert-modal-footer">
-              <div className="cert-modal-meta">
-                <span className="cert-meta-tag">16 March 2026 – 30 September 2026</span>
-                <span className="cert-meta-org">ISO 9001:2015 & CMMI - 3 Certified Organization</span>
-              </div>
-
-              <div className="cert-modal-actions">
-                <a
-                  href={`${import.meta.env.BASE_URL.replace(/\/+$/, '')}/Internship-certificate.pdf`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-cert-modal-primary"
-                  id="cert-modal-open-pdf"
-                >
-                  <ExternalLink size={16} />
-                  <span>Open PDF (New Tab)</span>
-                </a>
-                <a
-                  href={`${import.meta.env.BASE_URL.replace(/\/+$/, '')}/Internship-certificate.pdf`}
-                  download="Gaurav_Chavda_Internship_Certificate.pdf"
-                  className="btn-cert-modal-secondary"
-                  id="cert-modal-download-pdf"
-                >
-                  <FileDown size={16} />
-                  <span>Download</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
     </div>
   );
 };

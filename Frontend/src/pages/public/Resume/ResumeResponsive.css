@@ -60,12 +60,13 @@
   }
 
   .cert-modal-backdrop {
-    padding: 10px;
+    padding: 12px;
   }
 
   .cert-modal-card {
     max-width: 100%;
-    max-height: 94vh;
+    max-height: calc(100vh - 24px);
+    max-height: calc(100dvh - 24px);
     border-radius: 16px;
   }
 
@@ -81,9 +82,17 @@
     font-size: 0.75rem;
   }
 
-  .cert-image-frame {
+  .cert-modal-body {
     padding: 10px;
-    max-height: 52vh;
+  }
+
+  .cert-image-frame {
+    max-width: 100%;
+  }
+
+  .cert-modal-image {
+    max-height: calc(100vh - 220px);
+    max-height: calc(100dvh - 220px);
   }
 
   .cert-modal-footer {
@@ -266,6 +275,33 @@
    Tablet (769px - 1024px)
    -------------------------------------------------------------------------- */
 @media (min-width: 769px) and (max-width: 1024px) {
+  .resume-hero-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 16px;
+  }
+
+  .resume-header-left {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .resume-actions-row {
+    flex-shrink: 0;
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+
+  .btn-resume-cert,
+  .btn-resume-download,
+  .btn-resume-view {
+    padding: 8px 12px;
+    font-size: 0.82rem;
+    gap: 6px;
+  }
+
   .resume-grid-layout {
     grid-template-columns: 280px 1fr;
     gap: 20px;
