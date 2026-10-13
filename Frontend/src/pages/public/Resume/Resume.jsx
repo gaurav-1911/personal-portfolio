@@ -367,10 +367,11 @@ export const Resume = () => {
                           type="button"
                           className="cert-inline-view-btn"
                           onClick={() => setIsCertModalOpen(true)}
-                          aria-label="Preview internship certificate"
+                          aria-label="View verified internship certificate"
+                          title="View Certificate"
                         >
-                          <Eye size={12} />
-                          <span>View Certificate</span>
+                          <Eye size={13} className="cert-view-btn-icon" />
+                          <span>View</span>
                         </button>
                       )}
                     </div>

@@ -597,7 +597,10 @@
 .cert-details {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
 }
 
 .cert-course-name {
@@ -1158,29 +1161,58 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  margin-top: 4px;
+  gap: 10px;
+  margin-top: 6px;
+  width: 100%;
 }
 
 .cert-inline-view-btn {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 3px 9px;
+  justify-content: center;
+  gap: 5px;
+  padding: 4px 10px;
   border-radius: 6px;
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  flex-shrink: 0;
   color: #38bdf8;
   background: rgba(56, 189, 248, 0.1);
-  border: 1px solid rgba(56, 189, 248, 0.28);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  box-shadow: 0 1px 4px rgba(56, 189, 248, 0.15);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cert-inline-view-btn .cert-view-btn-icon {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
 }
 
 .cert-inline-view-btn:hover {
   background: rgba(56, 189, 248, 0.22);
   border-color: #38bdf8;
+  color: #ffffff;
   transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(56, 189, 248, 0.35);
+}
+
+.cert-inline-view-btn:hover .cert-view-btn-icon {
+  transform: scale(1.15);
+}
+
+[data-theme='light'] .cert-inline-view-btn {
+  background: rgba(2, 132, 199, 0.08);
+  border-color: rgba(2, 132, 199, 0.3);
+  color: #0284c7;
+}
+
+[data-theme='light'] .cert-inline-view-btn:hover {
+  background: #0284c7;
+  border-color: #0284c7;
+  color: #ffffff;
 }
 
 /* Certificate Lightbox Modal */
