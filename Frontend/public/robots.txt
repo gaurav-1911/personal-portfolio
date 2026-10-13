@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /api/
 
 Sitemap: https://gaurav-1911.github.io/personal-portfolio/sitemap.xml

@@ -85,7 +85,7 @@ const Projects = () => {
                   Key Features
                 </div>
                 <div className="project-features-list">
-                  {project.features.map((feat, fIdx) => (
+                  {project.features.map((feat) => (
                     <div key={feat} className="project-feature-item">
                       <CheckCircle2 size={14} className="project-check-icon" />
                       <span>{feat}</span>

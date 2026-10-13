@@ -2,6 +2,13 @@ import react, { reactCompilerPreset } from '@vitejs/plugin-react'
 import babel from '@rolldown/plugin-babel'
 import { defineConfig, loadEnv } from 'vite'
 
+import fs from 'fs'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
 // https://vite.dev/config/
 
 /**
@@ -30,6 +37,8 @@ function seoFilesPlugin(siteUrl) {
   const robots = `# robots.txt for Gaurav Chavda Portfolio
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /api/
 
 Sitemap: ${SITE_URL}/sitemap.xml
 `
@@ -71,6 +80,15 @@ ${SITE_PATHS.map(
     generateBundle() {
       this.emitFile({ type: 'asset', fileName: 'robots.txt', source: robots })
       this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: sitemap })
+      try {
+        const resumeFile = path.resolve(__dirname, 'public/Gaurav_Chavda_MERN_Stack_Resume.pdf')
+        if (fs.existsSync(resumeFile)) {
+          const buf = fs.readFileSync(resumeFile)
+          this.emitFile({ type: 'asset', fileName: 'Gaurav_Chavda_Mern_Stack_Resume.pdf', source: buf })
+        }
+      } catch (err) {
+        console.warn('[SEO Plugin] Failed to emit resume variants:', err.message)
+      }
     },
   }
 }

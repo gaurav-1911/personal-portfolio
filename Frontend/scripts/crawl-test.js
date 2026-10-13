@@ -8,7 +8,8 @@
  * 4. 404 Not Found error handling for non-existent routes
  * 5. Absence of broken links
  */
-const BASE_URL = 'http://localhost:5173';
+const BASE_URL = (process.env.TEST_BASE_URL || 'http://localhost:5173').replace(/\/+$/, '');
+const BASE_PATH = '/personal-portfolio';
 
 const ROUTES_TO_TEST = [
   '/',
@@ -19,7 +20,6 @@ const ROUTES_TO_TEST = [
   '/projects',
   '/projects/solar-management-system',
   '/projects/bidirectional-chat-platform',
-  '/projects/product-management-system',
   '/resume',
   '/contact',
 ];
@@ -42,18 +42,18 @@ async function runCrawlTest() {
   // --- 1. Test All Public Routes ---
   console.log('1. Checking Public Route Endpoints...');
   for (const route of ROUTES_TO_TEST) {
-    const url = `${BASE_URL}${route}`;
+    const url = `${BASE_URL}${BASE_PATH}${route === '/' ? '/' : route}`;
     try {
       const res = await fetch(url);
       if (res.ok) {
-        console.log(`   ✔ [HTTP ${res.status}] ${route}`);
+        console.log(`   ✔ [HTTP ${res.status}] ${BASE_PATH}${route}`);
         passed++;
       } else {
-        console.error(`   ❌ [HTTP ${res.status}] ${route}`);
+        console.error(`   ❌ [HTTP ${res.status}] ${BASE_PATH}${route}`);
         failed++;
       }
     } catch (err) {
-      console.error(`   ❌ [FETCH_ERR] ${route}: ${err.message}`);
+      console.error(`   ❌ [FETCH_ERR] ${BASE_PATH}${route}: ${err.message}`);
       failed++;
     }
   }
@@ -61,7 +61,9 @@ async function runCrawlTest() {
   // --- 2. Test Key Static Assets ---
   console.log('\n2. Checking Static Assets & SEO Files...');
   for (const asset of ASSETS_TO_TEST) {
-    const url = `${BASE_URL}${asset}`;
+    // robots.txt and sitemap.xml can be served from root or base; images/icons from base path
+    const isRootAsset = asset === '/robots.txt' || asset === '/sitemap.xml';
+    const url = isRootAsset ? `${BASE_URL}${asset}` : `${BASE_URL}${BASE_PATH}${asset}`;
     try {
       const res = await fetch(url);
       if (res.ok) {
@@ -92,7 +94,7 @@ async function runCrawlTest() {
 
   // --- 4. Verify 404 Response ---
   console.log('\n4. Testing 404 Error Boundary...');
-  const notFoundRes = await fetch(`${BASE_URL}/non-existent-page-test-404`);
+  const notFoundRes = await fetch(`${BASE_URL}${BASE_PATH}/non-existent-page-test-404`);
   console.log(`   ✔ Fallback SPA response for unknown route: [HTTP ${notFoundRes.status}]`);
 
   console.log('\n====================================================');

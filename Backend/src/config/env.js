@@ -9,8 +9,13 @@
  */
 import dotenv from 'dotenv';
 import crypto from 'crypto';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+dotenv.config(); // fallback to cwd if applicable
 
 const env = (key, fallback = undefined) => process.env[key] ?? fallback;
 
@@ -81,7 +86,7 @@ export const validateConfig = () => {
   if (!adminApiKey) missing.push('ADMIN_API_KEY');
   if (!adminPassword) missing.push('ADMIN_PASSWORD');
   if (!jwtSecret) missing.push('JWT_SECRET');
-  if (!mailPass) missing.push('EMAIL_PASS');
+  if (!mailPass && !process.env.RESEND_API_KEY) missing.push('EMAIL_PASS (or RESEND_API_KEY)');
   if (!config.mongodbUri) missing.push('MONGODB_URI');
 
   if (missing.length > 0) {

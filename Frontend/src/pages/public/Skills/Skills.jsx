@@ -56,14 +56,14 @@ const Skills = () => {
         </p>
 
         <div className="skills-grid">
-          {SKILL_CATEGORIES.map((cat, idx) => (
+          {SKILL_CATEGORIES.map((cat) => (
             <div key={cat.title} className="skills-category-card">
               <div className="skills-category-header">
                 {cat.icon}
                 <h3 className="skills-category-title">{cat.title}</h3>
               </div>
               <div className="skills-chips-wrapper">
-                {cat.skills.map((skill, sIdx) => (
+                {cat.skills.map((skill) => (
                   <span
                     key={skill}
                     className="skills-chip"

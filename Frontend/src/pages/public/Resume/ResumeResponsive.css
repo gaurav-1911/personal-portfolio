@@ -7,6 +7,7 @@
    Small Mobile (< 480px)
    -------------------------------------------------------------------------- */
 @media (max-width: 480px) {
+  .resume-page,
   .resume-page-wrapper {
     padding: 16px 0 28px;
   }
@@ -22,6 +23,7 @@
     font-size: 1.5rem;
   }
 
+  .resume-page-description,
   .resume-page-subtitle {
     font-size: 0.88rem;
   }
@@ -50,6 +52,7 @@
     border-radius: 14px;
   }
 
+  .resume-card-title,
   .card-section-title {
     font-size: 1.05rem;
   }
@@ -81,6 +84,7 @@
     font-size: 0.9rem;
   }
 
+  .job-period-tag,
   .job-period-badge {
     font-size: 0.74rem;
     padding: 2px 8px;
@@ -92,10 +96,12 @@
     gap: 6px;
   }
 
+  .skill-category-block,
   .skills-card-group {
     margin-bottom: 14px;
   }
 
+  .skill-category-label,
   .skill-group-label {
     font-size: 0.82rem;
   }
@@ -105,10 +111,12 @@
     padding: 3px 8px;
   }
 
+  .edu-degree-title,
   .education-degree {
     font-size: 0.95rem;
   }
 
+  .edu-school-name,
   .education-institution {
     font-size: 0.84rem;
   }
@@ -124,6 +132,7 @@
    Mobile (481px - 768px)
    -------------------------------------------------------------------------- */
 @media (min-width: 481px) and (max-width: 768px) {
+  .resume-page,
   .resume-page-wrapper {
     padding: 24px 0 36px;
   }
@@ -202,6 +211,7 @@
    Large Desktop (> 1440px)
    -------------------------------------------------------------------------- */
 @media (min-width: 1441px) {
+  .resume-page,
   .resume-page-wrapper {
     max-width: 1200px;
     margin: 0 auto;
