@@ -387,7 +387,7 @@ const Home = () => {
       </section>
 
       {/* 4. What I Build / Engineering Capabilities */}
-      <section className="services-section">
+      <section className="services-section" aria-label="What I Build - Engineering Capabilities">
         <div className="section-header">
           <div className="badge-tag">
             <Sparkles size={14} />
@@ -401,7 +401,7 @@ const Home = () => {
 
         <div className="services-grid">
           {WHAT_I_BUILD.map((item) => (
-            <div key={item.title} className="service-card">
+            <div key={item.title} className="service-card" id={`service-card-${item.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>
               <div className="service-icon-box">{item.icon}</div>
               <h3 className="service-title">{item.title}</h3>
               <p className="service-desc">{item.desc}</p>
@@ -411,7 +411,7 @@ const Home = () => {
       </section>
 
       {/* 5. Featured Projects Teaser */}
-      <section className="featured-projects-section">
+      <section className="featured-projects-section" aria-label="Featured Projects">
         <div className="section-header">
           <div className="badge-tag">
             <Layers size={14} />
