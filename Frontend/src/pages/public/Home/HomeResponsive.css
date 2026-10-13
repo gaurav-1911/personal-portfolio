@@ -284,7 +284,13 @@
   }
 
   .about-me-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .about-box {
+    padding: 22px 18px;
+    border-radius: 18px;
   }
 
   .cta-banner-card {
