@@ -20,7 +20,7 @@ const PROJECTS_DATA = [
       'Automated email notifications via Nodemailer',
     ],
     githubUrl: 'https://github.com/gaurav-1911',
-    liveUrl: '#',
+    liveUrl: 'https://gaurav-1911.github.io/solar-management-system/',
     isFeatured: true,
   },
   {
@@ -36,7 +36,7 @@ const PROJECTS_DATA = [
       'MongoDB indexing, media streaming optimization, and structured API endpoints',
     ],
     githubUrl: 'https://github.com/gaurav-1911',
-    liveUrl: '#',
+    liveUrl: 'https://gaurav-1911.github.io/bidirectional-chat/',
     isFeatured: true,
   },
 ];
@@ -115,26 +115,29 @@ const Projects = () => {
                 </NavLink>
 
                 <div className="project-links-row">
+                  {project.liveUrl && project.liveUrl !== '#' && (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-project-card-live"
+                      id={`live-demo-${project.id}`}
+                      aria-label={`Open live demonstration of ${project.title}`}
+                    >
+                      <ExternalLink size={14} />
+                      <span>Live Demo</span>
+                    </a>
+                  )}
                   <a
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="project-external-btn"
                     aria-label="GitHub repo"
+                    title="View GitHub Repository"
                   >
                     <GithubIcon size={18} />
                   </a>
-                  {project.liveUrl && project.liveUrl !== '#' && (
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="project-external-btn"
-                      aria-label="Live Demo"
-                    >
-                      <ExternalLink size={18} />
-                    </a>
-                  )}
                 </div>
               </div>
             </div>

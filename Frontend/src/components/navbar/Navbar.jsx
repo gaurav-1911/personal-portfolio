@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { ThemeToggle } from './ThemeToggle/ThemeToggle';
 import { Menu, X, User, FileText, Cpu, Briefcase, Layers, Mail } from 'lucide-react';
+import { prefetchRoute } from '../../utils/routePrefetch';
 import './Navbar.css';
 import './NavbarResponsive.css';
 
@@ -57,6 +58,9 @@ export const Navbar = () => {
                   end={item.path === '/'}
                   className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
                   id={`nav-${item.name.toLowerCase().replace(/\s+/g, '-')}`}
+                  onMouseEnter={() => prefetchRoute(item.path)}
+                  onFocus={() => prefetchRoute(item.path)}
+                  onTouchStart={() => prefetchRoute(item.path)}
                 >
                   {item.name}
                 </NavLink>
@@ -100,6 +104,8 @@ export const Navbar = () => {
                   end={item.path === '/'}
                   className={({ isActive }) => `mobile-dropdown-link ${isActive ? 'active' : ''}`}
                   onClick={() => setMobileMenuOpen(false)}
+                  onMouseEnter={() => prefetchRoute(item.path)}
+                  onTouchStart={() => prefetchRoute(item.path)}
                   id={`mobile-nav-${item.name.toLowerCase().replace(/\s+/g, '-')}`}
                 >
                   <span className="mobile-nav-icon">{item.icon}</span>

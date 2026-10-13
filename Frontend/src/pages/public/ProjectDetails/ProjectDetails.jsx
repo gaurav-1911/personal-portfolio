@@ -19,7 +19,7 @@ const PROJECT_DETAILS = {
     challenges: 'Coordinating state transitions across multiple administrative approval tiers and generating accurate dynamic quotations.',
     outcomes: 'Reduced manual administrative overhead by 70% with automated quotation emails and subsidy verification checklists.',
     githubUrl: 'https://github.com/gaurav-1911',
-    liveUrl: '#',
+    liveUrl: 'https://gaurav-1911.github.io/solar-management-system/',
   },
   'bidirectional-chat-platform': {
     title: 'Bidirectional — Real-Time Chat & Video Calling Platform',
@@ -31,7 +31,7 @@ const PROJECT_DETAILS = {
     challenges: 'Handling ICE candidate negotiation, NAT traversal through STUN servers, device permissions switching, and reconnecting interrupted socket states cleanly.',
     outcomes: 'Sub-50ms message delivery latency, crystal-clear peer-to-peer video streaming with zero server media bandwidth overhead, and resilient JWT authentication.',
     githubUrl: 'https://github.com/gaurav-1911',
-    liveUrl: '#',
+    liveUrl: 'https://gaurav-1911.github.io/bidirectional-chat/',
   },
 };
 
@@ -157,11 +157,37 @@ const ProjectDetails = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary project-details-btn"
+                id="project-live-demo-btn"
+                aria-label={`Open live demonstration of ${project.title}`}
               >
                 <ExternalLink size={16} />
                 <span>Live Demonstration</span>
               </a>
             )}
+          </div>
+        )}
+
+        {/* Live System Spotlight Bar */}
+        {project.liveUrl && project.liveUrl !== '#' && (
+          <div className="project-live-launch-strip" id="project-live-launch-banner">
+            <div className="project-live-indicator">
+              <span className="live-pulse-dot" aria-hidden="true" />
+              <div className="project-live-info">
+                <span className="project-live-badge-label">LIVE SYSTEM DEPLOYED</span>
+                <span className="project-live-url-text">{project.liveUrl}</span>
+              </div>
+            </div>
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-launch-live-app"
+              id="project-launch-live-link"
+              aria-label={`Launch ${project.title} live application in new tab`}
+            >
+              <span>Launch Live App</span>
+              <ExternalLink size={15} />
+            </a>
           </div>
         )}
 

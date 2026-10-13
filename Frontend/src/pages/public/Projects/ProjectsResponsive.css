@@ -62,9 +62,14 @@
     padding: 3px 8px;
   }
 
-  .project-footer {
+  .project-card-footer {
     flex-wrap: wrap;
     gap: 12px;
+  }
+
+  .project-links-row {
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
   .project-deep-dive-link {

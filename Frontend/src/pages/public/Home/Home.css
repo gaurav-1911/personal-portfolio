@@ -620,6 +620,11 @@
 .project-teaser-footer {
   padding-top: 18px;
   border-top: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .project-link-btn {
@@ -629,13 +634,36 @@
   font-size: 0.92rem;
   font-weight: 600;
   color: var(--accent-primary);
-  transition: gap 0.2s ease;
+  transition: gap 0.2s ease, color 0.2s ease;
   text-decoration: none;
 }
 
 .project-link-btn:hover {
   gap: 12px;
   color: var(--accent-hover);
+}
+
+.btn-project-teaser-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 13px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-project-teaser-live:hover {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: #10b981;
+  color: #34d399;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
 }
 
 /* ==========================================================================
@@ -1308,5 +1336,82 @@
     animation: rise-in linear backwards;
     animation-timeline: view();
     animation-range: entry 0% cover 25%;
+  }
+}
+
+/* ==========================================================================
+   Progressive Scroll Reveal & Smooth Section Loading
+   ========================================================================== */
+.services-section,
+.featured-projects-section,
+.cta-banner-section {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 450px;
+}
+
+.home-page .reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.home-page .reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.home-page .reveal-on-scroll.is-revealed .about-box:nth-child(1),
+.home-page .reveal-on-scroll.is-revealed .service-card:nth-child(1),
+.home-page .reveal-on-scroll.is-revealed .project-teaser-card:nth-child(1) {
+  animation: smoothCascadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+}
+
+.home-page .reveal-on-scroll.is-revealed .about-box:nth-child(2),
+.home-page .reveal-on-scroll.is-revealed .service-card:nth-child(2),
+.home-page .reveal-on-scroll.is-revealed .project-teaser-card:nth-child(2) {
+  animation: smoothCascadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+.home-page .reveal-on-scroll.is-revealed .about-box:nth-child(3),
+.home-page .reveal-on-scroll.is-revealed .service-card:nth-child(3) {
+  animation: smoothCascadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+}
+
+.home-page .reveal-on-scroll.is-revealed .service-card:nth-child(4) {
+  animation: smoothCascadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+}
+
+.home-page .reveal-on-scroll.is-revealed .service-card:nth-child(5) {
+  animation: smoothCascadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
+}
+
+.home-page .reveal-on-scroll.is-revealed .service-card:nth-child(6) {
+  animation: smoothCascadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both;
+}
+
+@keyframes smoothCascadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-page .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .home-page .reveal-on-scroll.is-revealed .about-box,
+  .home-page .reveal-on-scroll.is-revealed .service-card,
+  .home-page .reveal-on-scroll.is-revealed .project-teaser-card {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

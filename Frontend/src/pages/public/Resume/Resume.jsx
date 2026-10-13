@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   FileDown,
   Eye,
@@ -9,6 +9,8 @@ import {
   Calendar,
   ChevronRight,
   CheckCircle2,
+  ExternalLink,
+  X,
 } from 'lucide-react';
 import { SEOHead } from '../../../components/common/SEOHead/SEOHead';
 import { useScrollTimeline } from '../../../hooks/useScrollTimeline';
@@ -68,7 +70,7 @@ const EXPERIENCE_DATA = [
     badge: '6-Month Internship',
     company: 'Virtual Height',
     location: 'Ahmedabad, India',
-    period: 'March 2026 – Present',
+    period: 'March 2026 – September 2026',
     summary:
       'Contributed as a MERN Stack Developer Intern to a full-stack solar installation management ERP (lead capture through commissioning & handover), building features across the React.js front end, Express.js REST API, and MongoDB database in a team-based workflow.',
     responsibilities: [
@@ -108,6 +110,7 @@ const RESUME_PROJECTS = [
       'Designed consent-based screen sharing workflow with user approval and live WebRTC connection status updates.',
       'Architected MongoDB indexes and structured REST APIs with Swagger/OpenAPI documentation, image processing, and presence tracking.',
     ],
+    liveUrl: 'https://gaurav-1911.github.io/bidirectional-chat/',
   },
   {
     title: 'Solar Installation Management System — Full-Stack ERP Application',
@@ -136,6 +139,7 @@ const RESUME_PROJECTS = [
       'Created analytics dashboards and reporting pipelines for financial, sales, inventory, and technician data with automated PDF and Excel exports.',
       'Added client-side validation (Formik, Yup), server-side validation (Joi), Multer file uploads, automated email notifications (Nodemailer), and security via Helmet and CORS.',
     ],
+    liveUrl: 'https://gaurav-1911.github.io/solar-management-system/',
   },
 ];
 
@@ -162,6 +166,12 @@ const EDUCATION_DATA = [
 
 const CERTIFICATIONS_DATA = [
   {
+    title: 'Certificate of Internship — MERN Stack Developer',
+    issuer: 'Virtual Height IT Services Pvt. Ltd.',
+    period: 'March 2026 – September 2026',
+    isInternship: true,
+  },
+  {
     title: 'MERN Stack Development Training',
     issuer: 'Virtual Height',
     period: 'August 2025 – March 2026',
@@ -180,12 +190,31 @@ const CERTIFICATIONS_DATA = [
 
 export const Resume = () => {
   const pageRef = useRef(null);
+  const [isCertModalOpen, setIsCertModalOpen] = useState(false);
 
   // Scroll-driven timeline: travelling progress line + active node + reveal-once
   const { containerRef: timelineContainerRef, activeIndex } = useScrollTimeline({
     itemSelector: '.timeline-job-entry',
     revealClass: 'is-revealed',
   });
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setIsCertModalOpen(false);
+      }
+    };
+    if (isCertModalOpen) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isCertModalOpen]);
 
   useEffect(() => {
     const observerCallback = (entries, observer) => {
@@ -233,10 +262,20 @@ export const Resume = () => {
         </div>
 
         <div className="resume-actions-row">
+          <button
+            type="button"
+            onClick={() => setIsCertModalOpen(true)}
+            className="btn-resume-cert anim-fade-in-up anim-delay-3"
+            id="resume-page-cert-modal-btn"
+            aria-label="View Gaurav Chavda Internship Certificate"
+          >
+            <Award size={17} className="btn-icon-svg" />
+            <span>Internship Certificate</span>
+          </button>
           <a
             href={`${import.meta.env.BASE_URL.replace(/\/+$/, '')}/Gaurav_Chavda_Mern_Stack_Resume.pdf`}
             download="Gaurav_Chavda_Mern_Stack_Resume.pdf"
-            className="btn-resume-download anim-fade-in-up anim-delay-3"
+            className="btn-resume-download anim-fade-in-up anim-delay-4"
             id="resume-page-download-btn"
           >
             <FileDown size={17} className="btn-icon-svg" />
@@ -246,7 +285,7 @@ export const Resume = () => {
             href={`${import.meta.env.BASE_URL.replace(/\/+$/, '')}/Gaurav_Chavda_Mern_Stack_Resume.pdf`}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-resume-view anim-fade-in-up anim-delay-4"
+            className="btn-resume-view anim-fade-in-up anim-delay-5"
             id="resume-page-view-btn"
           >
             <Eye size={17} className="btn-icon-svg" />
@@ -312,12 +351,28 @@ export const Resume = () => {
 
             <div className="certifications-list">
               {CERTIFICATIONS_DATA.map((cert, idx) => (
-                <div key={idx} className="cert-entry-item">
+                <div key={idx} className={`cert-entry-item ${cert.isInternship ? 'is-internship-cert' : ''}`}>
                   <CheckCircle2 size={16} className="cert-check-icon" />
                   <div className="cert-details">
-                    <h3 className="cert-course-name">{cert.title}</h3>
+                    <div className="cert-title-badge-row">
+                      <h3 className="cert-course-name">{cert.title}</h3>
+                      {cert.isInternship && <span className="cert-verified-pill">Verified</span>}
+                    </div>
                     <p className="cert-issuer-text">{cert.issuer}</p>
-                    <span className="cert-period-text">{cert.period}</span>
+                    <div className="cert-meta-row">
+                      <span className="cert-period-text">{cert.period}</span>
+                      {cert.isInternship && (
+                        <button
+                          type="button"
+                          className="cert-inline-view-btn"
+                          onClick={() => setIsCertModalOpen(true)}
+                          aria-label="Preview internship certificate"
+                        >
+                          <Eye size={12} />
+                          <span>View Certificate</span>
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}
@@ -364,6 +419,32 @@ export const Resume = () => {
                     <span className="job-location-text">{exp.location}</span>
                   </div>
 
+                  {/* Verified Internship Certificate Action Strip */}
+                  <div className="job-cert-badge-row">
+                    <button
+                      type="button"
+                      className="btn-view-job-cert"
+                      onClick={() => setIsCertModalOpen(true)}
+                      aria-label="View verified internship certificate"
+                      id="job-internship-cert-btn"
+                    >
+                      <Award size={15} className="cert-badge-icon" />
+                      <span>Verified Internship Certificate</span>
+                      <ExternalLink size={13} className="cert-badge-arrow" />
+                    </button>
+                    <a
+                      href={`${import.meta.env.BASE_URL.replace(/\/+$/, '')}/Internship-certificate.pdf`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-cert-pdf-shortcut"
+                      title="Open Certificate PDF directly in new tab"
+                      aria-label="Open Certificate PDF directly"
+                    >
+                      <FileDown size={14} />
+                      <span>PDF</span>
+                    </a>
+                  </div>
+
                   {/* High-level Job Summary */}
                   <p className="job-summary-text">{exp.summary}</p>
 
@@ -388,8 +469,22 @@ export const Resume = () => {
                       {RESUME_PROJECTS.map((proj, pIdx) => (
                         <div key={pIdx} className="nested-project-card">
                           <div className="nested-project-top">
-                            <h5 className="nested-project-title">{proj.title}</h5>
-                            <span className="nested-project-role-badge">{proj.roleTag}</span>
+                            <div className="nested-project-info">
+                              <h5 className="nested-project-title">{proj.title}</h5>
+                              <span className="nested-project-role-badge">{proj.roleTag}</span>
+                            </div>
+                            {proj.liveUrl && (
+                              <a
+                                href={proj.liveUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="btn-nested-project-live"
+                                aria-label={`Open live demonstration of ${proj.title}`}
+                              >
+                                <ExternalLink size={13} />
+                                <span>Live Demo</span>
+                              </a>
+                            )}
                           </div>
 
                           <p className="nested-project-desc">{proj.description}</p>
@@ -422,6 +517,86 @@ export const Resume = () => {
           </div>
         </main>
       </div>
+
+      {/* Interactive Certificate Lightbox Modal */}
+      {isCertModalOpen && (
+        <div
+          className="cert-modal-backdrop"
+          onClick={() => setIsCertModalOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="cert-modal-title"
+        >
+          <div
+            className="cert-modal-card"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="cert-modal-header">
+              <div className="cert-modal-title-group">
+                <div className="cert-modal-icon-badge">
+                  <Award size={20} />
+                </div>
+                <div>
+                  <h3 id="cert-modal-title" className="cert-modal-title">
+                    Certificate of Internship
+                  </h3>
+                  <p className="cert-modal-subtitle">
+                    Virtual Height IT Services Pvt. Ltd. • MERN Stack Intern
+                  </p>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                className="cert-modal-close-btn"
+                onClick={() => setIsCertModalOpen(false)}
+                aria-label="Close certificate modal"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="cert-modal-body">
+              <div className="cert-image-frame">
+                <img
+                  src={`${import.meta.env.BASE_URL.replace(/\/+$/, '')}/internship_certificate.jpg`}
+                  alt="Gaurav Chavda - Certificate of Internship - Virtual Height IT Services Pvt. Ltd."
+                  className="cert-modal-image"
+                />
+              </div>
+            </div>
+
+            <div className="cert-modal-footer">
+              <div className="cert-modal-meta">
+                <span className="cert-meta-tag">16 March 2026 – 30 September 2026</span>
+                <span className="cert-meta-org">ISO 9001:2015 & CMMI - 3 Certified Organization</span>
+              </div>
+
+              <div className="cert-modal-actions">
+                <a
+                  href={`${import.meta.env.BASE_URL.replace(/\/+$/, '')}/Internship-certificate.pdf`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-cert-modal-primary"
+                  id="cert-modal-open-pdf"
+                >
+                  <ExternalLink size={16} />
+                  <span>Open PDF (New Tab)</span>
+                </a>
+                <a
+                  href={`${import.meta.env.BASE_URL.replace(/\/+$/, '')}/Internship-certificate.pdf`}
+                  download="Gaurav_Chavda_Internship_Certificate.pdf"
+                  className="btn-cert-modal-secondary"
+                  id="cert-modal-download-pdf"
+                >
+                  <FileDown size={16} />
+                  <span>Download</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

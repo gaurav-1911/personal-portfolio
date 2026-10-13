@@ -27,7 +27,12 @@ const ROUTES_TO_TEST = [
 const ASSETS_TO_TEST = [
   '/robots.txt',
   '/sitemap.xml',
+  '/favicon.ico',
   '/favicon.svg',
+  '/favicon-48x48.png',
+  '/favicon-32x32.png',
+  '/apple-touch-icon.png',
+  '/site.webmanifest',
   '/developer_portrait.jpg',
 ];
 

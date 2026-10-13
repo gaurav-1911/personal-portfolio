@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   ArrowRight,
@@ -18,6 +18,7 @@ import {
   Phone,
   Zap,
   Workflow,
+  ExternalLink,
 } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../../../components/common/SocialIcons/SocialIcons';
 import { TechMarquee } from '../../../components/common/TechMarquee/TechMarquee';
@@ -133,6 +134,7 @@ const FEATURED_PROJECTS = [
     ],
     tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'RBAC', 'Nodemailer'],
     flag: 'Featured Project',
+    liveUrl: 'https://gaurav-1911.github.io/solar-management-system/',
   },
   {
     id: 'bidirectional-chat-platform',
@@ -147,12 +149,40 @@ const FEATURED_PROJECTS = [
     ],
     tech: ['React.js', 'TypeScript', 'Node.js', 'Express.js', 'Socket.IO', 'WebRTC', 'MongoDB'],
     flag: 'Featured Project',
+    liveUrl: 'https://gaurav-1911.github.io/bidirectional-chat/',
   },
 ];
 
 const Home = () => {
+  const pageRef = useRef(null);
+
+  useEffect(() => {
+    const observerCallback = (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    };
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -40px 0px',
+      threshold: 0.1,
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    const scrollElements = pageRef.current?.querySelectorAll('.reveal-on-scroll');
+    scrollElements?.forEach((el) => observer.observe(el));
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
-    <div className="home-page">
+    <div className="home-page" ref={pageRef}>
       <SEOHead
         title="Gaurav Chavda | MERN Stack Developer"
         description="Gaurav Chavda is a MERN Stack Developer specializing in React.js, Node.js, Express.js, MongoDB, REST APIs, and modern web applications."
@@ -262,7 +292,7 @@ const Home = () => {
       <TechMarquee />
 
       {/* 3. About Me Three-Card Grid */}
-      <section className="about-me-section">
+      <section className="about-me-section reveal-on-scroll">
         <div className="section-header">
           <div className="badge-tag">
             <User size={14} />
@@ -387,7 +417,7 @@ const Home = () => {
       </section>
 
       {/* 4. What I Build / Engineering Capabilities */}
-      <section className="services-section" aria-label="What I Build - Engineering Capabilities">
+      <section className="services-section reveal-on-scroll" aria-label="What I Build - Engineering Capabilities">
         <div className="section-header">
           <div className="badge-tag">
             <Sparkles size={14} />
@@ -411,7 +441,7 @@ const Home = () => {
       </section>
 
       {/* 5. Featured Projects Teaser */}
-      <section className="featured-projects-section" aria-label="Featured Projects">
+      <section className="featured-projects-section reveal-on-scroll" aria-label="Featured Projects">
         <div className="section-header">
           <div className="badge-tag">
             <Layers size={14} />
@@ -452,6 +482,19 @@ const Home = () => {
                   <span>View Project Details</span>
                   <ArrowRight size={15} />
                 </NavLink>
+                {project.liveUrl && (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-project-teaser-live"
+                    id={`home-live-btn-${project.id}`}
+                    aria-label={`Open live demonstration of ${project.title}`}
+                  >
+                    <ExternalLink size={14} />
+                    <span>Live Demo</span>
+                  </a>
+                )}
               </div>
             </div>
           ))}
@@ -459,7 +502,7 @@ const Home = () => {
       </section>
 
       {/* 6. Contact CTA Banner */}
-      <section className="cta-banner-section" aria-label="Collaboration and Contact Call to Action">
+      <section className="cta-banner-section reveal-on-scroll" aria-label="Collaboration and Contact Call to Action">
         <div className="cta-banner-card">
           {/* Subtle Ambient Background Mesh Lights */}
           <div className="cta-ambient-glow cta-glow-left" aria-hidden="true" />

@@ -15,13 +15,16 @@ const Contact = lazy(() => import('../pages/public/Contact/Contact'));
 const Resume = lazy(() => import('../pages/public/Resume/Resume'));
 const NotFound = lazy(() => import('../pages/public/NotFound/NotFound'));
 
-// Suspense Page Loader
+// Smooth Non-Blocking Top Progress & Suspense Fallback
 export const PageLoader = () => (
-  <div className="loading-container" role="status" aria-live="polite">
-    <div className="spinner"></div>
-    <span className="page-loader-text">
-      Loading module...
-    </span>
+  <div className="page-transition-fallback" role="status" aria-live="polite">
+    <div className="top-route-progress" aria-hidden="true">
+      <div className="top-route-progress-bar" />
+    </div>
+    <div className="page-smooth-skeleton">
+      <div className="spinner" />
+      <span className="page-loader-text">Loading...</span>
+    </div>
   </div>
 );
 

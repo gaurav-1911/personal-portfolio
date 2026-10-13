@@ -14,6 +14,8 @@ export const TECH_ITEMS = [
         alt="React.js"
         width="22"
         height="22"
+        loading="lazy"
+        decoding="async"
         className="marquee-tech-icon-img"
       />
     ),
@@ -27,6 +29,8 @@ export const TECH_ITEMS = [
         alt="Node.js"
         width="22"
         height="22"
+        loading="lazy"
+        decoding="async"
         className="marquee-tech-icon-img"
       />
     ),
@@ -40,6 +44,8 @@ export const TECH_ITEMS = [
         alt="Express.js"
         width="22"
         height="22"
+        loading="lazy"
+        decoding="async"
         className="marquee-tech-icon-img rounded"
       />
     ),
@@ -53,6 +59,8 @@ export const TECH_ITEMS = [
         alt="MongoDB"
         width="22"
         height="22"
+        loading="lazy"
+        decoding="async"
         className="marquee-tech-icon-img"
       />
     ),
@@ -66,6 +74,8 @@ export const TECH_ITEMS = [
         alt="MySQL"
         width="22"
         height="22"
+        loading="lazy"
+        decoding="async"
         className="marquee-tech-icon-img"
       />
     ),
@@ -79,6 +89,8 @@ export const TECH_ITEMS = [
         alt="Git"
         width="22"
         height="22"
+        loading="lazy"
+        decoding="async"
         className="marquee-tech-icon-img"
       />
     ),
@@ -92,6 +104,8 @@ export const TECH_ITEMS = [
         alt="REST API"
         width="22"
         height="22"
+        loading="lazy"
+        decoding="async"
         className="marquee-tech-icon-img"
       />
     ),
@@ -105,6 +119,8 @@ export const TECH_ITEMS = [
         alt="JWT Auth"
         width="22"
         height="22"
+        loading="lazy"
+        decoding="async"
         className="marquee-tech-icon-img"
       />
     ),
@@ -127,6 +143,8 @@ export const TECH_ITEMS = [
         alt="Joi Validation"
         width="22"
         height="22"
+        loading="lazy"
+        decoding="async"
         className="marquee-tech-icon-img"
       />
     ),
@@ -151,6 +169,8 @@ export const TECH_ITEMS = [
         alt="Redux Toolkit"
         width="22"
         height="22"
+        loading="lazy"
+        decoding="async"
         className="marquee-tech-icon-img"
       />
     ),
@@ -164,6 +184,8 @@ export const TECH_ITEMS = [
         alt="HTML5"
         width="22"
         height="22"
+        loading="lazy"
+        decoding="async"
         className="marquee-tech-icon-img"
       />
     ),
@@ -177,6 +199,8 @@ export const TECH_ITEMS = [
         alt="CSS3"
         width="22"
         height="22"
+        loading="lazy"
+        decoding="async"
         className="marquee-tech-icon-img"
       />
     ),
@@ -190,6 +214,8 @@ export const TECH_ITEMS = [
         alt="MUI"
         width="22"
         height="22"
+        loading="lazy"
+        decoding="async"
         className="marquee-tech-icon-img"
       />
     ),
@@ -203,6 +229,8 @@ export const TECH_ITEMS = [
         alt="TypeScript"
         width="22"
         height="22"
+        loading="lazy"
+        decoding="async"
         className="marquee-tech-icon-img"
       />
     ),
@@ -216,6 +244,8 @@ export const TECH_ITEMS = [
         alt="JavaScript"
         width="22"
         height="22"
+        loading="lazy"
+        decoding="async"
         className="marquee-tech-icon-img"
       />
     ),
@@ -229,6 +259,8 @@ export const TECH_ITEMS = [
         alt="Bootstrap"
         width="22"
         height="22"
+        loading="lazy"
+        decoding="async"
         className="marquee-tech-icon-img"
       />
     ),
