@@ -11,49 +11,63 @@
 
   .hero-section {
     min-height: auto;
-    padding: 10px 0 16px;
+    padding: 8px 0 16px;
   }
 
   .hero-grid {
     grid-template-columns: 1fr;
-    gap: 14px;
+    gap: 16px;
     text-align: center;
   }
 
   .hero-image-wrapper {
     order: -1;
-    margin-bottom: 0;
+    margin-bottom: 2px;
     display: flex;
     justify-content: center;
   }
 
   .hero-image-container {
-    max-width: 175px;
-    border-radius: 18px;
+    width: 142px;
+    max-width: 142px;
+    aspect-ratio: 3 / 3.5;
+    border-radius: 20px;
+    border: 2px solid rgba(56, 189, 248, 0.35);
+    box-shadow: 0 12px 30px -6px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.22);
   }
 
   .hero-content {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     text-align: center;
     order: 1;
-    padding: 0 4px;
+    padding: 0;
+    width: 100%;
   }
 
   .hero-overline {
-    font-size: 0.75rem;
-    letter-spacing: 0.14em;
+    font-size: 0.74rem;
+    letter-spacing: 0.15em;
+    font-weight: 800;
+    color: #38bdf8;
     margin-bottom: 4px;
   }
 
   .hero-name {
-    font-size: clamp(2rem, 8.5vw, 2.65rem);
+    font-size: clamp(2.05rem, 8.5vw, 2.55rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
     margin-bottom: 6px;
-    line-height: 1.14;
+    line-height: 1.15;
   }
 
   .hero-role-title {
-    font-size: 1.15rem;
+    font-size: 1.12rem;
+    font-weight: 700;
+    color: #38bdf8;
     margin-bottom: 12px;
+    line-height: 1.3;
   }
 
   .hero-tagline {
@@ -63,32 +77,51 @@
 
   .hero-bio-group {
     gap: 8px;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
+    max-width: 440px;
+    width: 100%;
   }
 
   .hero-bio-text {
-    font-size: 0.92rem;
-    line-height: 1.56;
+    font-size: 0.91rem;
+    line-height: 1.58;
+    color: var(--text-secondary);
   }
 
   .hero-actions-row {
-    flex-direction: column;
-    width: 100%;
+    display: flex;
+    flex-direction: row;
     gap: 10px;
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
     justify-content: center;
   }
 
   .btn-get-in-touch,
   .btn-view-resume {
-    width: 100%;
-    padding: 12px 20px;
-    font-size: 0.92rem;
+    flex: 1;
+    min-width: 0;
+    padding: 11px 14px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    white-space: nowrap;
+    justify-content: center;
+    border-radius: 10px;
   }
 
   .hero-social-strip {
+    display: flex;
     justify-content: center;
+    align-items: center;
     margin-top: 14px;
     gap: 10px;
+  }
+
+  .social-icon-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
   }
 
   /* Services Grid */
@@ -145,11 +178,12 @@
 /* Extra Small Devices (< 360px) */
 @media (max-width: 360px) {
   .hero-image-container {
-    max-width: 145px;
+    width: 125px;
+    max-width: 125px;
   }
 
   .hero-name {
-    font-size: 1.95rem;
+    font-size: 1.85rem;
   }
 
   .hero-role-title {
@@ -159,50 +193,92 @@
   .hero-bio-text {
     font-size: 0.86rem;
   }
+
+  .hero-actions-row {
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .btn-get-in-touch,
+  .btn-view-resume {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 0.86rem;
+  }
 }
 
 /* Mobile (481px - 768px) */
 @media (min-width: 481px) and (max-width: 768px) {
   .home-page {
-    gap: 48px;
+    gap: 44px;
   }
 
   .hero-section {
     min-height: auto;
-    padding: 18px 0 28px;
+    padding: 16px 0 24px;
   }
 
   .hero-grid {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 18px;
     text-align: center;
   }
 
   .hero-image-wrapper {
     order: -1;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
     display: flex;
     justify-content: center;
   }
 
   .hero-image-container {
-    max-width: 210px;
-    border-radius: 20px;
+    width: 165px;
+    max-width: 165px;
+    aspect-ratio: 3 / 3.6;
+    border-radius: 22px;
+    border: 2px solid rgba(56, 189, 248, 0.35);
+    box-shadow: 0 12px 30px -6px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.22);
   }
 
   .hero-content {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     text-align: center;
     order: 1;
+    width: 100%;
+  }
+
+  .hero-name {
+    font-size: clamp(2.3rem, 7vw, 2.85rem);
+  }
+
+  .hero-bio-group {
+    max-width: 520px;
+    margin: 0 auto 20px auto;
   }
 
   .hero-actions-row {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
     justify-content: center;
+    width: auto;
+  }
+
+  .btn-get-in-touch,
+  .btn-view-resume {
+    padding: 11px 22px;
+    font-size: 0.92rem;
   }
 
   .hero-social-strip {
+    display: flex;
     justify-content: center;
+    align-items: center;
     margin-top: 16px;
+    gap: 12px;
   }
 
   .services-grid {
