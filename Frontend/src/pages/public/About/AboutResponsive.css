@@ -15,19 +15,39 @@
     margin-bottom: 24px;
   }
 
-  .hero-image-wrapper {
+  .about-hero-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .about-hero-image-wrapper {
+    order: -1;
     margin-bottom: 2px;
     display: flex;
     justify-content: center;
+    width: 100%;
   }
 
-  .hero-image-container {
+  .about-hero-image-container {
     width: 142px;
     max-width: 142px;
     aspect-ratio: 3 / 3.5;
     border-radius: 20px;
     border: 2px solid rgba(56, 189, 248, 0.35);
     box-shadow: 0 12px 30px -6px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.22);
+  }
+
+  .about-hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    order: 1;
+    width: 100%;
   }
 
   .about-hero-name {
@@ -53,17 +73,26 @@
     font-size: 0.86rem;
   }
 
-  .hero-actions-row {
-    flex-direction: column;
-    width: 100%;
+  .about-hero-actions-row {
+    display: flex;
+    flex-direction: row;
     gap: 10px;
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+    justify-content: center;
   }
 
-  .btn-get-in-touch,
-  .btn-view-resume {
-    width: 100%;
-    padding: 12px 20px;
+  .about-btn-get-in-touch,
+  .about-btn-view-resume {
+    flex: 1;
+    min-width: 0;
+    padding: 11px 14px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    white-space: nowrap;
     justify-content: center;
+    border-radius: 10px;
   }
 
   .about-me-grid {
@@ -99,36 +128,77 @@
   }
 }
 
+/* Extra Small (< 360px) */
+@media (max-width: 360px) {
+  .about-hero-image-container {
+    width: 125px;
+    max-width: 125px;
+  }
+
+  .about-hero-actions-row {
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .about-btn-get-in-touch,
+  .about-btn-view-resume {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 0.86rem;
+  }
+}
+
 /* --------------------------------------------------------------------------
    Mobile (481px - 640px)
    -------------------------------------------------------------------------- */
 @media (min-width: 481px) and (max-width: 640px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
+  .about-hero-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 20px;
     text-align: center;
+    width: 100%;
   }
 
-  .hero-image-wrapper {
+  .about-hero-image-wrapper {
     order: -1;
     margin-bottom: 4px;
     display: flex;
     justify-content: center;
+    width: 100%;
   }
 
-  .hero-image-container {
-    max-width: 200px;
+  .about-hero-image-container {
+    width: 165px;
+    max-width: 165px;
+    aspect-ratio: 3 / 3.6;
     border-radius: 20px;
+    border: 2px solid rgba(56, 189, 248, 0.35);
+    box-shadow: 0 12px 30px -6px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.22);
   }
 
-  .hero-content {
+  .about-hero-content {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     text-align: center;
     order: 1;
+    width: 100%;
   }
 
-  .hero-actions-row {
+  .about-hero-actions-row {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
     justify-content: center;
+  }
+
+  .about-btn-get-in-touch,
+  .about-btn-view-resume {
+    padding: 11px 22px;
+    font-size: 0.92rem;
   }
 
   .about-contact-strip {
@@ -152,31 +222,38 @@
    Tablet (641px - 960px)
    -------------------------------------------------------------------------- */
 @media (min-width: 641px) and (max-width: 960px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
+  .about-hero-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 24px;
     text-align: center;
+    width: 100%;
   }
 
-  .hero-image-wrapper {
+  .about-hero-image-wrapper {
     order: -1;
     margin-bottom: 8px;
     display: flex;
     justify-content: center;
+    width: 100%;
   }
 
-  .hero-image-container {
-    max-width: 220px;
+  .about-hero-image-container {
+    max-width: 200px;
     border-radius: 20px;
   }
 
-  .hero-content {
+  .about-hero-content {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     text-align: center;
     order: 1;
+    width: 100%;
   }
 
-  .hero-actions-row {
+  .about-hero-actions-row {
     justify-content: center;
   }
 
@@ -201,7 +278,8 @@
    Laptop & Desktop (961px - 1440px)
    -------------------------------------------------------------------------- */
 @media (min-width: 961px) and (max-width: 1440px) {
-  .hero-grid {
+  .about-hero-grid {
+    display: grid;
     grid-template-columns: 1fr auto;
     gap: 32px;
   }

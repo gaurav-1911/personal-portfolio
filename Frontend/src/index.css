@@ -712,8 +712,8 @@ button {
   .about-page .about-hero-role,
   .about-page .about-hero-bio,
   .about-page .about-contact-strip,
-  .about-page .hero-actions-row,
-  .about-page .hero-image-wrapper,
+  .about-page .about-hero-actions-row,
+  .about-page .about-hero-image-wrapper,
   .not-found-container {
     animation-delay: 0s !important;
     animation-timeline: auto !important;

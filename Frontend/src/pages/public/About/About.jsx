@@ -45,8 +45,8 @@ const About = () => {
       />
       {/* 1. Header / Greeting with Gaurav's Main Portrait Photo */}
       <section className="about-hero-section">
-        <div className="hero-grid">
-          <div className="hero-content">
+        <div className="about-hero-grid">
+          <div className="about-hero-content">
             <div className="badge-tag about-badge-tag">
               <User size={14} />
               <span>ABOUT ME</span>
@@ -102,14 +102,14 @@ const About = () => {
               </a>
             </div>
 
-            <div className="hero-actions-row">
-              <NavLink to="/contact" className="btn-get-in-touch">
+            <div className="about-hero-actions-row">
+              <NavLink to="/contact" className="about-btn-get-in-touch">
                 <span>Get In Touch</span>
               </NavLink>
               <a
                 href={`${import.meta.env.BASE_URL.replace(/\/+$/, '')}/Gaurav_Chavda_Mern_Stack_Resume.pdf`}
                 download="Gaurav_Chavda_Mern_Stack_Resume.pdf"
-                className="btn-view-resume"
+                className="about-btn-view-resume"
                 id="about-download-resume"
               >
                 <FileDown size={16} />
@@ -119,12 +119,12 @@ const About = () => {
           </div>
 
           {/* Right Column: Portrait Photo */}
-          <div className="hero-image-wrapper">
-            <div className="hero-image-container">
+          <div className="about-hero-image-wrapper">
+            <div className="about-hero-image-container">
               <img
                 src={`${import.meta.env.BASE_URL.replace(/\/+$/, '')}/developer_portrait.jpg`}
                 alt="Gaurav Chavda - MERN Stack Developer"
-                className="hero-portrait-img about-portrait-img"
+                className="about-portrait-img"
                 width="420"
                 height="420"
                 fetchPriority="high"
